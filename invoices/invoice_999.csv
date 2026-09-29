@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,999,Date,2026-09-29 16:28:43
+Customer,test_user,Destination City,Mumbai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+1,Item 1,2,1000.00,2000.00
+
+,,,Subtotal,2000.00
+,,,Discount,-200.00
+,,,GST Tax,90.00
+,,,Grand Total,1890.00
