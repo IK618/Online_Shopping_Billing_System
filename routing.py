@@ -110,47 +110,52 @@ class LogisticsOptimizer:
 
     def generate_route_plot(self, highlighted_path: List[str] = None):
         """
-        Renders a polished Matplotlib visualization of the Indian logistics map.
-        Uses geographically accurate node positions and highlights optimal route.
+        Renders a polished dark-slate Matplotlib visualization inspired by Haulix Logistics.
+        Uses geographically accurate node positions with glowing neon transit corridors.
         """
-        fig, ax = plt.subplots(figsize=(10, 7.5), facecolor="#ffffff")
+        fig, ax = plt.subplots(figsize=(10, 7.5), facecolor="#0B0F19")
+        ax.set_facecolor("#0B0F19")
         pos = self.CITY_COORDS
 
-        # 1. Background Highway Grid
-        nx.draw_networkx_edges(self.graph, pos, edge_color="#e2e8f0", width=2.0, ax=ax, alpha=0.9)
+        # 1. Subtle Background Highway Grid (Dark slate links)
+        nx.draw_networkx_edges(self.graph, pos, edge_color="#1E293B", width=2.0, ax=ax, alpha=0.9)
 
-        # 2. Standard Distribution Nodes
+        # 2. Standard Regional Distribution Nodes
         regular_nodes = [n for n in self.graph.nodes() if n != CENTRAL_WAREHOUSE and (not highlighted_path or n not in highlighted_path)]
-        nx.draw_networkx_nodes(self.graph, pos, nodelist=regular_nodes, node_color="#f1f5f9",
-                               node_size=850, edgecolors="#cbd5e1", linewidths=1.5, ax=ax)
+        nx.draw_networkx_nodes(self.graph, pos, nodelist=regular_nodes, node_color="#131C2E",
+                               node_size=850, edgecolors="#2A384F", linewidths=1.5, ax=ax)
         nx.draw_networkx_labels(self.graph, pos, labels={n: n for n in regular_nodes},
-                                font_size=8.5, font_family="sans-serif", font_color="#475569", font_weight="600", ax=ax)
+                                font_size=8.5, font_family="sans-serif", font_color="#94A3B8", font_weight="600", ax=ax)
 
-        # 3. Central Hub (Bengaluru) with prominent gold halo
-        nx.draw_networkx_nodes(self.graph, pos, nodelist=[CENTRAL_WAREHOUSE], node_color="#f59e0b",
-                               node_size=1500, edgecolors="#d97706", linewidths=2.5, ax=ax)
-        nx.draw_networkx_labels(self.graph, pos, labels={CENTRAL_WAREHOUSE: "Bengaluru\n(Central Hub)"},
-                                font_size=8.5, font_family="sans-serif", font_color="#ffffff", font_weight="bold", ax=ax)
+        # 3. Central Fulfillment Center (Bengaluru) with vibrant golden amber core
+        nx.draw_networkx_nodes(self.graph, pos, nodelist=[CENTRAL_WAREHOUSE], node_color="#F59E0B",
+                               node_size=1550, edgecolors="#D97706", linewidths=3.0, ax=ax)
+        nx.draw_networkx_labels(self.graph, pos, labels={CENTRAL_WAREHOUSE: "Bengaluru\n(Hub)"},
+                                font_size=8.5, font_family="sans-serif", font_color="#000000", font_weight="bold", ax=ax)
 
-        # 4. Highlighted Optimal Route (Vibrant Emerald Green)
+        # 4. Highlighted Optimal Route (Haulix Glowing Emerald Neon)
         if highlighted_path and len(highlighted_path) > 1:
             path_edges = list(zip(highlighted_path[:-1], highlighted_path[1:]))
             transit_nodes = [n for n in highlighted_path if n != CENTRAL_WAREHOUSE]
             
-            # Glowing edge line
-            nx.draw_networkx_edges(self.graph, pos, edgelist=path_edges, edge_color="#10b981", width=4.5, ax=ax, alpha=0.95)
-            nx.draw_networkx_nodes(self.graph, pos, nodelist=transit_nodes, node_color="#10b981",
-                                   node_size=1000, edgecolors="#047857", linewidths=2.0, ax=ax)
+            # Thick Neon Corridor Glow
+            nx.draw_networkx_edges(self.graph, pos, edgelist=path_edges, edge_color="#064E3B", width=7.0, ax=ax, alpha=0.8)
+            nx.draw_networkx_edges(self.graph, pos, edgelist=path_edges, edge_color="#10B981", width=3.8, ax=ax, alpha=1.0)
+            
+            # Active Corridor Transit Nodes
+            nx.draw_networkx_nodes(self.graph, pos, nodelist=transit_nodes, node_color="#10B981",
+                                   node_size=1050, edgecolors="#34D399", linewidths=2.5, ax=ax)
             nx.draw_networkx_labels(self.graph, pos, labels={n: n for n in transit_nodes},
-                                    font_size=9, font_family="sans-serif", font_color="#ffffff", font_weight="bold", ax=ax)
+                                    font_size=9, font_family="sans-serif", font_color="#FFFFFF", font_weight="bold", ax=ax)
 
-        # Edge distance labels along active route or key highways
+        # Edge distance labels
         edge_labels = {(u, v): f"{d['weight']} km" for u, v, d in self.graph.edges(data=True)}
-        nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=edge_labels, font_size=7, font_color="#94a3b8", ax=ax)
+        nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=edge_labels, font_size=7, font_color="#64748B",
+                                     bbox=dict(facecolor="#0B0F19", edgecolor="none", alpha=0.8, pad=1), ax=ax)
 
         dest_name = highlighted_path[-1] if highlighted_path else "All Destinations"
-        ax.set_title(f"📍 SmartCart India Dispatch Network — Active Corridor to [{dest_name}]",
-                     fontsize=12, fontweight="bold", pad=14, color="#0f172a")
+        ax.set_title(f"HAULIX SATELLITE DISPATCH MAP — ACTIVE CORRIDOR TO [{dest_name.upper()}]",
+                     fontsize=11, fontweight="800", pad=16, color="#F8FAFC", letterspacing=1.5)
         ax.axis("off")
         fig.tight_layout()
         return fig

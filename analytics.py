@@ -48,30 +48,41 @@ def generate_sales_dashboard():
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     daily_revenue = np.array([14.5, 18.2, 12.0, 22.4, 28.9, 35.2, 31.0])
 
-    # Create Matplotlib Figure with 2 Subplots
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5), facecolor="#f8f9fa")
+    # Create Matplotlib Figure with 2 Subplots in Haulix Dark Theme
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5), facecolor="#0B0F19")
+    ax1.set_facecolor("#131C2E")
+    ax2.set_facecolor("#131C2E")
 
-    # Panel 1: Bar Chart (Session 10: bar chart, labels, colors)
-    bars = ax1.bar(categories, revenue_thousands, color=["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899"], width=0.55)
-    ax1.set_title("Revenue by Product Category (₹ '000)", fontsize=11, fontweight="bold", pad=10)
-    ax1.set_ylabel("Revenue (Thousands ₹)")
-    ax1.grid(axis="y", linestyle="--", alpha=0.5)
+    # Spines styling
+    for ax in [ax1, ax2]:
+        for spine in ax.spines.values():
+            spine.set_color("#222F43")
+        ax.tick_params(colors="#94A3B8", labelsize=8.5)
+
+    # Panel 1: Bar Chart (Haulix category distribution)
+    bar_colors = ["#38BDF8", "#10B981", "#F59E0B", "#A855F7", "#EC4899"]
+    bars = ax1.bar(categories, revenue_thousands, color=bar_colors, width=0.52, edgecolor="#222F43", linewidth=1.2)
+    ax1.set_title("REVENUE BY PRODUCT CATEGORY (₹ '000)", fontsize=10, fontweight="800", pad=12, color="#F8FAFC", letterspacing=1.0)
+    ax1.set_ylabel("Revenue (₹ '000)", color="#94A3B8", fontsize=9)
+    ax1.grid(axis="y", linestyle="--", alpha=0.2, color="#94A3B8")
 
     # Add value labels on top of bars
     for bar in bars:
         height = bar.get_height()
         ax1.annotate(f"₹{height:.1f}k",
                      xy=(bar.get_x() + bar.get_width() / 2, height),
-                     xytext=(0, 3), textcoords="offset points",
-                     ha="center", va="bottom", fontsize=8, fontweight="bold")
+                     xytext=(0, 4), textcoords="offset points",
+                     ha="center", va="bottom", fontsize=8.5, fontweight="bold", color="#F8FAFC")
 
-    # Panel 2: Line Plot (Session 10: line plot, markers, line styles)
-    ax2.plot(days, daily_revenue, color="#2563eb", marker="o", linewidth=2.5, markersize=7, label="Revenue Trend")
-    ax2.set_title("Weekly Sales Performance (₹ '000)", fontsize=11, fontweight="bold", pad=10)
-    ax2.set_ylabel("Daily Revenue (Thousands ₹)")
-    ax2.grid(True, linestyle="--", alpha=0.5)
-    ax2.legend(loc="upper left")
+    # Panel 2: Line Plot with Area Glow Fill (Haulix Telemetry Curve)
+    ax2.fill_between(days, daily_revenue, color="#38BDF8", alpha=0.15)
+    ax2.plot(days, daily_revenue, color="#38BDF8", marker="o", linewidth=2.8, markersize=7,
+             markerfacecolor="#F8FAFC", markeredgecolor="#0284C7", markeredgewidth=2, label="Daily Inflow")
+    ax2.set_title("WEEKLY REVENUE PERFORMANCE (₹ '000)", fontsize=10, fontweight="800", pad=12, color="#F8FAFC", letterspacing=1.0)
+    ax2.set_ylabel("Daily Velocity (₹ '000)", color="#94A3B8", fontsize=9)
+    ax2.grid(True, linestyle="--", alpha=0.2, color="#94A3B8")
+    ax2.legend(loc="upper left", facecolor="#131C2E", edgecolor="#222F43", labelcolor="#F8FAFC", fontsize=8.5)
 
-    fig.suptitle("SmartCart Business Intelligence & Revenue Analytics", fontsize=13, fontweight="bold", y=1.02)
+    fig.suptitle("HAULIX BUSINESS INTELLIGENCE & TELEMETRY ENGINE", fontsize=11, fontweight="900", y=1.02, color="#F8FAFC", letterspacing=1.5)
     fig.tight_layout()
     return fig
