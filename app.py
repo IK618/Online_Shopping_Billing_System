@@ -195,7 +195,7 @@ if "customer" not in st.session_state:
 if "cart" not in st.session_state:
     st.session_state.cart = None
 
-if "optimizer" not in st.session_state:
+if "optimizer" not in st.session_state or not hasattr(st.session_state.optimizer, "interpolate_delivery_gps"):
     st.session_state.optimizer = routing.LogisticsOptimizer()
 
 # -------------------------------------------------------------
