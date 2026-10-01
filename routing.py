@@ -241,7 +241,7 @@ class LogisticsOptimizer:
 
     def generate_route_plot(self, highlighted_path: List[str] = None):
         """
-        Renders a polished dark-slate Matplotlib visualization inspired by Haulix Logistics.
+        Renders a polished dark-slate Matplotlib visualization for SmartCart Logistics.
         Uses geographically accurate node positions with glowing neon transit corridors.
         """
         fig, ax = plt.subplots(figsize=(10, 7.5), facecolor="#0B0F19")
@@ -264,7 +264,7 @@ class LogisticsOptimizer:
         nx.draw_networkx_labels(self.graph, pos, labels={CENTRAL_WAREHOUSE: "Bengaluru\n(Hub)"},
                                 font_size=8.5, font_family="sans-serif", font_color="#000000", font_weight="bold", ax=ax)
 
-        # 4. Highlighted Optimal Route (Haulix Glowing Emerald Neon)
+        # 4. Highlighted Optimal Route (Glowing Emerald Neon)
         if highlighted_path and len(highlighted_path) > 1:
             path_edges = list(zip(highlighted_path[:-1], highlighted_path[1:]))
             transit_nodes = [n for n in highlighted_path if n != CENTRAL_WAREHOUSE]
@@ -285,7 +285,7 @@ class LogisticsOptimizer:
                                      bbox=dict(facecolor="#0B0F19", edgecolor="none", alpha=0.8, pad=1), ax=ax)
 
         dest_name = highlighted_path[-1] if highlighted_path else "All Destinations"
-        ax.set_title(f"HAULIX SATELLITE DISPATCH MAP — ACTIVE CORRIDOR TO [{dest_name.upper()}]",
+        ax.set_title(f"SMARTCART SATELLITE DISPATCH MAP — ACTIVE CORRIDOR TO [{dest_name.upper()}]",
                      fontsize=11, fontweight="800", pad=16, color="#F8FAFC")
         ax.axis("off")
         fig.tight_layout()

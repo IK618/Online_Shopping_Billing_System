@@ -1,11 +1,12 @@
 """
 app.py
 Streamlit Web Frontend for Online Shopping & Billing System
-Haulix Logistics Dashboard UI/UX Design System
-Inspired by Phenomenon Studio's Haulix:
-  - Deep Slate Theme (#0B0F19, #131C2E, #222F43)
+SmartCart Retail & Logistics Management Platform
+Features:
+  - Custom Dark-Slate Design System (#0B0F19, #131C2E, #222F43)
   - Mission Control Layout & High-Density Telemetry Cards
   - Live Fleet Dispatch Feed & Geographically Accurate Dijkstra Corridors
+  - 3D Interactive OpenStreetMap / PyDeck Delivery GPS Tracking
   - Executive Business Intelligence Analytics (NumPy + Matplotlib)
   - Luxury Dark E-Commerce Storefront & Instant Invoicing
 """
@@ -26,14 +27,14 @@ import backup_service
 
 # Page Configuration
 st.set_page_config(
-    page_title="HAULIX // SmartCart Logistics & Retail",
-    page_icon="⚡",
+    page_title="SmartCart // Retail & Logistics Engine",
+    page_icon="🛒",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # -------------------------------------------------------------
-# HAULIX DESIGN SYSTEM & CUSTOM THEME INJECTION
+# SMARTCART DESIGN SYSTEM & CUSTOM THEME INJECTION
 # -------------------------------------------------------------
 st.markdown("""
     <style>
@@ -54,8 +55,8 @@ st.markdown("""
         border-right: 1px solid #1E293B;
     }
 
-    /* Haulix Mission Control Header */
-    .haulix-hero {
+    /* SmartCart Mission Control Header */
+    .sc-hero {
         background: linear-gradient(135deg, #0F172A 0%, #131C2E 60%, #1E293B 100%);
         border: 1px solid #222F43;
         border-left: 4px solid #38BDF8;
@@ -64,7 +65,7 @@ st.markdown("""
         margin-bottom: 1.6rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
-    .haulix-tag {
+    .sc-tag {
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.75rem;
         letter-spacing: 0.15em;
@@ -73,21 +74,21 @@ st.markdown("""
         font-weight: 700;
         margin-bottom: 0.3rem;
     }
-    .haulix-title {
+    .sc-title {
         font-size: 1.9rem;
         font-weight: 800;
         color: #F8FAFC;
         margin: 0;
         letter-spacing: -0.02em;
     }
-    .haulix-subtitle {
+    .sc-subtitle {
         font-size: 0.95rem;
         color: #94A3B8;
         margin-top: 0.3rem;
     }
 
-    /* Haulix Telemetry Cards */
-    .haulix-card {
+    /* SmartCart Telemetry Cards */
+    .sc-card {
         background-color: #131C2E;
         border: 1px solid #222F43;
         border-radius: 10px;
@@ -95,7 +96,7 @@ st.markdown("""
         margin-bottom: 1rem;
         transition: border-color 0.2s ease, transform 0.2s ease;
     }
-    .haulix-card:hover {
+    .sc-card:hover {
         border-color: #38BDF8;
         transform: translateY(-2px);
     }
@@ -162,7 +163,7 @@ st.markdown("""
         font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Haulix Live Fleet Feed Item */
+    /* Live Fleet Feed Item */
     .feed-item {
         background: #0E1422;
         border: 1px solid #1E293B;
@@ -202,8 +203,8 @@ if "optimizer" not in st.session_state or not hasattr(st.session_state.optimizer
 # SIDEBAR NAVIGATION & AUTHENTICATION
 # -------------------------------------------------------------
 with st.sidebar:
-    st.markdown('<div class="haulix-tag">HAULIX FLEET OS // v2.6</div>', unsafe_allow_html=True)
-    st.markdown("## **HAULIX** × SmartCart")
+    st.markdown('<div class="sc-tag">SMARTCART FLEET OS // v2.6</div>', unsafe_allow_html=True)
+    st.markdown("## **SmartCart** Logistics")
     st.caption("Central Operations & Commerce Hub")
     st.divider()
 
@@ -238,14 +239,14 @@ with st.sidebar:
             st.caption("⚡ **Demo Access Profiles:**")
             col_d1, col_d2 = st.columns(2)
             with col_d1:
-                if st.button("Customer", use_container_width=True):
+                if st.button("Customer (Buyer)", use_container_width=True):
                     u = database.authenticate_user("rahul_sharma", "pass123")
                     st.session_state.auth_user = dict(u)
                     st.session_state.customer = Customer(u["user_id"], u["username"], u["email"], u["city"], bool(u["is_premium"]))
                     st.session_state.cart = ShoppingCart(st.session_state.customer)
                     st.rerun()
             with col_d2:
-                if st.button("Admin", use_container_width=True):
+                if st.button("Admin (Seller)", use_container_width=True):
                     u = database.authenticate_user("admin_user", "admin123")
                     st.session_state.auth_user = dict(u)
                     st.session_state.customer = None
@@ -273,7 +274,7 @@ with st.sidebar:
         user_info = st.session_state.auth_user
         st.markdown(f"### 👤 {user_info['username']}")
         if user_info["role"] == "admin":
-            st.markdown('<span class="pill pill-green">● DISPATCH CONTROLLER (ADMIN)</span>', unsafe_allow_html=True)
+            st.markdown('<span class="pill pill-green">● STORE SELLER (ADMIN)</span>', unsafe_allow_html=True)
         else:
             tier_badge = "● PREMIUM TIER (10% OFF)" if user_info.get("is_premium") else "● REGULAR TIER (2% OFF)"
             st.markdown(f'<span class="pill pill-blue">{tier_badge}</span>', unsafe_allow_html=True)
@@ -292,30 +293,30 @@ with st.sidebar:
     if user_role == "admin":
         menu = st.radio(
             "Operations Console",
-            ["🚚 Haulix Route & Fleet Telemetry", "📊 Business Intelligence & KPIs", "🛠️ Warehouse Inventory Hub", "⚙️ Cloud Archival & Services"]
+            ["🚚 Delivery Route & Fleet Telemetry", "📊 Business Intelligence & KPIs", "🛠️ Warehouse Inventory Hub", "⚙️ Cloud Archival & Services"]
         )
     else:
         menu = st.radio(
             "Customer Terminal",
-            ["🛍️ Catalog & Cart Checkout", "🚚 Haulix Route & Fleet Telemetry", "📊 Business Intelligence & KPIs", "⚙️ Cloud Archival & Services"]
+            ["🛍️ Catalog & Cart Checkout", "🚚 Delivery Route & Fleet Telemetry", "📊 Business Intelligence & KPIs", "⚙️ Cloud Archival & Services"]
         )
 
 # -------------------------------------------------------------
-# TAB 1: HAULIX ROUTE & FLEET TELEMETRY (MASTERPIECE)
+# TAB 1: DELIVERY ROUTE & FLEET TELEMETRY
 # -------------------------------------------------------------
-if menu == "🚚 Haulix Route & Fleet Telemetry":
+if menu == "🚚 Delivery Route & Fleet Telemetry":
     st.markdown("""
-        <div class="haulix-hero">
-            <div class="haulix-tag">SATELLITE TELEMETRY // REAL-TIME DISPATCH CORRIDORS</div>
-            <h1 class="haulix-title">Logistics Command Center & Graph Pathfinding</h1>
-            <div class="haulix-subtitle">Real-time shortest path optimization powered by SciPy Dijkstra on sparse CSR matrices and NetworkX network topology.</div>
+        <div class="sc-hero">
+            <div class="sc-tag">SATELLITE TELEMETRY // REAL-TIME DISPATCH CORRIDORS</div>
+            <h1 class="sc-title">Logistics Command Center & Graph Pathfinding</h1>
+            <div class="sc-subtitle">Real-time shortest path optimization powered by SciPy Dijkstra on sparse CSR matrices and NetworkX network topology.</div>
         </div>
     """, unsafe_allow_html=True)
 
     optimizer = st.session_state.optimizer
     cities = optimizer.get_all_cities()
 
-    # TOP: HAULIX EXECUTIVE KPI CARDS
+    # TOP: EXECUTIVE KPI CARDS
     target_city = st.selectbox("Target Delivery Hub", cities, index=cities.index("Delhi") if "Delhi" in cities else 0)
     path, distance = optimizer.find_shortest_route(target_city)
 
@@ -368,7 +369,7 @@ if menu == "🚚 Haulix Route & Fleet Telemetry":
     with mode_c2:
         st.write("")
 
-    # LIVE DRIVER PROGRESS CONTROLS (HAULIX SIGNATURE)
+    # LIVE DRIVER PROGRESS CONTROLS
     st.markdown("#### 📍 Live Delivery Driver GPS Telemetry Simulator")
     sim_c1, sim_c2 = st.columns([2, 1], gap="medium")
     with sim_c1:
@@ -409,7 +410,7 @@ if menu == "🚚 Haulix Route & Fleet Telemetry":
     with fleet_col:
         st.markdown("#### 👤 Assigned Delivery Personnel")
         st.markdown(f"""
-            <div class="haulix-card" style="border-left: 3px solid #10B981;">
+            <div class="sc-card" style="border-left: 3px solid #10B981;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span style="font-weight:800; font-size:1.05rem; color:#F8FAFC;">Vikram Singh</span>
                     <span class="pill pill-green">ACTIVE DRIVER</span>
@@ -456,10 +457,10 @@ if menu == "🚚 Haulix Route & Fleet Telemetry":
 # -------------------------------------------------------------
 elif menu == "🛍️ Catalog & Cart Checkout":
     st.markdown("""
-        <div class="haulix-hero">
-            <div class="haulix-tag">SMARTCART RETAIL // E-COMMERCE COMMERCE ENGINE</div>
-            <h1 class="haulix-title">Curated Inventory & Automated Billing</h1>
-            <div class="haulix-subtitle">Browse products with real-time stock control, dynamic customer tier discounts, and instant tax invoicing.</div>
+        <div class="sc-hero">
+            <div class="sc-tag">SMARTCART RETAIL // E-COMMERCE ENGINE</div>
+            <h1 class="sc-title">Curated Inventory & Automated Billing</h1>
+            <div class="sc-subtitle">Browse products with real-time stock control, dynamic customer tier discounts, and instant tax invoicing.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -525,7 +526,7 @@ elif menu == "🛍️ Catalog & Cart Checkout":
 
         if st.session_state.cart is None:
             st.markdown("""
-                <div class="haulix-card" style="text-align:center; padding:2.5rem 1rem;">
+                <div class="sc-card" style="text-align:center; padding:2.5rem 1rem;">
                     <div style="font-size:2.5rem; margin-bottom:0.5rem;">🔐</div>
                     <div style="font-weight:700; color:#F8FAFC;">Authentication Required</div>
                     <p style="color:#94A3B8; font-size:0.85rem;">Sign in as a customer from the left sidebar to start building your cart.</p>
@@ -535,7 +536,7 @@ elif menu == "🛍️ Catalog & Cart Checkout":
             cart = st.session_state.cart
             if len(cart) == 0:
                 st.markdown("""
-                    <div class="haulix-card" style="text-align:center; padding:2rem 1rem;">
+                    <div class="sc-card" style="text-align:center; padding:2rem 1rem;">
                         <div style="font-size:2rem; margin-bottom:0.3rem;">🛒</div>
                         <div style="font-weight:700; color:#CBD5E1;">Your cart is empty</div>
                         <p style="color:#94A3B8; font-size:0.85rem;">Select items from the catalog to prepare your bill.</p>
@@ -556,7 +557,7 @@ elif menu == "🛍️ Catalog & Cart Checkout":
                 disc_rate = int(totals['discount_rate'] * 100)
 
                 st.markdown(f"""
-                    <div class="haulix-card">
+                    <div class="sc-card">
                         <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem; color:#94A3B8;">
                             <span>Subtotal:</span><span>₹{totals['subtotal']:,.2f}</span>
                         </div>
@@ -610,7 +611,7 @@ elif menu == "🛍️ Catalog & Cart Checkout":
                             st.download_button(
                                 label="📥 Download Official CSV Tax Invoice",
                                 data=f.read(),
-                                file_name=f"haulix_invoice_{order_id}.csv",
+                                file_name=f"smartcart_invoice_{order_id}.csv",
                                 mime="text/csv",
                                 use_container_width=True
                             )
@@ -630,10 +631,10 @@ elif menu == "🛍️ Catalog & Cart Checkout":
 # -------------------------------------------------------------
 elif menu == "📊 Business Intelligence & KPIs":
     st.markdown("""
-        <div class="haulix-hero">
-            <div class="haulix-tag">EXECUTIVE METRICS // NUMPY HIGH-PERFORMANCE COMPUTATION</div>
-            <h1 class="haulix-title">Revenue & Fleet Business Intelligence</h1>
-            <div class="haulix-subtitle">Real-time financial telemetry calculated via NumPy multidimensional array vectorization.</div>
+        <div class="sc-hero">
+            <div class="sc-tag">EXECUTIVE METRICS // NUMPY HIGH-PERFORMANCE COMPUTATION</div>
+            <h1 class="sc-title">Revenue & Fleet Business Intelligence</h1>
+            <div class="sc-subtitle">Real-time financial telemetry calculated via NumPy multidimensional array vectorization.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -702,10 +703,10 @@ elif menu == "📊 Business Intelligence & KPIs":
 # -------------------------------------------------------------
 elif menu == "🛠️ Warehouse Inventory Hub":
     st.markdown("""
-        <div class="haulix-hero">
-            <div class="haulix-tag">WAREHOUSE INVENTORY // SKU MANAGEMENT</div>
-            <h1 class="haulix-title">Stock Logistics & Inventory Replenishment</h1>
-            <div class="haulix-subtitle">Real-time asset valuation, SKU catalog modifications, and stock reorder controls.</div>
+        <div class="sc-hero">
+            <div class="sc-tag">WAREHOUSE INVENTORY // SKU MANAGEMENT</div>
+            <h1 class="sc-title">Stock Logistics & Inventory Replenishment</h1>
+            <div class="sc-subtitle">Real-time asset valuation, SKU catalog modifications, and stock reorder controls.</div>
         </div>
     """, unsafe_allow_html=True)
 
@@ -797,10 +798,10 @@ elif menu == "🛠️ Warehouse Inventory Hub":
 # -------------------------------------------------------------
 elif menu == "⚙️ Cloud Archival & Services":
     st.markdown("""
-        <div class="haulix-hero">
-            <div class="haulix-tag">CONCURRENCY & NETWORKING // THREADING + FTP + SOCKETS</div>
-            <h1 class="haulix-title">Cloud Infrastructure & POS Network Gateway</h1>
-            <div class="haulix-subtitle">Background daemon threads, automated FTP archival, and low-level TCP socket listeners.</div>
+        <div class="sc-hero">
+            <div class="sc-tag">CONCURRENCY & NETWORKING // THREADING + FTP + SOCKETS</div>
+            <h1 class="sc-title">Cloud Infrastructure & POS Network Gateway</h1>
+            <div class="sc-subtitle">Background daemon threads, automated FTP archival, and low-level TCP socket listeners.</div>
         </div>
     """, unsafe_allow_html=True)
 
