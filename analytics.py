@@ -62,7 +62,7 @@ def generate_sales_dashboard():
     # Panel 1: Bar Chart (Haulix category distribution)
     bar_colors = ["#38BDF8", "#10B981", "#F59E0B", "#A855F7", "#EC4899"]
     bars = ax1.bar(categories, revenue_thousands, color=bar_colors, width=0.52, edgecolor="#222F43", linewidth=1.2)
-    ax1.set_title("REVENUE BY PRODUCT CATEGORY (₹ '000)", fontsize=10, fontweight="800", pad=12, color="#F8FAFC", letterspacing=1.0)
+    ax1.set_title("REVENUE BY PRODUCT CATEGORY (₹ '000)", fontsize=10, fontweight="800", pad=12, color="#F8FAFC")
     ax1.set_ylabel("Revenue (₹ '000)", color="#94A3B8", fontsize=9)
     ax1.grid(axis="y", linestyle="--", alpha=0.2, color="#94A3B8")
 
@@ -78,11 +78,11 @@ def generate_sales_dashboard():
     ax2.fill_between(days, daily_revenue, color="#38BDF8", alpha=0.15)
     ax2.plot(days, daily_revenue, color="#38BDF8", marker="o", linewidth=2.8, markersize=7,
              markerfacecolor="#F8FAFC", markeredgecolor="#0284C7", markeredgewidth=2, label="Daily Inflow")
-    ax2.set_title("WEEKLY REVENUE PERFORMANCE (₹ '000)", fontsize=10, fontweight="800", pad=12, color="#F8FAFC", letterspacing=1.0)
+    ax2.set_title("WEEKLY REVENUE PERFORMANCE (₹ '000)", fontsize=10, fontweight="800", pad=12, color="#F8FAFC")
     ax2.set_ylabel("Daily Velocity (₹ '000)", color="#94A3B8", fontsize=9)
     ax2.grid(True, linestyle="--", alpha=0.2, color="#94A3B8")
     ax2.legend(loc="upper left", facecolor="#131C2E", edgecolor="#222F43", labelcolor="#F8FAFC", fontsize=8.5)
 
-    fig.suptitle("HAULIX BUSINESS INTELLIGENCE & TELEMETRY ENGINE", fontsize=11, fontweight="900", y=1.02, color="#F8FAFC", letterspacing=1.5)
+    fig.suptitle("HAULIX BUSINESS INTELLIGENCE & TELEMETRY ENGINE", fontsize=11, fontweight="900", y=1.02, color="#F8FAFC")
     fig.tight_layout()
     return fig

@@ -286,7 +286,7 @@ class LogisticsOptimizer:
 
         dest_name = highlighted_path[-1] if highlighted_path else "All Destinations"
         ax.set_title(f"HAULIX SATELLITE DISPATCH MAP — ACTIVE CORRIDOR TO [{dest_name.upper()}]",
-                     fontsize=11, fontweight="800", pad=16, color="#F8FAFC", letterspacing=1.5)
+                     fontsize=11, fontweight="800", pad=16, color="#F8FAFC")
         ax.axis("off")
         fig.tight_layout()
         return fig
