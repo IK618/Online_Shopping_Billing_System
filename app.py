@@ -357,38 +357,82 @@ if menu == "🚚 Haulix Route & Fleet Telemetry":
             </div>
         """, unsafe_allow_html=True)
 
-    st.write("")
+    # MAP MODE TOGGLE & LIVE DRIVER TELEMETRY
+    mode_c1, mode_c2 = st.columns([1.5, 1])
+    with mode_c1:
+        map_mode = st.radio(
+            "Visualization Engine",
+            ["🗺️ 3D Interactive OpenStreetMap GPS Tracker (Live Vehicle Pin)", "🛰️ Static Network Topology Graph (Matplotlib)"],
+            horizontal=True
+        )
+    with mode_c2:
+        st.write("")
 
-    # MAIN BODY: MAP & ACTIVE FLEET TELEMETRY
+    # LIVE DRIVER PROGRESS CONTROLS (HAULIX SIGNATURE)
+    st.markdown("#### 📍 Live Delivery Driver GPS Telemetry Simulator")
+    sim_c1, sim_c2 = st.columns([2, 1], gap="medium")
+    with sim_c1:
+        prog_pct = st.slider(
+            "Simulate Driver Highway Transit Progress",
+            min_value=0,
+            max_value=100,
+            value=45,
+            step=5,
+            help="Drag slider to simulate vehicle moving in real-time between Dijkstra hubs"
+        )
+    with sim_c2:
+        st.write("")
+        if prog_pct == 100:
+            st.markdown('<span class="pill pill-green" style="font-size:0.9rem;">🏁 ORDER DELIVERED TO CUSTOMER</span>', unsafe_allow_html=True)
+        elif prog_pct == 0:
+            st.markdown('<span class="pill pill-amber" style="font-size:0.9rem;">📦 DOCKED AT BENGALURU WAREHOUSE</span>', unsafe_allow_html=True)
+        else:
+            st.markdown(f'<span class="pill pill-blue" style="font-size:0.9rem;">🚛 IN TRANSIT ({prog_pct}% COMPLETE)</span>', unsafe_allow_html=True)
+
+    # Compute live interpolated GPS coordinates
+    driver_lat, driver_lon, seg_name, curr_speed, next_hub = optimizer.interpolate_delivery_gps(path, prog_pct / 100.0)
+
+    # MAIN BODY: MAP & DRIVER PROFILE / ACTIVE FLEET TELEMETRY
     map_col, fleet_col = st.columns([2.3, 1.2], gap="large")
 
     with map_col:
-        st.markdown("#### 🗺️ High-Definition Distribution Network")
-        fig = optimizer.generate_route_plot(highlighted_path=path)
-        st.pyplot(fig)
+        if "3D Interactive" in map_mode:
+            st.markdown(f"##### 🗺️ 3D Interactive Satellite Map — Live Vehicle Pin at `[{driver_lat:.4f}° N, {driver_lon:.4f}° E]`")
+            deck = optimizer.create_interactive_deck(path, driver_lat, driver_lon, target_city)
+            st.pydeck_chart(deck, use_container_width=True)
+            st.caption("💡 **Tip:** Click and drag to pan across highways, use mouse scroll to zoom into cities, and hold right-click to tilt in 3D!")
+        else:
+            st.markdown("##### 🛰️ Network Topology Distribution Graph (Matplotlib)")
+            fig = optimizer.generate_route_plot(highlighted_path=path)
+            st.pyplot(fig)
 
     with fleet_col:
-        st.markdown("#### 📡 Live Dispatch Feed")
-        st.caption("Active truck telemetry stream connecting regional nodes:")
-
+        st.markdown("#### 👤 Assigned Delivery Personnel")
         st.markdown(f"""
-            <div class="feed-item" style="border-left:3px solid #10B981;">
-                <div style="display:flex; justify-content:space-between;">
-                    <span class="feed-title">🚛 UNIT #KA-8821</span>
-                    <span class="pill pill-green">EN ROUTE</span>
+            <div class="haulix-card" style="border-left: 3px solid #10B981;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-weight:800; font-size:1.05rem; color:#F8FAFC;">Vikram Singh</span>
+                    <span class="pill pill-green">ACTIVE DRIVER</span>
                 </div>
-                <div class="feed-desc">Bengaluru ➔ {target_city} | Freight: Active Order</div>
-                <div style="font-size:0.75rem; color:#38BDF8; margin-top:0.3rem;">Current Waypoint: {path[min(1, len(path)-1)]}</div>
+                <div style="font-size:0.8rem; color:#94A3B8; margin-top:0.2rem;">Driver ID: <code>DRV-8821</code> | Rating: ⭐ 4.9 (1,420 drops)</div>
+                <div style="font-size:0.8rem; color:#94A3B8;">Vehicle: <b>Tata Ace EV Van (#KA-05-EV-4421)</b></div>
+                <hr style="border-color:#222F43; margin:0.6rem 0;" />
+                <div style="font-size:0.82rem; color:#CBD5E1;">
+                    📍 <b>Current Highway:</b> <span style="color:#38BDF8;">{seg_name}</span><br>
+                    ⚡ <b>Telemetry Velocity:</b> <span style="color:#10B981;">{curr_speed} km/h</span><br>
+                    🎯 <b>Next Waypoint:</b> <span style="color:#F59E0B;">{next_hub}</span>
+                </div>
             </div>
         """, unsafe_allow_html=True)
 
+        st.markdown("#### 📡 Regional Fleet Telemetry")
         st.markdown("""
             <div class="feed-item" style="border-left:3px solid #38BDF8;">
                 <div style="display:flex; justify-content:space-between;">
                     <span class="feed-title">🚛 UNIT #MH-4109</span>
                     <span class="pill pill-blue">IN TRANSIT</span>
                 </div>
-                <div class="feed-desc">Mumbai ➔ Pune ➔ Bengaluru | Freight: 92% Capacity</div>
+                <div class="feed-desc">Mumbai ➔ Pune ➔ Bengaluru | 92% Capacity</div>
                 <div style="font-size:0.75rem; color:#94A3B8; margin-top:0.3rem;">On Schedule (ETA: 4h 30m)</div>
             </div>
         """, unsafe_allow_html=True)

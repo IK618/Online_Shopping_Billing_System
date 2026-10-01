@@ -87,7 +87,28 @@ class LogisticsOptimizer:
         scipy_dist = dist_matrix[node_to_idx[destination]]
         return nx_path, float(scipy_dist)
 
-    # Approximate geographic coordinates (x=Longitude, y=Latitude relative)
+    # High-precision geographic GPS coordinates (Latitude, Longitude) for India Logistics Hubs
+    CITY_GPS = {
+        "Bengaluru (Hub)": (12.9716, 77.5946),
+        "Chennai": (13.0827, 80.2707),
+        "Kochi": (9.9312, 76.2673),
+        "Hyderabad": (17.3850, 78.4867),
+        "Vijayawada": (16.5062, 80.6480),
+        "Visakhapatnam": (17.6868, 83.2185),
+        "Pune": (18.5204, 73.8567),
+        "Mumbai": (19.0760, 72.8777),
+        "Nagpur": (21.1458, 79.0882),
+        "Bhopal": (23.2599, 77.4126),
+        "Ahmedabad": (23.0225, 72.5714),
+        "Bhubaneswar": (20.2961, 85.8245),
+        "Kolkata": (22.5726, 88.3639),
+        "Jaipur": (26.9124, 75.7873),
+        "Delhi": (28.6139, 77.2090),
+        "Lucknow": (26.8467, 80.9462),
+        "Chandigarh": (30.7333, 76.7794),
+    }
+
+    # Approximate 2D canvas coordinates for static Matplotlib visualization
     CITY_COORDS = {
         "Bengaluru (Hub)": (50, 24),
         "Chennai": (62, 22),
@@ -107,6 +128,116 @@ class LogisticsOptimizer:
         "Lucknow": (61, 78),
         "Chandigarh": (42, 92),
     }
+
+    def interpolate_delivery_gps(self, path: List[str], progress: float):
+        """
+        Calculates live GPS coordinates of the delivery person along the Dijkstra corridor.
+        progress: float from 0.0 (Warehouse) to 1.0 (Customer Destination).
+        Returns: (curr_lat, curr_lon, segment_name, speed_kmh, next_waypoint)
+        """
+        if not path or len(path) == 1:
+            hub = path[0] if path else CENTRAL_WAREHOUSE
+            lat, lon = self.CITY_GPS.get(hub, (12.9716, 77.5946))
+            return lat, lon, f"At {hub}", 0, hub
+
+        progress = max(0.0, min(1.0, float(progress)))
+        total_segments = len(path) - 1
+        segment_float = progress * total_segments
+        seg_idx = min(int(segment_float), total_segments - 1)
+        sub_progress = segment_float - seg_idx
+
+        city_a = path[seg_idx]
+        city_b = path[seg_idx + 1]
+
+        lat_a, lon_a = self.CITY_GPS[city_a]
+        lat_b, lon_b = self.CITY_GPS[city_b]
+
+        curr_lat = lat_a + (lat_b - lat_a) * sub_progress
+        curr_lon = lon_a + (lon_b - lon_a) * sub_progress
+
+        segment_name = f"{city_a} ➔ {city_b}"
+        speed = 0 if (progress >= 1.0 or progress <= 0.0) else 65
+        next_waypoint = city_b if progress < 1.0 else "Delivered to Customer"
+
+        return curr_lat, curr_lon, segment_name, speed, next_waypoint
+
+    def create_interactive_deck(self, path: List[str], driver_lat: float, driver_lon: float, target_city: str):
+        """
+        Creates an interactive 3D WebGL OpenStreetMap / PyDeck live tracker.
+        Renders the active corridor and moving delivery vehicle pin.
+        """
+        import pydeck as pdk
+        import pandas as pd
+
+        # 1. Path Coordinates for glowing highway corridor
+        path_coords = [[self.CITY_GPS[city][1], self.CITY_GPS[city][0]] for city in path if city in self.CITY_GPS]
+        path_df = pd.DataFrame([{"path": path_coords, "name": "Active Freight Corridor"}])
+
+        # 2. Hub Waypoints
+        hub_data = []
+        for city in path:
+            if city in self.CITY_GPS:
+                lat, lon = self.CITY_GPS[city]
+                is_hub = (city == CENTRAL_WAREHOUSE)
+                is_dest = (city == target_city)
+                color = [245, 158, 11, 230] if is_hub else ([56, 189, 248, 230] if is_dest else [148, 163, 184, 200])
+                radius = 32000 if (is_hub or is_dest) else 18000
+                hub_data.append({"city": city, "lat": lat, "lon": lon, "color": color, "radius": radius})
+        hubs_df = pd.DataFrame(hub_data)
+
+        # 3. Live Delivery Driver Marker
+        driver_df = pd.DataFrame([{
+            "lat": driver_lat,
+            "lon": driver_lon,
+            "label": "Delivery Vehicle (In Transit)",
+            "color": [16, 185, 129, 255],
+            "radius": 42000
+        }])
+
+        layers = [
+            # Glowing Highway Path
+            pdk.Layer(
+                "PathLayer",
+                data=path_df,
+                get_path="path",
+                get_color=[16, 185, 129, 220],
+                width_min_pixels=4,
+                width_max_pixels=8,
+            ),
+            # Regional Waypoint Nodes
+            pdk.Layer(
+                "ScatterplotLayer",
+                data=hubs_df,
+                get_position="[lon, lat]",
+                get_color="color",
+                get_radius="radius",
+                pickable=True,
+            ),
+            # Moving Delivery Vehicle
+            pdk.Layer(
+                "ScatterplotLayer",
+                data=driver_df,
+                get_position="[lon, lat]",
+                get_color="color",
+                get_radius="radius",
+                pickable=True,
+            )
+        ]
+
+        view_state = pdk.ViewState(
+            latitude=driver_lat,
+            longitude=driver_lon,
+            zoom=4.8,
+            pitch=30,
+            bearing=0
+        )
+
+        return pdk.Deck(
+            layers=layers,
+            initial_view_state=view_state,
+            tooltip={"text": "{city}\n{label}"}
+        )
+
 
     def generate_route_plot(self, highlighted_path: List[str] = None):
         """
