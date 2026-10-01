@@ -254,18 +254,32 @@ with st.sidebar:
                     st.rerun()
 
         else:
-            st.markdown("#### 📝 Register Identity")
-            reg_u = st.text_input("Username", key="r_u")
-            reg_e = st.text_input("Email", key="r_e")
-            reg_p = st.text_input("Password", type="password", key="r_p")
+            st.markdown("#### 📝 Register Account")
+            reg_role = st.radio(
+                "Account Role",
+                ["🛍️ Buyer (Customer)", "🏪 Seller (Merchant / Admin)"],
+                horizontal=True,
+                key="r_role"
+            )
+            is_seller_reg = "Seller" in reg_role
+
+            reg_u = st.text_input("Username", key="r_u", placeholder="e.g. aryan_store or rahul")
+            reg_e = st.text_input("Email", key="r_e", placeholder="e.g. name@example.com")
+            reg_p = st.text_input("Password", type="password", key="r_p", placeholder="••••••••")
             cities = st.session_state.optimizer.get_all_cities()
-            reg_c = st.selectbox("Operating Hub", cities, key="r_c")
-            reg_prem = st.checkbox("Sign as Premium Customer (10% Off)", value=True)
+            reg_c = st.selectbox("Operating Hub / Base City", cities, key="r_c")
+
+            if is_seller_reg:
+                st.info("🏪 **Seller Account**: Grants access to Warehouse Stock Control, Product Catalog Management, Sales Analytics, and System Telemetry.")
+                reg_prem = False
+            else:
+                reg_prem = st.checkbox("Sign as Premium Customer (10% Off)", value=True)
 
             if st.button("Create Account", type="primary", use_container_width=True):
-                ok, msg = database.register_user(reg_u, reg_e, reg_p, reg_c, 1 if reg_prem else 0, "customer")
+                chosen_role = "admin" if is_seller_reg else "customer"
+                ok, msg = database.register_user(reg_u, reg_e, reg_p, reg_c, 1 if reg_prem else 0, role=chosen_role)
                 if ok:
-                    st.success(msg)
+                    st.success(f"{msg} You registered as **{reg_role}**! Switch to 'Sign In' above to log in.")
                 else:
                     st.error(msg)
 

@@ -55,13 +55,19 @@ def login_prompt():
 
         elif choice == "2":
             print("\n--- NEW USER REGISTRATION ---")
+            role_sel = input("Select Account Type:\n  1. 🛍️  Buyer (Customer)\n  2. 🏪  Seller (Merchant / Admin)\nChoice (default 1): ").strip()
+            role = "admin" if role_sel == "2" else "customer"
             u_name = input("Choose Username: ").strip()
             u_email = input("Enter Email: ").strip()
             u_pass = input("Create Password: ").strip()
             u_city = input("City (e.g. Mumbai, Delhi, Bengaluru): ").strip()
-            prem = input("Apply for Premium Discount 10%? (y/n): ").strip().lower() == "y"
-            ok, msg = database.register_user(u_name, u_email, u_pass, u_city, 1 if prem else 0)
+            prem = False
+            if role == "customer":
+                prem = input("Apply for Premium Discount 10%? (y/n): ").strip().lower() == "y"
+            ok, msg = database.register_user(u_name, u_email, u_pass, u_city, 1 if prem else 0, role=role)
             print(f"\n{'✅' if ok else '❌'} {msg}")
+            if ok:
+                print(f"Registered as: {'Seller (Admin)' if role == 'admin' else 'Buyer (Customer)'}")
             input("Press Enter to continue...")
 
         elif choice == "3":
