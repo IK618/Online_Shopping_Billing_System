@@ -228,12 +228,23 @@ def delete_product(product_id: int) -> bool:
 
 
 
-def get_all_products(category_filter: Optional[str] = None) -> List[sqlite3.Row]:
-    """Fetches all products, optionally filtered by category."""
+def get_product_categories() -> List[str]:
+    """Fetches unique product categories sorted alphabetically."""
     conn = get_connection()
     cursor = conn.cursor()
-    if category_filter and category_filter != "All":
-        cursor.execute("SELECT * FROM products WHERE category = ? ORDER BY price ASC", (category_filter,))
+    cursor.execute("SELECT DISTINCT category FROM products WHERE category IS NOT NULL ORDER BY category ASC")
+    rows = cursor.fetchall()
+    conn.close()
+    return [r["category"] for r in rows if r["category"]]
+
+
+def get_all_products(category_filter: Optional[str] = None, category: Optional[str] = None) -> List[sqlite3.Row]:
+    """Fetches all products, optionally filtered by category."""
+    cat = category or category_filter
+    conn = get_connection()
+    cursor = conn.cursor()
+    if cat and cat not in ("All", "All Categories"):
+        cursor.execute("SELECT * FROM products WHERE category = ? ORDER BY price ASC", (cat,))
     else:
         cursor.execute("SELECT * FROM products ORDER BY category, name")
     rows = cursor.fetchall()
