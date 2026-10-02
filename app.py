@@ -29,14 +29,25 @@ import pandas as pd
 import os
 from datetime import datetime
 
+import importlib
+
 # Local application modules
 import database
 import models
-from models import Product, Customer, Admin, ShoppingCart
 import billing
 import routing
 import analytics
 import backup_service
+
+# Ensure hot-reloading for local Python modules
+importlib.reload(database)
+importlib.reload(models)
+importlib.reload(billing)
+importlib.reload(routing)
+importlib.reload(analytics)
+importlib.reload(backup_service)
+
+from models import Product, Customer, Admin, ShoppingCart
 
 # -------------------------------------------------------------
 # 1. PAGE SETUP & SESSION STATE INITIALIZATION
