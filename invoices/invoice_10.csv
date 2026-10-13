@@ -1,0 +1,12 @@
+SmartCart Retail Invoicing System
+Order ID,10,Date,2026-10-09 18:51:44
+Customer,Student Examiner,Destination City,Chennai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+2,Mechanical RGB Gaming Keyboard,1,2199.00,2199.00
+12,Portable Bluetooth Waterproof Speaker,1,1799.00,1799.00
+
+,,,Subtotal,3998.00
+,,,Discount,-79.96
+,,,GST Tax,195.90
+,,,Grand Total,4113.94

@@ -1,0 +1,58 @@
+================================================================================
+SMARTCART PRO — MASTER FIGMA AI PROMPT (COPY & PASTE INTO FIGMA AI)
+================================================================================
+
+Design a hyper-modern, Awwwards-tier dark mode e-commerce and algorithmic billing web platform called "SmartCart Pro" at 1440px desktop resolution with responsive auto-layout.
+
+Aesthetic Profile & Theme:
+- Background: Deepest OLED obsidian (#07090E) with subtle ambient radial glow orbs in Cyber Cyan (#00F0FF) and Royal Violet (#8B5CF6).
+- Surface Styling: Concentric "Double-Bezel" (Doppelrand) card architecture with 1px hairline borders (rgba(255,255,255,0.08)), deep glass inner cores (#0D111A), and 24px squircle border-radii.
+- Typography: Display titles in Outfit/Space Grotesk, body in Plus Jakarta Sans, and financial numbers in JetBrains Mono.
+- Accent Palette: Cyber Cyan (#00F0FF) for primary CTAs and laser lines, Emerald (#10B981) for in-stock atomic status badges, Amber (#F59E0B) for 5% GST Banker's rounding callouts.
+
+Include these 7 fully populated sections:
+
+1. Floating Island Navigation:
+   - Detached frosted glass pill (backdrop-blur, border rgba(255,255,255,0.1), rounded-full, px-6 py-3) floating 24px from top.
+   - SmartCart Pro logo with glowing cyan icon badge.
+   - Sliding category filter tab pills: All, Electronics, Furniture, Kitchen, Fashion, Groceries.
+   - Interactive search input with keyboard shortcut chip (/), base hub pin ("Bengaluru Base Hub"), and cart pill with reactive item counter badge (3).
+
+2. Asymmetrical Hero Section:
+   - Eyebrow tag: Pill badge with pulsing green live dot "DUAL-INTERFACE PYTHON ARCHITECTURE".
+   - Headline: "Next-Gen Commerce & Algorithmic Billing Engine" with cyan-to-white gradient text.
+   - Subtitle explaining synchronized SQLite store.db inventory, Banker's rounding financial audits, and SciPy Dijkstra supply chain routing.
+   - Action Hub: Primary pill button "Explore Catalog" with nested trailing circular arrow icon, alongside a secondary glass pill "Inspect Design System".
+   - Micro-badges row: "16 Catalog SKUs", "5% Statutory GST", "SciPy Dijkstra Shortest Path".
+
+3. 3D Tilt Bento Catalog Grid (4-Column Layout):
+   - 4 feature product cards with nested double-bezel cards (Outer shell + inner core):
+     * Card 1: Wireless Noise-Canceling Headphones — ₹3,499.00 — Electronics — ★4.8 (1,420 reviews) — "● 24 In Stock (Atomic Lock)".
+     * Card 2: Mechanical RGB Gaming Keyboard — ₹2,199.00 — Electronics — ★4.6 (890 reviews) — "● 17 In Stock".
+     * Card 3: Ergonomic Mesh Office Chair — ₹5,499.00 — Furniture — ★4.7 (780 reviews) — "● 10 In Stock".
+     * Card 4: Electric Gooseneck Drip Kettle — ₹2,499.00 — Kitchen — ★4.9 (830 reviews) — "● 18 In Stock".
+   - Each card includes: category pill tag, star rating badge, high-contrast price in JetBrains Mono, GST calculation note, "Add to Cart" button, and "Quick View ↗" icon button.
+
+4. Live Algorithmic Billing & Banker's Rounding Terminal:
+   - Split-screen layout:
+     * Left Column: Interactive order calculation ledger with Subtotal Taxable (₹6,297.00), Customer Discount (-₹629.70), Statutory 5% GST (+₹283.37), and Total Payable (₹5,950.67 in massive cyan monospace).
+     * Right Column: Mathematical audit breakdown explaining IEEE 754 Banker's Rounding (round half to even) vs naive truncation (math.trunc), citing statutory commercial audit compliance.
+   - Download ASCII Text Receipt & Export CSV Ledger buttons.
+
+5. Dijkstra Supply Chain & Freight Logistics Radar:
+   - Interactive dark radar map frame showing Indian delivery network hubs:
+     * Glowing Central Hub: Bengaluru (Base Hub).
+     * Metro nodes: Chennai, Hyderabad, Mumbai, Nagpur, Bhopal, Delhi, Kolkata.
+     * Illuminated cyan laser highway corridor showing solved path: Bengaluru → Hyderabad → Nagpur → Bhopal → Delhi.
+   - Live metrics card: "Solved Shortest Corridor: 2,169.0 km", "Freight ETA: ~36.1 Hours", "Algorithm: scipy.sparse.csgraph.dijkstra".
+
+6. Trust, Security & Defense Verification Section:
+   - 3 machined horizontal cards:
+     * "Zero-Lock Concurrency": Atomic SQLite decrement preventing inventory over-selling.
+     * "Audited Tax Invoicing": Clean ASCII text receipts & timestamped CSV ledgers.
+     * "Dual-Mode Terminal": Full console mode execution via run_cli.py.
+
+7. Slide-Over Cart & Receipt Drawer Component (Overlay State):
+   - Slide-over panel (400px width) with itemized cart list, customer name input, customer tier toggle (Premium 10% wholesale discount), and "Confirm Order" pill button.
+
+Ensure all frames use native Figma Auto-Layout, consistent 8px grid spacing, designated Component Variants (Default, Hover, Active), and semantic text styles.

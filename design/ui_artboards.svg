@@ -1,0 +1,548 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600" width="2400" height="1600" style="background:#07090E; font-family:'Plus Jakarta Sans', -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07090E"/>
+      <stop offset="50%" stop-color="#0A0E17"/>
+      <stop offset="100%" stop-color="#07090E"/>
+    </linearGradient>
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="emerald-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="amber-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="card-surface" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#131926" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0B0E17" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="pill-button" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F0FF"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <radialGradient id="mesh-orb-1" cx="30%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#07090E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mesh-orb-2" cx="80%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#07090E" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Filters -->
+    <filter id="shadow-card" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.6"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#00F0FF" flood-opacity="0.05"/>
+    </filter>
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#00F0FF" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Canvas Background -->
+  <rect width="2400" height="1600" fill="url(#bg-grad)"/>
+  <circle cx="600" cy="400" r="500" fill="url(#mesh-orb-1)"/>
+  <circle cx="1800" cy="1100" r="600" fill="url(#mesh-orb-2)"/>
+
+  <!-- Global Header & Master Meta -->
+  <g id="canvas-header" transform="translate(80, 60)">
+    <rect width="2240" height="70" rx="16" fill="#0D111A" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <circle cx="35" cy="35" r="14" fill="url(#cyan-glow)"/>
+    <text x="35" y="40" font-size="14" font-weight="900" fill="#07090E" text-anchor="middle">S</text>
+    <text x="65" y="42" font-size="20" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">SMARTCART PRO — DESIGN SYSTEM & MASTER UI SPECIFICATION</text>
+    <rect x="740" y="24" width="160" height="24" rx="12" fill="rgba(0,240,255,0.1)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+    <text x="820" y="40" font-size="11" font-weight="700" fill="#00F0FF" text-anchor="middle" font-family="'JetBrains Mono', monospace">FIGMA / VECTORPEA</text>
+    <text x="2200" y="42" font-size="13" font-weight="600" fill="#64748B" text-anchor="end" font-family="'JetBrains Mono', monospace">CANVAS: 2400×1600 | 4 ARTBOARDS</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- ARTBOARD 1: DESIGN TOKENS & ATOMIC COMPONENTS                             -->
+  <!-- ========================================================================= -->
+  <g id="artboard-1-tokens" transform="translate(80, 160)">
+    <!-- Artboard Frame -->
+    <rect width="520" height="1360" rx="24" fill="#090D15" stroke="rgba(255,255,255,0.08)" stroke-width="1" filter="url(#shadow-card)"/>
+    
+    <!-- Title Tag -->
+    <rect x="30" y="30" width="130" height="22" rx="11" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="95" y="45" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle" font-family="'JetBrains Mono', monospace">ARTBOARD 01</text>
+    <text x="30" y="85" font-size="24" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">Design Tokens</text>
+    <text x="30" y="110" font-size="13" font-weight="500" fill="#64748B">Machined hardware color swatches &amp; typography</text>
+
+    <!-- Color Tokens Section -->
+    <text x="30" y="155" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="0.1em">COLOR CALIBRATION</text>
+    
+    <!-- Swatch 1: Obsidian -->
+    <g transform="translate(30, 175)">
+      <rect width="70" height="48" rx="10" fill="#07090E" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="85" y="24" font-size="14" font-weight="700" fill="#FFFFFF">Obsidian Base</text>
+      <text x="85" y="42" font-size="12" font-weight="600" fill="#64748B" font-family="'JetBrains Mono', monospace">#07090E — Canvas root</text>
+    </g>
+
+    <!-- Swatch 2: Surface -->
+    <g transform="translate(30, 235)">
+      <rect width="70" height="48" rx="10" fill="#131926" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="85" y="24" font-size="14" font-weight="700" fill="#FFFFFF">Surface Elevated</text>
+      <text x="85" y="42" font-size="12" font-weight="600" fill="#64748B" font-family="'JetBrains Mono', monospace">#131926 — Double-bezel core</text>
+    </g>
+
+    <!-- Swatch 3: Cyan Accent -->
+    <g transform="translate(30, 295)">
+      <rect width="70" height="48" rx="10" fill="#00F0FF" filter="url(#glow-cyan)"/>
+      <text x="85" y="24" font-size="14" font-weight="700" fill="#00F0FF">Cyber Cyan</text>
+      <text x="85" y="42" font-size="12" font-weight="600" fill="#64748B" font-family="'JetBrains Mono', monospace">#00F0FF — Primary CTA &amp; Lasers</text>
+    </g>
+
+    <!-- Swatch 4: Emerald Live -->
+    <g transform="translate(30, 355)">
+      <rect width="70" height="48" rx="10" fill="#10B981"/>
+      <text x="85" y="24" font-size="14" font-weight="700" fill="#10B981">Emerald Sync</text>
+      <text x="85" y="42" font-size="12" font-weight="600" fill="#64748B" font-family="'JetBrains Mono', monospace">#10B981 — Atomic Stock Lock</text>
+    </g>
+
+    <!-- Swatch 5: Amber Rounding -->
+    <g transform="translate(30, 415)">
+      <rect width="70" height="48" rx="10" fill="#F59E0B"/>
+      <text x="85" y="24" font-size="14" font-weight="700" fill="#F59E0B">Amber Auditor</text>
+      <text x="85" y="42" font-size="12" font-weight="600" fill="#64748B" font-family="'JetBrains Mono', monospace">#F59E0B — Banker's Rounding 5%</text>
+    </g>
+
+    <!-- Component Primitives -->
+    <text x="30" y="505" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="0.1em">COMPONENT PRIMITIVES</text>
+
+    <!-- Double-Bezel Architecture Demo -->
+    <g transform="translate(30, 525)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#FFFFFF">1. Double-Bezel (Doppelrand) Architecture</text>
+      <!-- Outer Shell -->
+      <rect x="0" y="15" width="460" height="110" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <!-- Inner Core -->
+      <rect x="8" y="23" width="444" height="94" rx="14" fill="#0D121D" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <text x="25" y="60" font-size="14" font-weight="700" fill="#FFFFFF">Concentric Machined Shell</text>
+      <text x="25" y="80" font-size="12" font-weight="500" fill="#64748B">Outer radius: 20px | Inner core radius: 14px (calc(20-6))</text>
+      <rect x="350" y="50" width="85" height="28" rx="14" fill="rgba(0,240,255,0.1)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+      <text x="392" y="68" font-size="11" font-weight="700" fill="#00F0FF" text-anchor="middle">ACTIVE</text>
+    </g>
+
+    <!-- Button-in-Button Architecture -->
+    <g transform="translate(30, 680)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#FFFFFF">2. Button-in-Button Trailing Icon Pill</text>
+      
+      <!-- Primary Pill CTA -->
+      <g transform="translate(0, 15)">
+        <rect width="260" height="52" rx="26" fill="url(#pill-button)"/>
+        <text x="40" y="32" font-size="14" font-weight="800" fill="#07090E" letter-spacing="-0.01em">CONFIRM ORDER</text>
+        <!-- Trailing Circle Nested -->
+        <circle cx="230" cy="26" r="18" fill="rgba(0,0,0,0.15)"/>
+        <path d="M225 21 L235 26 L225 31" fill="none" stroke="#07090E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- Secondary Dark Pill -->
+      <g transform="translate(280, 15)">
+        <rect width="180" height="52" rx="26" fill="#141A26" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="30" y="32" font-size="13" font-weight="700" fill="#FFFFFF">QUICK VIEW</text>
+        <circle cx="150" cy="26" r="15" fill="rgba(255,255,255,0.06)"/>
+        <text x="150" y="30" font-size="12" font-weight="700" fill="#94A3B8" text-anchor="middle">↗</text>
+      </g>
+    </g>
+
+    <!-- Badges & Status Indicators -->
+    <g transform="translate(30, 785)">
+      <text x="0" y="0" font-size="13" font-weight="700" fill="#FFFFFF">3. Financial &amp; Algorithmic Badges</text>
+      
+      <rect x="0" y="15" width="130" height="28" rx="14" fill="rgba(16,185,129,0.1)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+      <circle cx="15" cy="29" r="4" fill="#10B981"/>
+      <text x="70" y="33" font-size="11" font-weight="700" fill="#10B981" text-anchor="middle" font-family="'JetBrains Mono', monospace">ATOMIC LOCK</text>
+
+      <rect x="145" y="15" width="135" height="28" rx="14" fill="rgba(245,158,11,0.1)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
+      <circle cx="160" cy="29" r="4" fill="#F59E0B"/>
+      <text x="217" y="33" font-size="11" font-weight="700" fill="#F59E0B" text-anchor="middle" font-family="'JetBrains Mono', monospace">BANKER'S 5%</text>
+
+      <rect x="295" y="15" width="160" height="28" rx="14" fill="rgba(0,240,255,0.1)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+      <circle cx="310" cy="29" r="4" fill="#00F0FF"/>
+      <text x="380" y="33" font-size="11" font-weight="700" fill="#00F0FF" text-anchor="middle" font-family="'JetBrains Mono', monospace">DIJKSTRA READY</text>
+    </g>
+
+    <!-- Typography Scales -->
+    <g transform="translate(30, 880)">
+      <text x="0" y="0" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="0.1em">TYPOGRAPHY SCALES</text>
+      
+      <text x="0" y="35" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="-0.03em">Display Headline (32px)</text>
+      <text x="0" y="70" font-size="20" font-weight="700" fill="#E2E8F0">Section Heading (20px)</text>
+      <text x="0" y="100" font-size="15" font-weight="500" fill="#94A3B8">Body Text: Plus Jakarta Sans Relaxed (15px/1.6)</text>
+      <text x="0" y="130" font-size="14" font-weight="600" fill="#00F0FF" font-family="'JetBrains Mono', monospace">₹3,499.00 — Financial Ledger Monospace (14px)</text>
+    </g>
+
+    <!-- Vectorpea / Figma Drag-and-Drop Callout -->
+    <g transform="translate(30, 1100)">
+      <rect width="460" height="210" rx="18" fill="#111622" stroke="rgba(0,240,255,0.2)" stroke-width="1"/>
+      <circle cx="45" cy="45" r="20" fill="rgba(0,240,255,0.1)"/>
+      <text x="45" y="52" font-size="18" fill="#00F0FF" text-anchor="middle">✦</text>
+      <text x="80" y="42" font-size="16" font-weight="800" fill="#FFFFFF">Direct Tooling Integration</text>
+      <text x="80" y="62" font-size="12" font-weight="500" fill="#94A3B8">Fully vector-editable &amp; ungroupable</text>
+      
+      <text x="30" y="105" font-size="13" font-weight="600" fill="#CBD5E1">• Vectorpea: Open as native Illustrator vector paths</text>
+      <text x="30" y="135" font-size="13" font-weight="600" fill="#CBD5E1">• Photopea: Rasterize/composite as smart PSD layers</text>
+      <text x="30" y="165" font-size="13" font-weight="600" fill="#CBD5E1">• Figma: Drag SVG file directly onto your Figma canvas</text>
+      <text x="30" y="195" font-size="12" font-weight="700" fill="#00F0FF" font-family="'JetBrains Mono', monospace">ALL GROUPS NAMED &amp; STRUCTURED</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- ARTBOARD 2: LIVE E-COMMERCE & SHOPPING DASHBOARD                          -->
+  <!-- ========================================================================= -->
+  <g id="artboard-2-dashboard" transform="translate(630, 160)">
+    <!-- Artboard Frame -->
+    <rect width="1080" height="1360" rx="24" fill="#090D15" stroke="rgba(255,255,255,0.08)" stroke-width="1" filter="url(#shadow-card)"/>
+
+    <!-- Artboard Title -->
+    <rect x="40" y="30" width="130" height="22" rx="11" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="105" y="45" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle" font-family="'JetBrains Mono', monospace">ARTBOARD 02</text>
+    <text x="40" y="85" font-size="28" font-weight="800" fill="#FFFFFF" letter-spacing="-0.02em">Interactive Storefront Dashboard</text>
+    <text x="40" y="112" font-size="14" font-weight="500" fill="#64748B">3D-tilt product cards, category navigation, and live stock tracking</text>
+
+    <!-- Floating Island Nav Mockup -->
+    <g transform="translate(40, 135)">
+      <rect width="1000" height="60" rx="30" fill="rgba(19,25,38,0.85)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <circle cx="35" cy="30" r="14" fill="url(#cyan-glow)"/>
+      <text x="35" y="35" font-size="14" font-weight="900" fill="#07090E" text-anchor="middle">S</text>
+      <text x="60" y="36" font-size="17" font-weight="800" fill="#FFFFFF">SmartCart</text>
+
+      <!-- Category Filter Tabs -->
+      <g transform="translate(190, 14)">
+        <rect x="0" y="0" width="90" height="32" rx="16" fill="#00F0FF"/>
+        <text x="45" y="21" font-size="12" font-weight="800" fill="#07090E" text-anchor="middle">ALL (16)</text>
+
+        <rect x="100" y="0" width="110" height="32" rx="16" fill="rgba(255,255,255,0.05)"/>
+        <text x="155" y="21" font-size="12" font-weight="700" fill="#94A3B8" text-anchor="middle">Electronics</text>
+
+        <rect x="220" y="0" width="90" height="32" rx="16" fill="rgba(255,255,255,0.05)"/>
+        <text x="265" y="21" font-size="12" font-weight="700" fill="#94A3B8" text-anchor="middle">Furniture</text>
+
+        <rect x="320" y="0" width="125" height="32" rx="16" fill="rgba(255,255,255,0.05)"/>
+        <text x="382" y="21" font-size="12" font-weight="700" fill="#94A3B8" text-anchor="middle">Home &amp; Kitchen</text>
+
+        <rect x="455" y="0" width="90" height="32" rx="16" fill="rgba(255,255,255,0.05)"/>
+        <text x="500" y="21" font-size="12" font-weight="700" fill="#94A3B8" text-anchor="middle">Fashion</text>
+      </g>
+
+      <!-- Cart Button on Nav -->
+      <g transform="translate(840, 10)">
+        <rect width="145" height="40" rx="20" fill="url(#cyan-glow)"/>
+        <text x="55" y="25" font-size="12" font-weight="800" fill="#07090E">CART</text>
+        <circle cx="115" cy="20" r="11" fill="#07090E"/>
+        <text x="115" y="24" font-size="11" font-weight="900" fill="#00F0FF" text-anchor="middle" font-family="'JetBrains Mono', monospace">3</text>
+      </g>
+    </g>
+
+    <!-- Hero Banner / Asymmetrical Showcase -->
+    <g transform="translate(40, 220)">
+      <!-- Outer Shell -->
+      <rect width="1000" height="200" rx="22" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <!-- Inner Core -->
+      <rect x="6" y="6" width="988" height="188" rx="16" fill="#0E131E" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      
+      <!-- Eyebrow Badge -->
+      <rect x="35" y="30" width="220" height="24" rx="12" fill="rgba(0,240,255,0.1)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+      <text x="145" y="46" font-size="11" font-weight="700" fill="#00F0FF" text-anchor="middle" font-family="'JetBrains Mono', monospace">DUAL-INTERFACE PYTHON ARCHITECTURE</text>
+
+      <text x="35" y="95" font-size="34" font-weight="800" fill="#FFFFFF" letter-spacing="-0.03em">Next-Gen Commerce &amp; Real-Time Invoicing</text>
+      <text x="35" y="125" font-size="15" font-weight="500" fill="#94A3B8">Synchronized SQLite inventory with Banker's rounding precision and SciPy graph delivery routing.</text>
+
+      <!-- Micro Badges -->
+      <g transform="translate(35, 145)">
+        <text x="0" y="18" font-size="13" font-weight="700" fill="#E2E8F0">16 Catalog SKUs</text>
+        <text x="130" y="18" font-size="13" font-weight="700" fill="#64748B">•</text>
+        <text x="150" y="18" font-size="13" font-weight="700" fill="#E2E8F0">5% Statutory GST</text>
+        <text x="290" y="18" font-size="13" font-weight="700" fill="#64748B">•</text>
+        <text x="310" y="18" font-size="13" font-weight="700" fill="#E2E8F0">Dijkstra Highway Corridors</text>
+      </g>
+
+      <!-- Action Button -->
+      <g transform="translate(760, 130)">
+        <rect width="200" height="46" rx="23" fill="url(#pill-button)"/>
+        <text x="30" y="28" font-size="13" font-weight="800" fill="#07090E">EXPLORE CATALOG</text>
+        <circle cx="170" cy="23" r="14" fill="rgba(0,0,0,0.15)"/>
+        <text x="170" y="27" font-size="12" font-weight="800" fill="#07090E" text-anchor="middle">↓</text>
+      </g>
+    </g>
+
+    <!-- 4-Product Grid Showcase (Double-Bezel with 3D Tilt Representation) -->
+    <g transform="translate(40, 450)">
+      
+      <!-- PRODUCT CARD 1 -->
+      <g transform="translate(0, 0)">
+        <!-- Outer Shell -->
+        <rect width="480" height="420" rx="20" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <!-- Inner Core -->
+        <rect x="6" y="6" width="468" height="408" rx="14" fill="#0D121D" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        
+        <!-- Image Area -->
+        <rect x="20" y="20" width="440" height="210" rx="10" fill="#141B2A"/>
+        <text x="240" y="125" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">[High-Res 2D Photo: Noise-Canceling Headphones]</text>
+        
+        <!-- Category & Rating -->
+        <rect x="35" y="35" width="95" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="82" y="50" font-size="11" font-weight="700" fill="#00F0FF" text-anchor="middle">ELECTRONICS</text>
+        <rect x="375" y="35" width="70" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="410" y="50" font-size="11" font-weight="700" fill="#F59E0B" text-anchor="middle">★ 4.8</text>
+
+        <!-- Product Name -->
+        <text x="25" y="260" font-size="18" font-weight="800" fill="#FFFFFF">Wireless Noise-Canceling Headphones</text>
+        <text x="25" y="285" font-size="13" font-weight="500" fill="#94A3B8">Hybrid Active Noise Cancellation, 40mm neodymium drivers.</text>
+
+        <!-- Price & Stock -->
+        <text x="25" y="325" font-size="22" font-weight="800" fill="#FFFFFF" font-family="'JetBrains Mono', monospace">₹3,499.00</text>
+        <text x="160" y="325" font-size="12" font-weight="600" fill="#10B981" font-family="'JetBrains Mono', monospace">● 24 IN STOCK</text>
+        <text x="25" y="345" font-size="11" font-weight="600" fill="#64748B">+ 5% Statutory GST (₹174.95 via Banker's Rounding)</text>
+
+        <!-- CTA Buttons -->
+        <g transform="translate(25, 360)">
+          <rect width="180" height="38" rx="19" fill="url(#pill-button)"/>
+          <text x="90" y="24" font-size="12" font-weight="800" fill="#07090E" text-anchor="middle">ADD TO CART</text>
+
+          <rect x="195" y="0" width="130" height="38" rx="19" fill="#141A26" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="260" y="24" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">QUICK VIEW ↗</text>
+        </g>
+      </g>
+
+      <!-- PRODUCT CARD 2 -->
+      <g transform="translate(520, 0)">
+        <rect width="480" height="420" rx="20" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <rect x="6" y="6" width="468" height="408" rx="14" fill="#0D121D" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        
+        <rect x="20" y="20" width="440" height="210" rx="10" fill="#141B2A"/>
+        <text x="240" y="125" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">[High-Res 2D Photo: Mechanical RGB Keyboard]</text>
+
+        <rect x="35" y="35" width="95" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="82" y="50" font-size="11" font-weight="700" fill="#00F0FF" text-anchor="middle">ELECTRONICS</text>
+        <rect x="375" y="35" width="70" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="410" y="50" font-size="11" font-weight="700" fill="#F59E0B" text-anchor="middle">★ 4.6</text>
+
+        <text x="25" y="260" font-size="18" font-weight="800" fill="#FFFFFF">Mechanical RGB Gaming Keyboard</text>
+        <text x="25" y="285" font-size="13" font-weight="500" fill="#94A3B8">Hot-swappable linear red switches, PBT double-shot keycaps.</text>
+
+        <text x="25" y="325" font-size="22" font-weight="800" fill="#FFFFFF" font-family="'JetBrains Mono', monospace">₹2,199.00</text>
+        <text x="160" y="325" font-size="12" font-weight="600" fill="#10B981" font-family="'JetBrains Mono', monospace">● 17 IN STOCK</text>
+        <text x="25" y="345" font-size="11" font-weight="600" fill="#64748B">+ 5% Statutory GST (₹109.95 via Banker's Rounding)</text>
+
+        <g transform="translate(25, 360)">
+          <rect width="180" height="38" rx="19" fill="url(#pill-button)"/>
+          <text x="90" y="24" font-size="12" font-weight="800" fill="#07090E" text-anchor="middle">ADD TO CART</text>
+
+          <rect x="195" y="0" width="130" height="38" rx="19" fill="#141A26" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="260" y="24" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">QUICK VIEW ↗</text>
+        </g>
+      </g>
+
+      <!-- PRODUCT CARD 3 -->
+      <g transform="translate(0, 440)">
+        <rect width="480" height="420" rx="20" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <rect x="6" y="6" width="468" height="408" rx="14" fill="#0D121D" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        
+        <rect x="20" y="20" width="440" height="210" rx="10" fill="#141B2A"/>
+        <text x="240" y="125" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">[High-Res 2D Photo: Ergonomic Mesh Chair]</text>
+
+        <rect x="35" y="35" width="85" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="77" y="50" font-size="11" font-weight="700" fill="#8B5CF6" text-anchor="middle">FURNITURE</text>
+        <rect x="375" y="35" width="70" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="410" y="50" font-size="11" font-weight="700" fill="#F59E0B" text-anchor="middle">★ 4.7</text>
+
+        <text x="25" y="260" font-size="18" font-weight="800" fill="#FFFFFF">Ergonomic Mesh Office Chair</text>
+        <text x="25" y="285" font-size="13" font-weight="500" fill="#94A3B8">Breathable Korean mesh backrest, 3D adjustable armrests.</text>
+
+        <text x="25" y="325" font-size="22" font-weight="800" fill="#FFFFFF" font-family="'JetBrains Mono', monospace">₹5,499.00</text>
+        <text x="160" y="325" font-size="12" font-weight="600" fill="#10B981" font-family="'JetBrains Mono', monospace">● 10 IN STOCK</text>
+        <text x="25" y="345" font-size="11" font-weight="600" fill="#64748B">+ 5% Statutory GST (₹274.95 via Banker's Rounding)</text>
+
+        <g transform="translate(25, 360)">
+          <rect width="180" height="38" rx="19" fill="url(#pill-button)"/>
+          <text x="90" y="24" font-size="12" font-weight="800" fill="#07090E" text-anchor="middle">ADD TO CART</text>
+
+          <rect x="195" y="0" width="130" height="38" rx="19" fill="#141A26" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="260" y="24" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">QUICK VIEW ↗</text>
+        </g>
+      </g>
+
+      <!-- PRODUCT CARD 4 -->
+      <g transform="translate(520, 440)">
+        <rect width="480" height="420" rx="20" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <rect x="6" y="6" width="468" height="408" rx="14" fill="#0D121D" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        
+        <rect x="20" y="20" width="440" height="210" rx="10" fill="#141B2A"/>
+        <text x="240" y="125" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">[High-Res 2D Photo: Stainless Steel Cookware]</text>
+
+        <rect x="35" y="35" width="115" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="92" y="50" font-size="11" font-weight="700" fill="#10B981" text-anchor="middle">HOME &amp; KITCHEN</text>
+        <rect x="375" y="35" width="70" height="22" rx="6" fill="rgba(0,0,0,0.6)"/>
+        <text x="410" y="50" font-size="11" font-weight="700" fill="#F59E0B" text-anchor="middle">★ 4.9</text>
+
+        <text x="25" y="260" font-size="18" font-weight="800" fill="#FFFFFF">Electric Gooseneck Drip Kettle (1.0L)</text>
+        <text x="25" y="285" font-size="13" font-weight="500" fill="#94A3B8">Precision pour spout, digital PID temperature control base.</text>
+
+        <text x="25" y="325" font-size="22" font-weight="800" fill="#FFFFFF" font-family="'JetBrains Mono', monospace">₹2,499.00</text>
+        <text x="160" y="325" font-size="12" font-weight="600" fill="#10B981" font-family="'JetBrains Mono', monospace">● 18 IN STOCK</text>
+        <text x="25" y="345" font-size="11" font-weight="600" fill="#64748B">+ 5% Statutory GST (₹124.95 via Banker's Rounding)</text>
+
+        <g transform="translate(25, 360)">
+          <rect width="180" height="38" rx="19" fill="url(#pill-button)"/>
+          <text x="90" y="24" font-size="12" font-weight="800" fill="#07090E" text-anchor="middle">ADD TO CART</text>
+
+          <rect x="195" y="0" width="130" height="38" rx="19" fill="#141A26" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          <text x="260" y="24" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">QUICK VIEW ↗</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- ARTBOARD 3: REAL-TIME INVOICING & BANKER'S ROUNDING TERMINAL              -->
+  <!-- ========================================================================= -->
+  <g id="artboard-3-billing" transform="translate(1740, 160)">
+    <!-- Artboard Frame -->
+    <rect width="580" height="660" rx="24" fill="#090D15" stroke="rgba(255,255,255,0.08)" stroke-width="1" filter="url(#shadow-card)"/>
+
+    <rect x="30" y="30" width="130" height="22" rx="11" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="95" y="45" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle" font-family="'JetBrains Mono', monospace">ARTBOARD 03</text>
+    <text x="30" y="80" font-size="22" font-weight="800" fill="#FFFFFF">Algorithmic Billing Terminal</text>
+    <text x="30" y="102" font-size="12" font-weight="500" fill="#64748B">Statutory 5% GST &amp; IEEE 754 Banker's rounding ledger</text>
+
+    <!-- Financial Calculation Ledger Card -->
+    <g transform="translate(30, 125)">
+      <rect width="520" height="320" rx="16" fill="#0D121D" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      
+      <!-- Order Items Mini Breakdown -->
+      <text x="25" y="35" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="0.08em">ORDER ITEMS SUMMARY (3 ITEMS)</text>
+      
+      <text x="25" y="70" font-size="13" font-weight="600" fill="#FFFFFF">1× Wireless Headphones</text>
+      <text x="495" y="70" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="end" font-family="'JetBrains Mono', monospace">₹3,499.00</text>
+
+      <text x="25" y="100" font-size="13" font-weight="600" fill="#FFFFFF">1× Mechanical RGB Keyboard</text>
+      <text x="495" y="100" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="end" font-family="'JetBrains Mono', monospace">₹2,199.00</text>
+
+      <text x="25" y="130" font-size="13" font-weight="600" fill="#FFFFFF">1× Stainless Steel Thermal Bottle</text>
+      <text x="495" y="130" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="end" font-family="'JetBrains Mono', monospace">₹599.00</text>
+
+      <line x1="25" y1="150" x2="495" y2="150" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- Calculations -->
+      <text x="25" y="180" font-size="13" font-weight="500" fill="#94A3B8">Subtotal Taxable:</text>
+      <text x="495" y="180" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="end" font-family="'JetBrains Mono', monospace">₹6,297.00</text>
+
+      <text x="25" y="210" font-size="13" font-weight="500" fill="#94A3B8">Customer Discount (Premium Tier 10%):</text>
+      <text x="495" y="210" font-size="14" font-weight="700" fill="#10B981" text-anchor="end" font-family="'JetBrains Mono', monospace">- ₹629.70</text>
+
+      <text x="25" y="240" font-size="13" font-weight="600" fill="#F59E0B">Statutory 5% GST (Banker's Rounded):</text>
+      <text x="495" y="240" font-size="14" font-weight="700" fill="#F59E0B" text-anchor="end" font-family="'JetBrains Mono', monospace">+ ₹283.37</text>
+
+      <line x1="25" y1="260" x2="495" y2="260" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+      <text x="25" y="295" font-size="16" font-weight="800" fill="#FFFFFF">Total Payable:</text>
+      <text x="495" y="295" font-size="20" font-weight="900" fill="#00F0FF" text-anchor="end" font-family="'JetBrains Mono', monospace">₹5,950.67</text>
+    </g>
+
+    <!-- Examiner Mathematical Callout -->
+    <g transform="translate(30, 465)">
+      <rect width="520" height="165" rx="14" fill="#0E1624" stroke="rgba(245,158,11,0.2)" stroke-width="1"/>
+      <circle cx="35" cy="35" r="14" fill="rgba(245,158,11,0.15)"/>
+      <text x="35" y="40" font-size="14" fill="#F59E0B" text-anchor="middle">∑</text>
+      <text x="60" y="38" font-size="14" font-weight="800" fill="#F59E0B">Banker's Rounding vs Truncation (Audit Standard)</text>
+      
+      <text x="25" y="70" font-size="12" font-weight="500" fill="#CBD5E1">Uses Python's round(val, 2) rounding half to the nearest even</text>
+      <text x="25" y="90" font-size="12" font-weight="500" fill="#CBD5E1">number (IEEE 754 financial commerce protocol).</text>
+      <text x="25" y="115" font-size="12" font-weight="600" fill="#94A3B8" font-family="'JetBrains Mono', monospace">Formula: net_tax = round(taxable_base * 0.05, 2)</text>
+      <text x="25" y="138" font-size="11" font-weight="700" fill="#10B981" font-family="'JetBrains Mono', monospace">SQLITE ATOMIC DECREMENT RECORDED TO store.db</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- ARTBOARD 4: DIJKSTRA LOGISTICS ROUTE RADAR                                -->
+  <!-- ========================================================================= -->
+  <g id="artboard-4-logistics" transform="translate(1740, 850)">
+    <!-- Artboard Frame -->
+    <rect width="580" height="670" rx="24" fill="#090D15" stroke="rgba(255,255,255,0.08)" stroke-width="1" filter="url(#shadow-card)"/>
+
+    <rect x="30" y="30" width="130" height="22" rx="11" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="95" y="45" font-size="10" font-weight="700" fill="#94A3B8" text-anchor="middle" font-family="'JetBrains Mono', monospace">ARTBOARD 04</text>
+    <text x="30" y="80" font-size="22" font-weight="800" fill="#FFFFFF">Dijkstra Logistics Radar</text>
+    <text x="30" y="102" font-size="12" font-weight="500" fill="#64748B">SciPy sparse matrix shortest path optimization</text>
+
+    <!-- Radar Map Canvas Simulation -->
+    <g transform="translate(30, 125)">
+      <rect width="520" height="380" rx="16" fill="#0A0E17" stroke="rgba(0,240,255,0.15)" stroke-width="1"/>
+
+      <!-- Grid lines -->
+      <line x1="40" y1="190" x2="480" y2="190" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="260" y1="40" x2="260" y2="340" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <circle cx="260" cy="190" r="140" fill="none" stroke="rgba(0,240,255,0.05)" stroke-width="1"/>
+      <circle cx="260" cy="190" r="80" fill="none" stroke="rgba(0,240,255,0.08)" stroke-width="1"/>
+
+      <!-- Highway Edge Corridors -->
+      <!-- Bengaluru (260, 310) to Hyderabad (270, 220) -->
+      <line x1="260" y1="310" x2="270" y2="220" stroke="#00F0FF" stroke-width="3" stroke-linecap="round"/>
+      <!-- Hyderabad (270, 220) to Nagpur (275, 150) -->
+      <line x1="270" y1="220" x2="275" y2="150" stroke="#00F0FF" stroke-width="3" stroke-linecap="round"/>
+      <!-- Nagpur (275, 150) to Bhopal (240, 110) -->
+      <line x1="275" y1="150" x2="240" y2="110" stroke="#00F0FF" stroke-width="3" stroke-linecap="round"/>
+      <!-- Bhopal (240, 110) to Delhi (230, 60) -->
+      <line x1="240" y1="110" x2="230" y2="60" stroke="#00F0FF" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Other dormant edges -->
+      <line x1="260" y1="310" x2="350" y2="300" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4"/>
+      <line x1="260" y1="310" x2="160" y2="250" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4"/>
+      <line x1="160" y1="250" x2="140" y2="200" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4"/>
+      <line x1="275" y1="150" x2="420" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4"/>
+
+      <!-- Highway Nodes -->
+      <!-- Central Base Hub: Bengaluru -->
+      <circle cx="260" cy="310" r="14" fill="#00F0FF" filter="url(#glow-cyan)"/>
+      <circle cx="260" cy="310" r="6" fill="#07090E"/>
+      <text x="260" y="340" font-size="12" font-weight="800" fill="#00F0FF" text-anchor="middle">Bengaluru (Base Hub)</text>
+
+      <!-- Hyderabad Node -->
+      <circle cx="270" cy="220" r="8" fill="#00F0FF"/>
+      <text x="310" y="225" font-size="11" font-weight="700" fill="#E2E8F0">Hyderabad</text>
+
+      <!-- Nagpur Node -->
+      <circle cx="275" cy="150" r="8" fill="#00F0FF"/>
+      <text x="315" y="155" font-size="11" font-weight="700" fill="#E2E8F0">Nagpur</text>
+
+      <!-- Bhopal Node -->
+      <circle cx="240" cy="110" r="8" fill="#00F0FF"/>
+      <text x="195" y="115" font-size="11" font-weight="700" fill="#E2E8F0">Bhopal</text>
+
+      <!-- Destination: Delhi -->
+      <circle cx="230" cy="60" r="12" fill="#10B981" filter="url(#shadow-card)"/>
+      <circle cx="230" cy="60" r="5" fill="#FFFFFF"/>
+      <text x="230" y="42" font-size="13" font-weight="800" fill="#10B981" text-anchor="middle">DELHI (DESTINATION)</text>
+
+      <!-- Dormant nodes -->
+      <circle cx="350" cy="300" r="6" fill="#475569"/>
+      <text x="350" y="320" font-size="10" font-weight="600" fill="#64748B" text-anchor="middle">Chennai</text>
+      <circle cx="140" cy="200" r="6" fill="#475569"/>
+      <text x="140" y="190" font-size="10" font-weight="600" fill="#64748B" text-anchor="middle">Mumbai</text>
+      <circle cx="420" cy="180" r="6" fill="#475569"/>
+      <text x="420" y="200" font-size="10" font-weight="600" fill="#64748B" text-anchor="middle">Kolkata</text>
+
+      <!-- Live Corridor Metric Badge -->
+      <g transform="translate(25, 25)">
+        <rect width="180" height="50" rx="10" fill="rgba(7,9,14,0.9)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+        <text x="15" y="22" font-size="10" font-weight="700" fill="#64748B" font-family="'JetBrains Mono', monospace">SOLVED CORRIDOR</text>
+        <text x="15" y="40" font-size="15" font-weight="800" fill="#00F0FF" font-family="'JetBrains Mono', monospace">2,169.0 km | ~36.1h</text>
+      </g>
+    </g>
+
+    <!-- Algorithmic Status Card -->
+    <g transform="translate(30, 525)">
+      <rect width="520" height="115" rx="14" fill="#0D121D" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="25" y="30" font-size="12" font-weight="700" fill="#94A3B8" letter-spacing="0.08em">ALGORITHMIC GRAPH FORMULA</text>
+      <text x="25" y="55" font-size="13" font-weight="600" fill="#FFFFFF">scipy.sparse.csgraph.dijkstra(adj_matrix, directed=False)</text>
+      <text x="25" y="80" font-size="12" font-weight="500" fill="#64748B">Optimal Highway Nodes: Bengaluru → Hyderabad → Nagpur → Bhopal → Delhi</text>
+      <text x="25" y="100" font-size="11" font-weight="700" fill="#10B981" font-family="'JetBrains Mono', monospace">ZERO HEURISTIC GUESSING — TRUE SHORTEST DISTANCE</text>
+    </g>
+  </g>
+</svg>

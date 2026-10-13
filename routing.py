@@ -64,12 +64,19 @@ class LogisticsOptimizer:
         Calculates shortest path using both NetworkX and SciPy Dijkstra.
         Demonstrates: scipy.sparse.csgraph.dijkstra on adjacency matrix.
         """
-        if destination not in self.graph:
+        # Case-insensitive resolution of destination node
+        target_node = None
+        for node in self.graph.nodes():
+            if node.lower() == destination.strip().lower():
+                target_node = node
+                break
+
+        if not target_node:
             return ([CENTRAL_WAREHOUSE, destination], 0.0)
 
         # 1. NetworkX shortest path
-        nx_path = nx.shortest_path(self.graph, source=CENTRAL_WAREHOUSE, target=destination, weight="weight")
-        nx_dist = nx.shortest_path_length(self.graph, source=CENTRAL_WAREHOUSE, target=destination, weight="weight")
+        nx_path = nx.shortest_path(self.graph, source=CENTRAL_WAREHOUSE, target=target_node, weight="weight")
+        nx_dist = nx.shortest_path_length(self.graph, source=CENTRAL_WAREHOUSE, target=target_node, weight="weight")
 
         # 2. SciPy Dijkstra verification using Adjacency Matrix (Session 10)
         nodes = list(self.graph.nodes())
@@ -84,7 +91,7 @@ class LogisticsOptimizer:
             return_predecessors=True
         )
 
-        scipy_dist = dist_matrix[node_to_idx[destination]]
+        scipy_dist = dist_matrix[node_to_idx[target_node]]
         return nx_path, float(scipy_dist)
 
     # High-precision geographic GPS coordinates (Latitude, Longitude) for India Logistics Hubs

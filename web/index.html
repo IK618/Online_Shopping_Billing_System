@@ -1,0 +1,2746 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartCart Pro — God-Level Creative Commerce & Algorithmic Terminal</title>
+
+  <!-- Google Fonts: Oswald (CRL-2026 Core), Syne, Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@200;300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;900&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            crl: ['"Oswald"', 'sans-serif'],
+            syne: ['"Syne"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            obsidian: '#070709',
+            canvas: '#0A0B0E',
+            surface: '#111217',
+            card: '#161820',
+            hairline: 'rgba(255, 255, 255, 0.08)',
+            cyan: {
+              glow: '#00F0FF',
+              hover: '#00D8E6',
+              active: '#00BDC9'
+            },
+            gold: {
+              roadster: '#C5A059',
+              light: '#E2D4B7',
+              glow: 'rgba(197, 160, 89, 0.25)'
+            },
+            burgundy: {
+              cartier: '#4A0A10',
+              deep: '#2B0508'
+            },
+            emerald: {
+              live: '#10B981',
+              subtle: 'rgba(16, 185, 129, 0.12)'
+            },
+            amber: {
+              tax: '#F59E0B'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Ultra-Fast 120fps Hardware-Accelerated Reset */
+    html {
+      scroll-behavior: smooth;
+      background-color: #070709;
+    }
+    
+    body {
+      background-color: #070709;
+      color: #F4F7FA;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    ::selection {
+      background: #C5A059;
+      color: #070709;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070709;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(197, 160, 89, 0.25);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C5A059;
+    }
+
+    /* Cartier Luxury Precision Grid */
+    .cyber-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: 
+        linear-gradient(to right, rgba(197, 160, 89, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(197, 160, 89, 0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0.25) 85%);
+    }
+
+    /* Cartier Roadster High-Luxury Ambient Luminescence */
+    .aurora-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+    }
+    .aurora-gold {
+      width: 800px;
+      height: 650px;
+      background: radial-gradient(ellipse at 50% 30%, rgba(197, 160, 89, 0.18) 0%, rgba(197, 160, 89, 0) 70%);
+      top: -160px;
+      left: 15%;
+      animation: floatGold 20s infinite alternate ease-in-out;
+    }
+    .aurora-burgundy {
+      width: 850px;
+      height: 850px;
+      background: radial-gradient(circle, rgba(74, 10, 16, 0.22) 0%, rgba(43, 5, 8, 0) 70%);
+      top: 30%;
+      right: -200px;
+      animation: floatBurgundy 24s infinite alternate ease-in-out;
+    }
+    .aurora-platinum {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(226, 212, 183, 0.12) 0%, rgba(226, 212, 183, 0) 70%);
+      bottom: 5%;
+      left: 5%;
+      animation: floatPlatinum 22s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatGold {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(120px, 80px, 0) scale(1.12); }
+      100% { transform: translate3d(-60px, 130px, 0) scale(0.96); }
+    }
+    @keyframes floatBurgundy {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-130px, -90px, 0) scale(1.18); }
+      100% { transform: translate3d(80px, 60px, 0) scale(0.92); }
+    }
+    @keyframes floatPlatinum {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(90px, -100px, 0) scale(1.08); }
+      100% { transform: translate3d(-70px, 50px, 0) scale(1); }
+    }
+
+    /* Quantum Particle Constellation Canvas */
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* CRL Magnetic Cursor Follower */
+    .crl-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      background: #00F0FF;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.9);
+      transition: width 0.2s ease, height 0.2s ease;
+    }
+    .crl-cursor-pill {
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 6px 14px;
+      background: #00F0FF;
+      color: #05070B;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.4);
+    }
+    .crl-cursor-pill.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Floating Image Trail in List Mode */
+    #crlHoverImagePreview {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 280px;
+      pointer-events: none;
+      z-index: 9000;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: #0A0E17;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 240, 255, 0.18);
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    #crlHoverImagePreview.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* 3D Wheel Cylinder Viewport */
+    .wheel-viewport {
+      perspective: 1600px;
+      perspective-origin: 50% 50%;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 600px;
+      user-select: none;
+      cursor: grab;
+    }
+    .wheel-viewport:active {
+      cursor: grabbing;
+    }
+    .wheel-cylinder {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transform: translate(-50%, -50%);
+    }
+    .wheel-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 320px;
+      height: 480px;
+      margin-left: -160px;
+      margin-top: -240px;
+      transform-style: preserve-3d;
+      border-radius: 20px;
+      background: #0E1321;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      overflow: hidden;
+    }
+    .wheel-card.is-active-card {
+      border-color: #00F0FF;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.28), 0 30px 60px rgba(0, 0, 0, 0.9);
+      filter: blur(0px) !important;
+    }
+
+    /* Mode Switcher Buttons */
+    .crl-switch-btn {
+      font-family: 'Oswald', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #95A2B5;
+      padding: 6px 14px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .crl-switch-btn:hover {
+      color: #FFFFFF;
+    }
+    .crl-switch-btn.is-active {
+      color: #00F0FF;
+      background: rgba(0, 240, 255, 0.09);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+    }
+
+    /* List Table Row Hover Physics */
+    .crl-list-row {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+    .crl-list-row:hover {
+      background: rgba(255, 255, 255, 0.035);
+      border-color: rgba(0, 240, 255, 0.3);
+    }
+    .crl-list-row:hover .row-name {
+      color: #00F0FF;
+      transform: translateX(8px);
+    }
+
+    /* Machined Shell Containers */
+    .god-shell {
+      background: #080B14;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      transition: border-color 0.25s ease;
+    }
+    .god-shell:hover {
+      border-color: rgba(0, 240, 255, 0.28);
+    }
+    .god-core {
+      background: #0B101D;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+    }
+
+    .crl-headline {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+    }
+
+    /* Pulse Glow */
+    @keyframes pulseRing {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.6); }
+    }
+    .pulse-ring {
+      animation: pulseRing 2.2s infinite ease-in-out;
+    }
+
+    /* ========================================================================= */
+    /* AAROH IIIT KOTTAYAM DYNAMIC SCRAMBLE SHUFFLE TYPOGRAPHY                   */
+    /* ========================================================================= */
+    .shuffle-letter {
+      display: inline-block;
+      min-width: 0.6em;
+      text-align: center;
+      transition: color 0.16s ease, text-shadow 0.16s ease, transform 0.16s ease;
+      will-change: transform, color, text-shadow;
+      position: relative;
+    }
+
+    .shuffle-letter.is-space {
+      min-width: 0.38em;
+    }
+
+    .shuffle-letter.is-gradient {
+      background: linear-gradient(135deg, #00F0FF 0%, #E0E7FF 55%, #A78BFA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.2));
+    }
+
+    .shuffle-letter.is-shuffling {
+      color: #00F0FF !important;
+      -webkit-text-fill-color: #00F0FF !important;
+      text-shadow: 0 0 16px rgba(0, 240, 255, 0.95), 0 0 28px rgba(0, 240, 255, 0.5) !important;
+      transform: translateY(-2px) scale(1.05);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased relative">
+
+  <!-- Cybernetic Grid Texture -->
+  <div class="cyber-grid"></div>
+
+  <!-- GPU Animated Cartier Roadster Ambient Luminescence Orbs -->
+  <div class="aurora-orb aurora-gold"></div>
+  <div class="aurora-orb aurora-burgundy"></div>
+  <div class="aurora-orb aurora-platinum"></div>
+
+  <!-- Lightweight Quantum Constellation Canvas (<0.2ms per frame) -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- CRL Magnetic Cursor Follower -->
+  <div class="crl-cursor-dot" id="crlCursorDot"></div>
+  <div class="crl-cursor-pill" id="crlCursorPill">Explore SKU</div>
+
+  <!-- CRL Floating Image Trail for List Mode -->
+  <div id="crlHoverImagePreview">
+    <img id="crlHoverImageSrc" src="" alt="Preview" class="w-full h-full object-cover">
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- GOD-LEVEL EDITORIAL NAVIGATION BAR                                        -->
+  <!-- ========================================================================= -->
+  <!-- ========================================================================= -->
+  <!-- FIGMA MAKE OPENING LANDING PAGE & /#login GATEWAY                         -->
+  <!-- ========================================================================= -->
+  <div id="figmaLandingPage" class="fixed inset-0 z-[120] bg-[#07090E]/98 backdrop-blur-2xl overflow-y-auto flex flex-col transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-100">
+    
+    <!-- Top Floating Meta Strip -->
+    <div class="w-full border-b border-white/[0.08] bg-[#07090E]/80 backdrop-blur-md px-6 py-4 sticky top-0 z-20">
+      <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+        
+        <!-- Figma Master Brand Logo -->
+        <div class="flex items-center gap-3.5">
+          <div class="relative w-10 h-10 rounded-2xl p-[1px] bg-gradient-to-br from-[#00F0FF] via-[#38BDF8] to-[#3B82F6] shadow-[0_0_24px_rgba(0,240,255,0.45)] flex items-center justify-center">
+            <div class="w-full h-full bg-[#07090E] rounded-[15px] flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1.5"></circle>
+                <circle cx="19" cy="21" r="1.5"></circle>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                <path d="m13 7-3 4h4l-2 4"></path>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div class="font-crl text-xl font-black tracking-tight text-white flex items-center gap-2">
+              <span>SMART<span class="text-[#00F0FF]">CART</span></span>
+              <span class="text-[10px] font-mono font-bold text-[#07090E] bg-gradient-to-r from-[#00F0FF] to-[#38BDF8] px-2 py-0.5 rounded-full shadow-[0_0_12px_rgba(0,240,255,0.4)]">PRO</span>
+            </div>
+            <div class="text-[9px] font-mono tracking-widest text-[#94A3B8] uppercase">COMMERCE &amp; ALGORITHMIC LEDGER</div>
+          </div>
+        </div>
+
+        <!-- Telemetry & Direct Enter Trigger -->
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 font-mono text-[11px] text-[#94A3B8]">
+            <span class="w-2 h-2 rounded-full bg-emerald-live pulse-ring"></span>
+            <span>16 SKUs LIVE IN STORE.DB</span>
+          </div>
+          
+          <button onclick="enterStorefront()" class="px-5 py-2 rounded-full bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-xs tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(0,240,255,0.35)] flex items-center gap-2">
+            <span>ENTER STOREFRONT ↗</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Landing Body -->
+    <div class="max-w-[1440px] mx-auto px-6 py-12 md:py-16 flex-1 flex flex-col justify-center">
+      
+      <!-- Eyebrow Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-[#00F0FF]/30 text-[#00F0FF] font-mono text-xs w-fit mb-6 shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-ping"></span>
+        <span>FIGMA MAKE PROTOTYPE · GATEWAY ROUTE: /#login</span>
+      </div>
+
+      <!-- Hero Headline Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left: Branding & Core Architectural Value Proposition -->
+        <div class="lg:col-span-7 space-y-6">
+          <h1 class="font-crl text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05]">
+            NEXT-GEN COMMERCE &amp;<br>
+            <span class="bg-gradient-to-r from-[#00F0FF] via-[#A78BFA] to-[#FFFFFF] bg-clip-text text-transparent">
+              ALGORITHMIC LEDGER
+            </span>
+          </h1>
+
+          <p class="text-base sm:text-lg font-display text-[#94A3B8] max-w-2xl leading-relaxed">
+            Welcome to the flagship SmartCart Pro shopping gateway. Built with double-bezel concentric cards, atomic SQLite inventory locking, audited IEEE 754 Banker's rounding for statutory 5% GST, and SciPy-powered Dijkstra logistics routing.
+          </p>
+
+          <!-- 3 Machined Bento Specs -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
+            <div class="p-4 rounded-2xl bg-[#0D111A] border border-white/[0.08] space-y-1">
+              <div class="font-mono text-xs text-[#00F0FF] font-bold">● ZERO-LOCK</div>
+              <div class="font-crl text-sm font-bold text-white">Atomic Concurrency</div>
+              <div class="text-[11px] text-[#64748B] leading-tight">SQLite inventory locks prevent over-selling.</div>
+            </div>
+            
+            <div class="p-4 rounded-2xl bg-[#0D111A] border border-white/[0.08] space-y-1">
+              <div class="font-mono text-xs text-amber-tax font-bold">● IEEE 754</div>
+              <div class="font-crl text-sm font-bold text-white">Banker's Rounding</div>
+              <div class="text-[11px] text-[#64748B] leading-tight">Round-half-to-even audits on 5% GST tax.</div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#0D111A] border border-white/[0.08] space-y-1">
+              <div class="font-mono text-xs text-emerald-live font-bold">● DIJKSTRA</div>
+              <div class="font-crl text-sm font-bold text-white">Logistics Radar</div>
+              <div class="text-[11px] text-[#64748B] leading-tight">SciPy shortest path from Bengaluru hub.</div>
+            </div>
+          </div>
+
+          <!-- Direct Guest CTA Row -->
+          <div class="flex flex-wrap items-center gap-4 pt-4">
+            <button onclick="enterStorefront()" class="px-8 py-4 rounded-full bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-black text-sm tracking-wider uppercase transition-all shadow-[0_0_30px_rgba(0,240,255,0.4)] flex items-center gap-3">
+              <span>EXPLORE STOREFRONT AS GUEST</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+
+            <button onclick="document.getElementById('loginStation').scrollIntoView({behavior:'smooth'})" class="px-6 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-crl font-bold text-sm tracking-wider uppercase transition-all flex items-center gap-2">
+              <i data-lucide="key" class="w-4 h-4 text-[#00F0FF]"></i>
+              <span>SIGN IN / REGISTER</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: The Concentric Double-Bezel #login Gateway Card -->
+        <div class="lg:col-span-5" id="loginStation">
+          <div class="relative p-1 rounded-3xl bg-gradient-to-b from-white/[0.15] to-white/[0.03] shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(0,240,255,0.12)]">
+            <div class="bg-[#0B0E17] rounded-[22px] p-6 sm:p-8 space-y-6">
+              
+              <!-- Card Header & Auth Switcher -->
+              <div class="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+                <div>
+                  <div class="font-crl text-xl font-bold text-white tracking-tight">ACCESS TERMINAL</div>
+                  <div class="text-xs text-[#94A3B8] font-mono">Select sign-in method or guest access</div>
+                </div>
+                
+                <div class="flex items-center gap-1 p-1 bg-white/[0.04] rounded-xl border border-white/10 font-mono text-xs">
+                  <button id="authTabLogin" onclick="switchAuthMode('login')" class="px-3 py-1 rounded-lg bg-[#00F0FF] text-[#07090E] font-bold transition-all">
+                    LOG IN
+                  </button>
+                  <button id="authTabRegister" onclick="switchAuthMode('register')" class="px-3 py-1 rounded-lg text-[#94A3B8] hover:text-white transition-all">
+                    REGISTER
+                  </button>
+                </div>
+              </div>
+
+              <!-- One-Click Quick Demo Accounts (Figma Ease-of-Use) -->
+              <div class="space-y-2">
+                <div class="text-[10px] font-mono uppercase tracking-wider text-[#64748B]">One-Click Demo Credentials:</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="quickFillDemo('rahul_sharma', 'pass123')" class="px-2.5 py-1.5 rounded-lg bg-white/[0.03] hover:bg-[#00F0FF]/10 border border-white/[0.08] hover:border-[#00F0FF]/40 text-left transition-all group">
+                    <div class="text-xs font-mono font-bold text-white group-hover:text-[#00F0FF]">rahul_sharma</div>
+                    <div class="text-[10px] text-amber-tax font-mono">Premium 10% Off</div>
+                  </button>
+                  <button type="button" onclick="quickFillDemo('admin_user', 'admin123')" class="px-2.5 py-1.5 rounded-lg bg-white/[0.03] hover:bg-[#00F0FF]/10 border border-white/[0.08] hover:border-[#00F0FF]/40 text-left transition-all group">
+                    <div class="text-xs font-mono font-bold text-white group-hover:text-[#00F0FF]">admin_user</div>
+                    <div class="text-[10px] text-emerald-live font-mono">System Admin</div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Dynamic Auth Form (Login vs Register) -->
+              <form id="authGatewayForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                
+                <!-- Feedback notification -->
+                <div id="authFeedback" class="hidden text-xs p-3 rounded-xl font-mono"></div>
+
+                <!-- Username -->
+                <div class="space-y-1">
+                  <label class="text-xs font-mono text-[#94A3B8]">USERNAME</label>
+                  <div class="relative">
+                    <input type="text" id="authUsernameInput" required placeholder="Enter username" class="w-full bg-[#131926] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] transition-all font-mono">
+                  </div>
+                </div>
+
+                <!-- Email (Register only) -->
+                <div id="authEmailRow" class="hidden space-y-1">
+                  <label class="text-xs font-mono text-[#94A3B8]">EMAIL ADDRESS</label>
+                  <input type="email" id="authEmailInput" placeholder="name@domain.com" class="w-full bg-[#131926] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] transition-all font-mono">
+                </div>
+
+                <!-- City (Register only) -->
+                <div id="authCityRow" class="hidden space-y-1">
+                  <label class="text-xs font-mono text-[#94A3B8]">DELIVERY HUB CITY</label>
+                  <select id="authCityInput" class="w-full bg-[#131926] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#00F0FF] transition-all font-mono">
+                    <option value="Bengaluru">Bengaluru (Base Hub)</option>
+                    <option value="Chennai">Chennai Hub</option>
+                    <option value="Hyderabad">Hyderabad Hub</option>
+                    <option value="Mumbai">Mumbai Hub</option>
+                    <option value="Delhi">Delhi Hub</option>
+                    <option value="Kolkata">Kolkata Hub</option>
+                  </select>
+                </div>
+
+                <!-- Password -->
+                <div class="space-y-1">
+                  <label class="text-xs font-mono text-[#94A3B8]">PASSWORD</label>
+                  <div class="relative">
+                    <input type="password" id="authPasswordInput" required placeholder="Enter password" class="w-full bg-[#131926] border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#00F0FF] transition-all font-mono">
+                  </div>
+                </div>
+
+                <!-- Premium Toggle (Register only) -->
+                <div id="authPremiumRow" class="hidden flex items-center gap-2 pt-1">
+                  <input type="checkbox" id="authPremiumInput" class="rounded bg-[#131926] border-white/20 text-[#00F0FF] focus:ring-0">
+                  <label for="authPremiumInput" class="text-xs text-[#94A3B8] font-mono">Activate Premium 10% Wholesale Tier</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="authSubmitBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#38BDF8] text-[#07090E] font-crl font-black text-sm tracking-wider uppercase transition-all shadow-[0_0_24px_rgba(0,240,255,0.35)] hover:shadow-[0_0_35px_rgba(0,240,255,0.5)] flex items-center justify-center gap-2">
+                  <span id="authSubmitText">LOG IN &amp; ENTER TERMINAL</span>
+                  <i data-lucide="log-in" class="w-4 h-4"></i>
+                </button>
+
+              </form>
+
+              <!-- Instant Guest Bypass Pill -->
+              <div class="pt-2 border-t border-white/[0.08] text-center">
+                <button type="button" onclick="enterStorefront()" class="text-xs font-mono text-[#94A3B8] hover:text-[#00F0FF] transition-colors flex items-center justify-center gap-1.5 mx-auto">
+                  <span>Skip authentication &amp; continue as Guest</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Footer Meta Strip -->
+    <div class="w-full border-t border-white/[0.08] py-4 px-6 text-center text-xs font-mono text-[#64748B]">
+      FIGMA MAKE DESIGN SYSTEM SPECIFICATION · AWWWARDS-TIER DARK MODE · SQLITE ATOMIC INVENTORY &amp; IEEE 754 BANKER'S ROUNDING
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- GOD-LEVEL EDITORIAL NAVIGATION BAR                                        -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-50 px-6 py-4 border-b border-white/[0.08] bg-[#070709]/85 backdrop-blur-xl transition-all">
+    <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+      
+      <!-- Logo Monogram & Department (Figma Specified Glowing Token) -->
+      <a href="javascript:void(0)" onclick="openLandingGate()" class="flex items-center gap-3.5 group cursor-pointer" title="Return to Landing &amp; Auth Gateway">
+        <div class="relative w-10 h-10 rounded-2xl p-[1px] bg-gradient-to-br from-[#00F0FF] via-[#38BDF8] to-[#3B82F6] shadow-[0_0_20px_rgba(0,240,255,0.4)] group-hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] group-hover:scale-105 transition-all flex items-center justify-center">
+          <div class="w-full h-full bg-[#07090E] rounded-[15px] flex items-center justify-center">
+            <svg class="w-5 h-5 text-[#00F0FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="21" r="1.5"></circle>
+              <circle cx="19" cy="21" r="1.5"></circle>
+              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+              <path d="m13 7-3 4h4l-2 4"></path>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="font-crl text-lg font-bold tracking-tight text-white flex items-center gap-2">
+            <span>SMART<span class="text-[#00F0FF]">CART</span></span>
+            <span class="text-[10px] font-mono font-bold text-[#07090E] bg-gradient-to-r from-[#00F0FF] to-[#38BDF8] px-2 py-0.5 rounded-full shadow-[0_0_12px_rgba(0,240,255,0.4)]">PRO</span>
+          </div>
+          <div class="text-[9px] font-mono tracking-widest text-[#94A3B8] uppercase">FIGMA COMMERCIAL ENGINE &amp; LEDGER</div>
+        </div>
+      </a>
+
+      <!-- Center Anchors -->
+      <nav class="hidden md:flex items-center gap-8 font-crl text-sm tracking-wider uppercase text-[#95A2B5]">
+        <button onclick="scrollToSection('catalogSection')" class="hover:text-white transition-colors">Catalog / 16</button>
+        <button onclick="scrollToSection('billingSection')" class="hover:text-white transition-colors">Billing Terminal</button>
+        <button onclick="scrollToSection('routingSection')" class="hover:text-white transition-colors">Dijkstra Radar</button>
+        <button onclick="scrollToSection('defenseSection')" class="hover:text-white transition-colors">Defense Specs</button>
+      </nav>
+
+      <!-- Right Controls: User Auth, Audio Synth Toggle, Base Hub, Cart -->
+      <div class="flex items-center gap-4">
+        
+        <!-- User Account / Gateway Trigger -->
+        <button onclick="openLandingGate(true)" id="navAuthBtn" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs text-[#95A2B5] hover:text-white transition-all" title="Manage Session or Open Login">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-[#00F0FF]" id="navAuthIcon"></i>
+          <span id="navAuthText" class="font-mono text-white text-[11px]">GUEST</span>
+          <span id="navTierBadge" class="hidden text-[9px] font-mono font-bold text-amber-tax px-1.5 py-0.2 rounded bg-amber-tax/10 border border-amber-tax/30">PREMIUM</span>
+        </button>
+
+        <!-- Synthetic Audio Toggle -->
+        <button onclick="toggleAudioSynth()" id="synthSoundBtn" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 font-mono text-[10px] text-[#95A2B5] hover:text-[#00F0FF] transition-all" title="Toggle Procedural Haptic Chimes">
+          <i data-lucide="volume-2" class="w-3.5 h-3.5" id="synthIcon"></i>
+          <span id="synthText">AUDIO: ON</span>
+        </button>
+
+        <!-- Base Hub Indicator -->
+        <button onclick="scrollToSection('routingSection')" class="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-[#95A2B5]">
+          <span class="w-2 h-2 rounded-full bg-emerald-live pulse-ring"></span>
+          <span id="navCityText" class="font-mono text-white text-[11px]">BLR Base Hub</span>
+        </button>
+
+        <!-- Cart Action Trigger -->
+        <button onclick="toggleCartDrawer()" class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-sm tracking-wider shadow-[0_0_24px_rgba(0,240,255,0.3)] transition-all">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span>CART</span>
+          <span id="cartCountBadge" class="w-5 h-5 rounded-full bg-[#05070B] text-[#00F0FF] font-mono font-bold text-xs flex items-center justify-center">
+            0
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN EDITORIAL CONTENT                                                    -->
+  <!-- ========================================================================= -->
+  <main class="relative z-10 max-w-[1440px] mx-auto px-6 pt-12 pb-28 flex-1 space-y-28">
+
+    <!-- ======================================================================= -->
+    <!-- AWWWARDS-GRADE CINEMATIC HERO SECTION                                   -->
+    <!-- ======================================================================= -->
+    <section class="space-y-8">
+      
+      <!-- Running Index Header Strip -->
+      <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] font-mono text-xs text-[#95A2B5]">
+        <div class="flex items-center gap-3">
+          <span class="text-[#00F0FF] font-bold">[ INDEX 01 ]</span>
+          <span>CREATIVE REFERENCE ARCHITECTURE</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>DUAL-INTERFACE WEB / CLI</span>
+          <span class="text-emerald-live font-semibold">● 16 SKUs LIVE IN STORE.DB</span>
+        </div>
+      </div>
+
+      <!-- Refined Editorial Display Headline with Aaroh Dynamic Proximity Scramble -->
+      <div class="space-y-4">
+        <h1 id="heroScrambleTitle" class="crl-headline inline-flex flex-col items-start w-fit text-3xl sm:text-5xl md:text-6xl lg:text-[62px] text-white tracking-normal leading-[1.08] cursor-default select-none py-1">
+          <span id="scrambleLine1" class="inline-block w-fit text-white">ARCHITECTURAL COMMERCE &amp;</span>
+          <span id="scrambleLine2" class="inline-block w-fit mt-1 sm:mt-2">ALGORITHMIC LEDGER.</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl font-display text-[#95A2B5] max-w-3xl leading-relaxed">
+          Engineered at the intersection of high-fashion editorial systems and native Python computing. Featuring IEEE 754 Banker's rounding financial audits, SciPy shortest-path supply chain routing, and instant SQLite synchronization with terminal CLI console (<code class="text-[#00F0FF] font-mono font-semibold">run_cli.py</code>).
+        </p>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex flex-wrap items-center gap-4 pt-4">
+        <button onclick="scrollToSection('catalogSection')" class="px-8 py-4 rounded-full bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-base tracking-wider uppercase transition-all shadow-[0_0_24px_rgba(0,240,255,0.35)] flex items-center gap-3">
+          <span>ENTER THE 3D LIBRARY</span>
+          <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
+        </button>
+
+        <button onclick="scrollToSection('billingSection')" class="px-8 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-crl font-semibold text-base tracking-wider uppercase transition-all flex items-center gap-3">
+          <i data-lucide="terminal" class="w-4 h-4 text-[#00F0FF]"></i>
+          <span>AUDIT FINANCIAL CONSOLE</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- CRL DUAL-MODE GALLERY: [ WHEEL, (16) ] vs [ LIST ]                      -->
+    <!-- ======================================================================= -->
+    <section id="catalogSection" class="space-y-8 scroll-mt-24">
+      
+      <!-- Section Header & Signature Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
+        <div>
+          <div class="font-mono text-xs text-[#00F0FF] font-bold tracking-widest uppercase mb-1">
+            [ COLLECTION VIEWPORT ]
+          </div>
+          <h2 class="font-crl text-4xl sm:text-5xl font-bold uppercase text-white">
+            PRODUCT VAULT &amp; HARDWARE LIBRARY
+          </h2>
+        </div>
+
+        <!-- The Mode Switcher: Wheel vs List -->
+        <div class="flex items-center gap-2 p-1.5 rounded-full bg-[#080B14] border border-white/10 shadow-lg">
+          <button onclick="switchCatalogMode('wheel')" id="modeWheelBtn" class="crl-switch-btn is-active flex items-center gap-1.5">
+            <span>Wheel,</span>
+            <span class="text-xs font-mono">(16)</span>
+          </button>
+          <button onclick="switchCatalogMode('list')" id="modeListBtn" class="crl-switch-btn flex items-center gap-1.5">
+            <span>List</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="filterCategory('All')" class="cat-pill active px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-[#00F0FF] text-[#05070B] font-bold" data-cat="All">
+          All Departments (16)
+        </button>
+        <button onclick="filterCategory('Electronics')" class="cat-pill px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-white/[0.04] text-[#95A2B5] hover:text-white" data-cat="Electronics">
+          Electronics
+        </button>
+        <button onclick="filterCategory('Furniture')" class="cat-pill px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-white/[0.04] text-[#95A2B5] hover:text-white" data-cat="Furniture">
+          Furniture
+        </button>
+        <button onclick="filterCategory('Home & Kitchen')" class="cat-pill px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-white/[0.04] text-[#95A2B5] hover:text-white" data-cat="Home & Kitchen">
+          Home &amp; Kitchen
+        </button>
+        <button onclick="filterCategory('Fashion')" class="cat-pill px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-white/[0.04] text-[#95A2B5] hover:text-white" data-cat="Fashion">
+          Fashion
+        </button>
+        <button onclick="filterCategory('Groceries')" class="cat-pill px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-white/[0.04] text-[#95A2B5] hover:text-white" data-cat="Groceries">
+          Groceries
+        </button>
+      </div>
+
+      <!-- VIEW MODE 1: 3D CYLINDRICAL WHEEL VIEW -->
+      <div id="wheelContainer" class="relative">
+        <div class="text-center font-mono text-xs text-[#95A2B5] mb-2 flex items-center justify-center gap-3">
+          <span>← DRAG HORIZONTALLY OR USE ARROWS TO ROTATE 3D VAULT →</span>
+        </div>
+
+        <div class="wheel-viewport" id="wheelViewport">
+          <div class="wheel-cylinder" id="wheelCylinder">
+            <!-- 3D Cards Injected dynamically via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Wheel Navigation Controls -->
+        <div class="flex items-center justify-center gap-4 mt-6">
+          <button onclick="rotateWheelStep(-1)" class="w-12 h-12 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 flex items-center justify-center text-white hover:text-[#00F0FF] transition-all">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <div class="font-mono text-xs text-[#00F0FF] font-bold px-4 py-2 rounded-full bg-white/[0.03] border border-white/10" id="wheelCurrentIndexDisplay">
+            ITEM 01 / 16
+          </div>
+          <button onclick="rotateWheelStep(1)" class="w-12 h-12 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 flex items-center justify-center text-white hover:text-[#00F0FF] transition-all">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW MODE 2: BRUTALIST ARCHITECTURAL LIST VIEW -->
+      <div id="listContainer" class="hidden space-y-2">
+        <div class="grid grid-cols-12 gap-4 px-4 py-3 border-b border-white/[0.1] font-mono text-[11px] text-[#95A2B5] uppercase tracking-wider">
+          <div class="col-span-1">No.</div>
+          <div class="col-span-4">Item Name / Specification</div>
+          <div class="col-span-2">Department</div>
+          <div class="col-span-2">Availability</div>
+          <div class="col-span-2 text-right">Price (INR)</div>
+          <div class="col-span-1 text-center">Action</div>
+        </div>
+
+        <div id="listItemsRows" class="space-y-1">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================================= -->
+    <!-- ALGORITHMIC BILLING TERMINAL & AUDIT CONSOLE                            -->
+    <!-- ======================================================================= -->
+    <section id="billingSection" class="space-y-8 scroll-mt-24">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] font-mono text-xs text-[#95A2B5]">
+        <div class="flex items-center gap-3">
+          <span class="text-[#00F0FF] font-bold">[ INDEX 02 ]</span>
+          <span>MATHEMATICAL AUDIT &amp; TAX ENGINE</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>IEEE 754 BANKER'S ROUNDING</span>
+          <span class="text-amber-tax font-semibold">5% STATUTORY GST</span>
+        </div>
+      </div>
+
+      <div class="god-shell p-6 sm:p-10 space-y-8">
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/[0.08]">
+          <div>
+            <h2 class="font-crl text-3xl sm:text-4xl font-bold uppercase text-white">
+              Algorithmic Billing Terminal &amp; Statutory Ledger
+            </h2>
+            <p class="text-sm font-sans text-[#95A2B5] mt-1">
+              Deterministic Round-Half-To-Even arithmetic with persistent disk receipt generation in <code class="text-[#00F0FF]">/invoices</code>.
+            </p>
+          </div>
+
+          <!-- Invoice Exporters -->
+          <div class="flex items-center gap-3">
+            <button onclick="downloadAsciiInvoice()" class="px-5 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs font-mono text-white flex items-center gap-2 transition-all">
+              <i data-lucide="file-text" class="w-3.5 h-3.5 text-[#00F0FF]"></i>
+              <span>Export ASCII Receipt</span>
+            </button>
+            <button onclick="downloadCsvInvoice()" class="px-5 py-2.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-xs font-mono text-white flex items-center gap-2 transition-all">
+              <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-live"></i>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Double Column Terminal Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Left 7 Cols: Active Line Items -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="text-xs font-mono uppercase text-[#95A2B5] tracking-widest flex items-center justify-between">
+              <span>SYNCHRONIZED CART ITEMS</span>
+              <span id="ledgerItemsCount" class="text-[#00F0FF]">0 ITEMS ACTIVE</span>
+            </div>
+
+            <div id="terminalLedgerList" class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+              <!-- Injected via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Financial Audit Console -->
+          <div class="lg:col-span-5 space-y-5">
+            <div class="p-6 rounded-2xl bg-[#06080F] border border-white/10 space-y-4 font-mono">
+              <div class="text-xs font-bold text-white uppercase tracking-wider flex items-center justify-between">
+                <span>AUDIT COMPUTATION LOG</span>
+                <span class="text-emerald-live text-[10px]">VERIFIED ✓</span>
+              </div>
+
+              <div class="space-y-3 text-xs pt-2">
+                <div class="flex items-center justify-between text-[#95A2B5]">
+                  <span>Gross Subtotal:</span>
+                  <span id="termSubtotal" class="font-bold text-white">₹0.00</span>
+                </div>
+
+                <div class="flex items-center justify-between text-[#95A2B5]">
+                  <div class="flex items-center gap-1.5">
+                    <span>Privilege Discount:</span>
+                    <span id="termDiscountRateBadge" class="text-[10px] text-emerald-live">(Standard 2%)</span>
+                  </div>
+                  <span id="termDiscount" class="font-bold text-emerald-live">-₹0.00</span>
+                </div>
+
+                <div class="flex items-center justify-between text-[#95A2B5]">
+                  <span>Taxable Base Value:</span>
+                  <span id="termTaxable" class="font-bold text-white">₹0.00</span>
+                </div>
+
+                <div class="flex items-center justify-between text-[#95A2B5] pb-2 border-b border-white/[0.08]">
+                  <div class="flex items-center gap-1.5">
+                    <span>Statutory 5% GST:</span>
+                    <span class="text-[10px] text-amber-tax">(Banker's Rounding)</span>
+                  </div>
+                  <span id="termTax" class="font-bold text-amber-tax">+₹0.00</span>
+                </div>
+
+                <div class="flex items-center justify-between pt-1">
+                  <span class="font-crl text-lg uppercase text-white">TOTAL PAYABLE:</span>
+                  <span id="termTotal" class="font-mono font-black text-2xl text-[#00F0FF]">₹0.00</span>
+                </div>
+              </div>
+
+              <!-- Customer Tier Switch -->
+              <div class="pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs">
+                <span class="text-[#95A2B5]">Member Tier Privilege:</span>
+                <button onclick="toggleTierSwitch()" id="termTierButton" class="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[#00F0FF] font-bold text-xs hover:border-[#00F0FF] transition-all">
+                  Standard Member (2% Off)
+                </button>
+              </div>
+
+              <!-- Checkout CTA -->
+              <div class="pt-3">
+                <button onclick="executeCheckout()" class="w-full py-4 rounded-xl bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-base tracking-wider uppercase transition-all shadow-[0_0_24px_rgba(0,240,255,0.3)] flex items-center justify-center gap-2">
+                  <span>CONFIRM &amp; ARCHIVE INVOICE</span>
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <!-- Inspect Database Receipts CTA -->
+              <div class="pt-2">
+                <button onclick="openDatabaseReceiptsModal()" class="w-full py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#C5A059]/40 text-[#C5A059] font-mono text-xs flex items-center justify-center gap-2 transition-all" title="Inspect persistent orders and line items directly from SQLite3 database">
+                  <i data-lucide="database" class="w-3.5 h-3.5"></i>
+                  <span>Inspect Saved Receipts in SQLite (store.db)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- INDIA DIJKSTRA LOGISTICS RADAR & CORRIDOR ENGINE                        -->
+    <!-- ======================================================================= -->
+    <section id="routingSection" class="space-y-8 scroll-mt-24">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] font-mono text-xs text-[#95A2B5]">
+        <div class="flex items-center gap-3">
+          <span class="text-[#00F0FF] font-bold">[ INDEX 03 ]</span>
+          <span>INDIAN HIGHWAY CORRIDOR RADAR</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>SCIPY GRAPH SOLVER</span>
+          <span class="text-[#00F0FF] font-semibold">BASE: BENGALURU (12.97°N, 77.59°E)</span>
+        </div>
+      </div>
+
+      <div class="god-shell p-6 sm:p-10 space-y-6">
+        
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-4 border-b border-white/[0.08]">
+          <div>
+            <h2 class="font-crl text-3xl sm:text-4xl font-bold uppercase text-white">
+              Dijkstra Shortest Corridor Logistics Radar
+            </h2>
+            <p class="text-sm text-[#95A2B5]">
+              Real-time road freight path optimization from Bengaluru Base Hub to Indian metropolitan destinations.
+            </p>
+          </div>
+
+          <!-- Destination Selector -->
+          <div class="flex items-center gap-3 bg-[#06080F] p-2 rounded-2xl border border-white/10">
+            <span class="text-xs font-mono text-[#95A2B5]">DESTINATION:</span>
+            <select id="routeCitySelect" onchange="calculateRoute()" class="bg-[#0A0E17] border border-white/15 text-[#00F0FF] font-mono font-bold text-xs rounded-xl px-4 py-2 outline-none focus:border-[#00F0FF]">
+              <option value="Chennai">Chennai (346 km)</option>
+              <option value="Hyderabad">Hyderabad (569 km)</option>
+              <option value="Mumbai">Mumbai (990 km)</option>
+              <option value="Delhi">Delhi (2,169 km)</option>
+              <option value="Kolkata">Kolkata (2,026 km)</option>
+              <option value="Kochi">Kochi (548 km)</option>
+              <option value="Ahmedabad">Ahmedabad (1,515 km)</option>
+              <option value="Jaipur">Jaipur (1,889 km)</option>
+              <option value="Chandigarh">Chandigarh (2,419 km)</option>
+              <option value="Lucknow">Lucknow (2,719 km)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Radar Canvas & Corridor Metrics -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <div class="lg:col-span-8 bg-[#04060A] rounded-2xl border border-white/10 p-4 relative overflow-hidden flex items-center justify-center min-h-[400px]">
+            <canvas id="routeCanvas" width="800" height="380" class="w-full max-w-full h-auto"></canvas>
+          </div>
+
+          <div class="lg:col-span-4 space-y-4">
+            <div class="p-6 rounded-2xl bg-[#06080F] border border-white/10 space-y-3 font-mono">
+              <div class="text-[10px] uppercase text-[#95A2B5] tracking-wider">SciPy Shortest Path Distance</div>
+              <div id="routeDistanceDisplay" class="font-crl text-5xl font-black text-[#00F0FF]">
+                346.0 km
+              </div>
+              <div class="flex items-center justify-between text-xs text-[#95A2B5] pt-3 border-t border-white/[0.08]">
+                <span>ESTIMATED FREIGHT ETA:</span>
+                <span id="routeEtaDisplay" class="font-bold text-white text-sm">~5.8 Hours</span>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-[#06080F] border border-white/10 space-y-3 font-mono">
+              <div class="text-[10px] uppercase text-[#95A2B5] tracking-wider">Transit Waypoints Corridor</div>
+              <div id="routePathDisplay" class="text-xs text-white leading-relaxed font-semibold">
+                Bengaluru (Hub) → Chennai
+              </div>
+              <div class="text-[11px] text-[#59677B] pt-2 border-t border-white/[0.06]">
+                Adjacency matrix solved via <code class="text-[#00F0FF]">scipy.sparse.csgraph.dijkstra</code>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- DEFENSE-GRADE VERIFICATION ARCHITECTURE                                 -->
+    <!-- ======================================================================= -->
+    <section id="defenseSection" class="space-y-8 scroll-mt-24">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-white/[0.08] font-mono text-xs text-[#95A2B5]">
+        <div class="flex items-center gap-3">
+          <span class="text-[#00F0FF] font-bold">[ INDEX 04 ]</span>
+          <span>SYSTEM DEFENSE SPECIFICATIONS</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>ZERO-LOCK ACID TRANSACTIONS</span>
+          <span class="text-emerald-live font-semibold">VERIFIED ARCHITECTURE</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="god-shell p-6 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-live/10 border border-emerald-live/30 flex items-center justify-center text-emerald-live">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-crl text-2xl font-bold uppercase text-white">Zero-Lock Concurrency</h3>
+          <p class="text-xs text-[#95A2B5] leading-relaxed">
+            SQLite configured in Write-Ahead Logging (WAL) mode. Simultaneous read/write cycles between native terminal CLI <code class="text-[#00F0FF]">run_cli.py</code> and web GUI execute with zero locking contention.
+          </p>
+          <div class="pt-3 border-t border-white/[0.06] text-[11px] font-mono text-emerald-live flex justify-between">
+            <span>PRAGMA journal_mode=WAL</span>
+            <span>ACTIVE ✓</span>
+          </div>
+        </div>
+
+        <div class="god-shell p-6 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-tax/10 border border-amber-tax/30 flex items-center justify-center text-amber-tax">
+            <i data-lucide="calculator" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-crl text-2xl font-bold uppercase text-white">Audited Tax Invoicing</h3>
+          <p class="text-xs text-[#95A2B5] leading-relaxed">
+            Statutory 5% GST computation utilizes strict IEEE 754 Banker's Rounding (Round-Half-To-Even), completely eliminating cumulative penny drift across multi-SKU line items.
+          </p>
+          <div class="pt-3 border-t border-white/[0.06] text-[11px] font-mono text-amber-tax flex justify-between">
+            <span>IEEE 754 Half-to-Even</span>
+            <span>COMPLIANT ✓</span>
+          </div>
+        </div>
+
+        <div class="god-shell p-6 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 flex items-center justify-center text-[#00F0FF]">
+            <i data-lucide="cpu" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-crl text-2xl font-bold uppercase text-white">Dual-Mode Terminal</h3>
+          <p class="text-xs text-[#95A2B5] leading-relaxed">
+            A single state store shared between interactive web GUI and CLI curses terminal mode. Inventory decrements trigger synchronously across both execution environments.
+          </p>
+          <div class="pt-3 border-t border-white/[0.06] text-[11px] font-mono text-[#00F0FF] flex justify-between">
+            <span>Curses + HTTP Daemon</span>
+            <span>SYNCHRONIZED ✓</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- SLIDE-OVER CART DRAWER                                                    -->
+  <!-- ========================================================================= -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-500 opacity-0 invisible">
+    <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-auto"></div>
+
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#080B14] border-l border-white/10 p-6 flex flex-col pointer-events-auto shadow-2xl transform translate-x-full transition-transform duration-500 ease-out" id="cartDrawerPanel">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-[#00F0FF]"></i>
+          <h3 class="font-crl text-2xl font-bold uppercase text-white">Your Cart &amp; Invoice</h3>
+        </div>
+        <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Customer Details Input -->
+      <div class="py-4 border-b border-white/10 space-y-3">
+        <div class="text-[10px] font-mono text-[#95A2B5] uppercase tracking-widest">Customer Details</div>
+        <div class="relative">
+          <input type="text" id="custNameInput" value="Student Examiner" placeholder="Full Name" class="w-full bg-[#04060A] border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs text-white outline-none focus:border-[#00F0FF] font-sans">
+          <i data-lucide="user" class="w-4 h-4 text-gray-400 absolute left-3 top-2.5"></i>
+        </div>
+        
+        <div class="flex items-center justify-between text-xs text-[#95A2B5] pt-1">
+          <span>Customer Tier Privilege:</span>
+          <button onclick="toggleTierSwitch()" id="drawerTierButton" class="px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[#00F0FF] font-mono text-[11px] font-bold">
+            Standard (2% Off)
+          </button>
+        </div>
+      </div>
+
+      <!-- Line Items List -->
+      <div id="cartItemsList" class="flex-1 overflow-y-auto py-4 space-y-3">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Calculation Ledger -->
+      <div class="pt-4 border-t border-white/10 space-y-2 font-mono text-xs">
+        <div class="flex items-center justify-between text-[#95A2B5]">
+          <span>Subtotal Taxable:</span>
+          <span id="billSubtotal">₹0.00</span>
+        </div>
+        <div class="flex items-center justify-between text-emerald-live">
+          <span>Discount:</span>
+          <span id="billDiscount">-₹0.00</span>
+        </div>
+        <div class="flex items-center justify-between text-amber-tax">
+          <span>Statutory 5% GST (Banker's):</span>
+          <span id="billTax">+₹0.00</span>
+        </div>
+        <div class="flex items-center justify-between text-base font-bold text-white pt-2 border-t border-white/10">
+          <span>Total Payable:</span>
+          <span id="billTotal" class="text-[#00F0FF] text-2xl font-black">₹0.00</span>
+        </div>
+      </div>
+
+      <div class="pt-4">
+        <button onclick="executeCheckout()" id="btnCheckout" class="w-full py-4 rounded-xl bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-base tracking-wider uppercase transition-all shadow-lg flex items-center justify-center gap-2">
+          <span>CONFIRM &amp; ARCHIVE INVOICE</span>
+          <i data-lucide="check" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- QUICK VIEW SPECIFICATION MODAL                                            -->
+  <!-- ========================================================================= -->
+  <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div onclick="closeProductModal()" class="absolute inset-0 bg-black/85 backdrop-blur-md"></div>
+    <div class="relative bg-[#080B14] border border-white/15 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 z-10 transform scale-95 transition-transform duration-300" id="productModalContent">
+      <div class="flex justify-between items-start">
+        <div>
+          <span id="modalCatTag" class="text-[10px] font-mono font-bold text-[#00F0FF] uppercase tracking-widest bg-[#00F0FF]/10 px-2.5 py-1 rounded-full border border-[#00F0FF]/20">Category</span>
+          <h3 id="modalName" class="font-crl text-3xl font-bold uppercase text-white mt-2">Product Name</h3>
+        </div>
+        <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+        <div class="bg-black/50 rounded-2xl overflow-hidden border border-white/10 aspect-square flex items-center justify-center p-4">
+          <img id="modalImg" src="" alt="Product" class="w-full h-full object-cover rounded-xl shadow-lg">
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 text-amber-400 text-sm font-bold">
+            <span id="modalRating">★ 4.8</span>
+            <span id="modalReviews" class="text-gray-400 font-normal text-xs">(1,420 verified reviews)</span>
+          </div>
+          <p id="modalDesc" class="text-xs text-[#95A2B5] leading-relaxed">
+            Detailed engineering hardware specification.
+          </p>
+          <div class="space-y-1">
+            <div id="modalPrice" class="font-mono text-3xl font-black text-[#00F0FF]">₹0.00</div>
+            <div class="text-[11px] font-mono text-emerald-live" id="modalStock">● 24 In Stock (Atomic Lock Active)</div>
+            <div class="text-[10px] font-mono text-[#59677B]">Statutory 5% GST calculated using IEEE 754 Banker's Rounding</div>
+          </div>
+          <button id="modalAddToCartBtn" class="w-full py-3.5 rounded-xl bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-sm tracking-wider uppercase transition-all shadow-md flex items-center justify-center gap-2">
+            <span>ADD TO CART</span>
+            <i data-lucide="plus" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HIGH-END TAX INVOICE & ORDER CONFIRMATION MODAL                            -->
+  <!-- ========================================================================= -->
+  <div id="orderInvoiceModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div onclick="closeInvoiceModal()" class="absolute inset-0 bg-black/85 backdrop-blur-md"></div>
+    <div class="relative bg-[#080B14] border border-[#C5A059]/30 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 z-10 transform scale-95 transition-transform duration-300" id="orderInvoiceModalContent">
+      <div class="flex justify-between items-start border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#C5A059]/20 border border-[#C5A059]/40 flex items-center justify-center text-[#C5A059]">
+            <i data-lucide="receipt" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono text-[#C5A059] tracking-widest uppercase">TRANSACTION ARCHIVED IN STORE.DB</div>
+            <h3 id="invoiceModalOrderId" class="font-crl text-2xl font-bold uppercase text-white">ORDER #-- VERIFIED</h3>
+          </div>
+        </div>
+        <button onclick="closeInvoiceModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Quick Summary Cards -->
+      <div class="grid grid-cols-3 gap-3 font-mono text-xs">
+        <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+          <div class="text-[10px] text-[#95A2B5]">CUSTOMER</div>
+          <div id="invoiceModalCustName" class="font-bold text-white truncate">Customer</div>
+        </div>
+        <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+          <div class="text-[10px] text-[#95A2B5]">DESTINATION HUB</div>
+          <div id="invoiceModalCity" class="font-bold text-[#00F0FF] truncate">Bengaluru</div>
+        </div>
+        <div class="p-3 rounded-xl bg-[#C5A059]/10 border border-[#C5A059]/30">
+          <div class="text-[10px] text-[#C5A059]">TOTAL AUDITED</div>
+          <div id="invoiceModalTotal" class="font-bold text-[#C5A059] text-sm">₹0.00</div>
+        </div>
+      </div>
+
+      <!-- Formatted Monospaced ASCII Tax Invoice -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-[11px] font-mono text-[#95A2B5]">
+          <span>ASCII INVOICE LEDGER (SESSION 3 & 6 SPECIFICATION)</span>
+          <span class="text-emerald-live font-semibold">IEEE 754 BANKER'S ROUNDED ✓</span>
+        </div>
+        <pre id="invoiceAsciiContent" class="font-mono text-[11px] leading-tight p-4 bg-black/80 border border-white/10 rounded-xl text-emerald-300 overflow-x-auto whitespace-pre max-h-[220px] select-all"></pre>
+      </div>
+
+      <!-- Actions: Download ASCII, Download CSV, Close -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+        <button onclick="downloadLatestInvoiceTxt()" class="w-full sm:w-1/2 py-3 rounded-xl bg-white/[0.05] hover:bg-white/10 border border-white/15 text-white font-mono text-xs flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="file-text" class="w-4 h-4 text-[#00F0FF]"></i>
+          <span>Save ASCII Receipt (.txt)</span>
+        </button>
+        <button onclick="downloadLatestInvoiceCsv()" class="w-full sm:w-1/2 py-3 rounded-xl bg-[#C5A059] hover:bg-[#D4AF37] text-[#070709] font-crl font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(197,160,89,0.3)]">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Export CSV Ledger (.csv)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ========================================================================= -->
+  <!-- LIVE SQLITE DATABASE RECEIPTS LEDGER MODAL                                -->
+  <!-- ========================================================================= -->
+  <div id="databaseReceiptsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-all duration-300">
+    <div onclick="closeDatabaseReceiptsModal()" class="absolute inset-0 bg-black/90 backdrop-blur-xl"></div>
+    <div class="relative bg-[#090C14] border border-[#C5A059]/40 rounded-3xl max-w-5xl w-full p-6 sm:p-8 shadow-2xl space-y-6 z-10 max-h-[90vh] flex flex-col transform scale-95 transition-transform duration-300" id="databaseReceiptsModalContent">
+      
+      <!-- Modal Header Strip -->
+      <div class="flex justify-between items-start border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-[#C5A059]/15 border border-[#C5A059]/40 flex items-center justify-center text-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.3)]">
+            <i data-lucide="database" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-[10px] font-mono text-[#C5A059] tracking-widest uppercase flex items-center gap-2">
+              <span>SQLITE3 RELATIONAL REPOSITORY (STORE.DB)</span>
+              <span id="dbReceiptsCountBadge" class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px]">15 ORDERS COMMITTED</span>
+            </div>
+            <h2 class="font-crl text-2xl sm:text-3xl font-bold uppercase text-white mt-0.5">Live Database Receipts Ledger</h2>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="loadDatabaseReceipts()" class="px-3.5 py-1.5 rounded-xl bg-white/[0.05] hover:bg-white/10 border border-white/10 text-[#00F0FF] font-mono text-xs flex items-center gap-1.5 transition-all" title="Refresh SQLite rows">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Refresh</span>
+          </button>
+          <button onclick="closeDatabaseReceiptsModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Explanatory Banner -->
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 font-mono text-xs text-[#95A2B5] flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-live"></span>
+          <span>Dual-table schema: <code class="text-white">orders</code> (Master Header) + <code class="text-white">order_items</code> (Line Items linked by <code class="text-[#00F0FF]">order_id</code> FK).</span>
+        </div>
+        <span class="text-emerald-400">ACID WAL Mode Active ✓</span>
+      </div>
+
+      <!-- Scrollable Orders Table -->
+      <div class="flex-1 overflow-y-auto space-y-3 pr-2">
+        <div id="dbReceiptsList" class="space-y-3">
+          <!-- Injected via JavaScript from /api/orders -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT MASTER APPLICATION LOGIC                                       -->
+  <!-- ========================================================================= -->
+  <script>
+    // 1. AudioContext Synthetic Procedural Sound Engine
+    let audioCtx = null;
+    let audioSynthEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSyntheticTone(freq = 880, duration = 0.04, type = 'sine', gainVal = 0.03) {
+      if (!audioSynthEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function toggleAudioSynth() {
+      audioSynthEnabled = !audioSynthEnabled;
+      const text = document.getElementById('synthText');
+      const icon = document.getElementById('synthIcon');
+      if (audioSynthEnabled) {
+        text.innerText = 'AUDIO: ON';
+        icon.setAttribute('data-lucide', 'volume-2');
+        playSyntheticTone(1200, 0.08, 'sine', 0.05);
+      } else {
+        text.innerText = 'AUDIO: MUTED';
+        icon.setAttribute('data-lucide', 'volume-x');
+      }
+      lucide.createIcons();
+    }
+
+    // 2. Ultra-Lightweight Quantum Particle Constellation Canvas (<0.2ms GPU cost)
+    const pCanvas = document.getElementById('particleCanvas');
+    const pCtx = pCanvas.getContext('2d');
+    let particles = [];
+    const NUM_PARTICLES = 45;
+
+    function resizeParticleCanvas() {
+      pCanvas.width = window.innerWidth;
+      pCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeParticleCanvas);
+    resizeParticleCanvas();
+
+    class QuantumParticle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * pCanvas.width;
+        this.y = Math.random() * pCanvas.height;
+        this.vx = (Math.random() - 0.5) * 0.45;
+        this.vy = (Math.random() - 0.5) * 0.45;
+        this.radius = Math.random() * 1.5 + 0.8;
+        this.alpha = Math.random() * 0.4 + 0.2;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > pCanvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > pCanvas.height) this.vy *= -1;
+      }
+      draw() {
+        pCtx.beginPath();
+        pCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        pCtx.fillStyle = `rgba(197, 160, 89, ${this.alpha})`;
+        pCtx.fill();
+      }
+    }
+
+    for (let i = 0; i < NUM_PARTICLES; i++) {
+      particles.push(new QuantumParticle());
+    }
+
+    let pMouseX = -9999, pMouseY = -9999;
+    window.addEventListener('mousemove', (e) => {
+      pMouseX = e.clientX;
+      pMouseY = e.clientY;
+    });
+
+    function renderParticles() {
+      pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        p1.update();
+        p1.draw();
+
+        // Connect near mouse with Cartier Roadster Gold
+        const dMouse = Math.hypot(p1.x - pMouseX, p1.y - pMouseY);
+        if (dMouse < 130) {
+          pCtx.beginPath();
+          pCtx.moveTo(p1.x, p1.y);
+          pCtx.lineTo(pMouseX, pMouseY);
+          pCtx.strokeStyle = `rgba(212, 175, 55, ${0.38 * (1 - dMouse / 130)})`;
+          pCtx.lineWidth = 0.8;
+          pCtx.stroke();
+        }
+
+        // Connect between near particles with Platinum Hairlines
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+          if (dist < 90) {
+            pCtx.beginPath();
+            pCtx.moveTo(p1.x, p1.y);
+            pCtx.lineTo(p2.x, p2.y);
+            pCtx.strokeStyle = `rgba(226, 212, 183, ${0.18 * (1 - dist / 90)})`;
+            pCtx.lineWidth = 0.6;
+            pCtx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(renderParticles);
+    }
+    requestAnimationFrame(renderParticles);
+
+    // 3. Fast CRL Magnetic Cursor Follower
+    const cursorDot = document.getElementById('crlCursorDot');
+    const cursorPill = document.getElementById('crlCursorPill');
+    const hoverPreview = document.getElementById('crlHoverImagePreview');
+    const hoverImageSrc = document.getElementById('crlHoverImageSrc');
+
+    let curX = 0, curY = 0, tgtX = 0, tgtY = 0;
+    let prevX = 0, prevY = 0;
+    let velX = 0, velY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      tgtX = e.clientX;
+      tgtY = e.clientY;
+      velX = tgtX - prevX;
+      velY = tgtY - prevY;
+      prevX = tgtX;
+      prevY = tgtY;
+    });
+
+    function updateCursor() {
+      curX += (tgtX - curX) * 0.22;
+      curY += (tgtY - curY) * 0.22;
+
+      if (cursorDot) {
+        cursorDot.style.left = `${curX}px`;
+        cursorDot.style.top = `${curY}px`;
+      }
+      if (cursorPill) {
+        cursorPill.style.left = `${curX}px`;
+        cursorPill.style.top = `${curY - 32}px`;
+      }
+      if (hoverPreview && hoverPreview.classList.contains('visible')) {
+        const rot = Math.max(-10, Math.min(10, velX * 0.35));
+        hoverPreview.style.left = `${curX + 130}px`;
+        hoverPreview.style.top = `${curY - 140}px`;
+        hoverPreview.style.transform = `rotate(${rot}deg)`;
+      }
+
+      requestAnimationFrame(updateCursor);
+    }
+    requestAnimationFrame(updateCursor);
+
+    function setCursorText(text) {
+      if (text) {
+        cursorPill.innerText = text;
+        cursorPill.classList.add('active');
+        cursorDot.style.transform = 'translate(-50%, -50%) scale(2)';
+      } else {
+        cursorPill.classList.remove('active');
+        cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+      }
+    }
+
+    // 4. Products State & Dual Mode Management
+    let allProducts = [];
+    let cart = [];
+    let activeCategory = 'All';
+    let currentCatalogMode = 'wheel';
+    let isPremiumMember = false;
+
+    // 3D Wheel Physics
+    let targetWheelAngle = 0;
+    let isDraggingWheel = false;
+    let dragStartX = 0;
+    let dragStartAngle = 0;
+
+    async function loadProducts() {
+      try {
+        const res = await fetch('/api/products');
+        allProducts = await res.json();
+        renderWheel();
+        renderList();
+        updateCartUI();
+      } catch (err) {
+        console.error('Failed to load products:', err);
+      }
+    }
+
+    function switchCatalogMode(mode) {
+      currentCatalogMode = mode;
+      const wheelBtn = document.getElementById('modeWheelBtn');
+      const listBtn = document.getElementById('modeListBtn');
+      const wheelCont = document.getElementById('wheelContainer');
+      const listCont = document.getElementById('listContainer');
+
+      if (mode === 'wheel') {
+        wheelBtn.classList.add('is-active');
+        listBtn.classList.remove('is-active');
+        wheelCont.classList.remove('hidden');
+        listCont.classList.add('hidden');
+        playSyntheticTone(960, 0.05, 'sine', 0.04);
+      } else {
+        listBtn.classList.add('is-active');
+        wheelBtn.classList.remove('is-active');
+        wheelCont.classList.add('hidden');
+        listCont.classList.remove('hidden');
+        playSyntheticTone(1440, 0.05, 'sine', 0.04);
+      }
+    }
+
+    function filterCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = 'cat-pill active px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-[#00F0FF] text-[#05070B] font-bold';
+        } else {
+          btn.className = 'cat-pill px-4 py-2 rounded-full font-mono text-xs uppercase transition-all bg-white/[0.04] text-[#95A2B5] hover:text-white';
+        }
+      });
+      playSyntheticTone(1080, 0.03, 'sine', 0.03);
+      renderWheel();
+      renderList();
+    }
+
+    function getFilteredProducts() {
+      return (activeCategory === 'All')
+        ? allProducts
+        : allProducts.filter(p => p.category === activeCategory);
+    }
+
+    // 5. 3D WHEEL MODE ENGINE
+    function renderWheel() {
+      const cylinder = document.getElementById('wheelCylinder');
+      cylinder.innerHTML = '';
+      const items = getFilteredProducts();
+
+      if (items.length === 0) {
+        cylinder.innerHTML = `<div class="text-center font-mono text-gray-500 pt-32">No products in category.</div>`;
+        return;
+      }
+
+      const total = items.length;
+      const anglePerCard = 360 / Math.max(total, 6);
+
+      items.forEach((p, idx) => {
+        const card = document.createElement('div');
+        card.className = 'wheel-card';
+        card.setAttribute('data-idx', idx);
+
+        const cardAngle = idx * anglePerCard;
+        card.dataset.angle = cardAngle;
+
+        card.innerHTML = `
+          <div class="h-full flex flex-col relative">
+            <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-black/40 mb-3 relative flex items-center justify-center">
+              <img src="/images/prod_${p.product_id}.jpg" alt="${p.name}" class="w-full h-full object-cover">
+              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#05070B]/80 text-[#00F0FF] uppercase border border-white/10">
+                ${p.category}
+              </span>
+              <span class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded text-[10px] font-bold bg-[#05070B]/80 text-amber-400 border border-white/10">
+                ★ ${p.rating || 4.5}
+              </span>
+            </div>
+
+            <div class="font-mono text-[10px] text-[#95A2B5]">[ SKU-${p.product_id} ]</div>
+            <h4 class="font-crl text-2xl font-bold uppercase text-white line-clamp-1 mt-0.5">
+              ${p.name}
+            </h4>
+            <p class="text-xs text-[#95A2B5] line-clamp-2 mt-1 mb-4 font-sans leading-relaxed">
+              ${p.description || 'Hardware architectural specification.'}
+            </p>
+
+            <div class="mt-auto pt-3 border-t border-white/[0.08] flex items-center justify-between">
+              <div>
+                <div class="font-mono font-black text-xl text-[#00F0FF]">₹${p.price.toFixed(2)}</div>
+                <div class="text-[10px] font-mono text-emerald-live">● ${p.stock} IN STOCK</div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="openProductModal(${p.product_id})" class="p-2 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-white" title="Quick View">
+                  <i data-lucide="eye" class="w-4 h-4"></i>
+                </button>
+                <button onclick="addToCart(${p.product_id})" class="px-3 py-2 rounded-lg bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-xs uppercase" title="Add to Cart">
+                  Add +
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        card.onmouseenter = () => {
+          setCursorText("EXPLORE SKU");
+          playSyntheticTone(1200, 0.02, 'sine', 0.02);
+        };
+        card.onmouseleave = () => setCursorText("");
+
+        cylinder.appendChild(card);
+      });
+
+      updateWheelTransforms();
+      lucide.createIcons();
+    }
+
+    function updateWheelTransforms() {
+      const items = getFilteredProducts();
+      if (items.length === 0) return;
+
+      const total = items.length;
+      const radius = Math.max(520, total * 65);
+      const cards = document.querySelectorAll('.wheel-card');
+
+      cards.forEach((card, idx) => {
+        const baseAngle = parseFloat(card.dataset.angle);
+        const curAngle = (baseAngle + targetWheelAngle) % 360;
+        let normalized = ((curAngle % 360) + 360) % 360;
+        if (normalized > 180) normalized -= 360;
+
+        const rad = (curAngle * Math.PI) / 180;
+        const x = Math.sin(rad) * radius;
+        const z = Math.cos(rad) * radius - radius;
+
+        const distFromFront = Math.abs(normalized);
+        const opacity = Math.max(0.18, 1 - (distFromFront / 110));
+        const blurAmount = Math.max(0, (distFromFront - 20) * 0.06);
+
+        card.style.transform = `translate3d(${x}px, 0px, ${z}px) rotateY(${curAngle}deg)`;
+        card.style.opacity = opacity;
+        card.style.filter = `blur(${blurAmount}px)`;
+
+        if (distFromFront < 18) {
+          card.classList.add('is-active-card');
+          const disp = document.getElementById('wheelCurrentIndexDisplay');
+          if (disp) disp.innerText = `ITEM ${(idx + 1).toString().padStart(2, '0')} / ${total.toString().padStart(2, '0')}`;
+        } else {
+          card.classList.remove('is-active-card');
+        }
+      });
+    }
+
+    function rotateWheelStep(dir) {
+      const items = getFilteredProducts();
+      const anglePerCard = 360 / Math.max(items.length, 6);
+      targetWheelAngle += -dir * anglePerCard;
+      playSyntheticTone(800 + Math.abs(dir) * 200, 0.03, 'sine', 0.02);
+      updateWheelTransforms();
+    }
+
+    // Wheel Drag Listeners
+    const wheelViewport = document.getElementById('wheelViewport');
+    wheelViewport.addEventListener('mousedown', (e) => {
+      isDraggingWheel = true;
+      dragStartX = e.clientX;
+      dragStartAngle = targetWheelAngle;
+      setCursorText("DRAGGING");
+    });
+    window.addEventListener('mouseup', () => {
+      if (isDraggingWheel) {
+        isDraggingWheel = false;
+        setCursorText("");
+      }
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDraggingWheel) return;
+      const deltaX = e.clientX - dragStartX;
+      targetWheelAngle = dragStartAngle + deltaX * 0.35;
+      updateWheelTransforms();
+    });
+
+    // 6. BRUTALIST LIST MODE ENGINE
+    function renderList() {
+      const container = document.getElementById('listItemsRows');
+      container.innerHTML = '';
+      const items = getFilteredProducts();
+
+      items.forEach((p, idx) => {
+        const row = document.createElement('div');
+        row.className = 'crl-list-row grid grid-cols-12 gap-4 px-4 py-4 items-center text-xs font-mono';
+        
+        row.innerHTML = `
+          <div class="col-span-1 text-[#95A2B5] font-bold">[ ${(idx + 1).toString().padStart(2, '0')} ]</div>
+          <div class="col-span-4 flex flex-col">
+            <span class="row-name font-crl text-lg font-bold uppercase text-white transition-all">${p.name}</span>
+            <span class="text-[10px] text-[#95A2B5] font-sans line-clamp-1">${p.description || 'Hardware architectural specification'}</span>
+          </div>
+          <div class="col-span-2 text-[#95A2B5]">${p.category}</div>
+          <div class="col-span-2 text-emerald-live">● ${p.stock} IN STOCK</div>
+          <div class="col-span-2 text-right font-mono font-bold text-base text-[#00F0FF]">₹${p.price.toFixed(2)}</div>
+          <div class="col-span-1 text-center">
+            <button onclick="event.stopPropagation(); addToCart(${p.product_id})" class="px-2.5 py-1 rounded bg-[#00F0FF] hover:bg-[#00D8E6] text-[#05070B] font-crl font-bold text-xs uppercase transition-all">
+              Add
+            </button>
+          </div>
+        `;
+
+        row.onmouseenter = () => {
+          hoverImageSrc.src = `/images/prod_${p.product_id}.jpg`;
+          hoverPreview.classList.add('visible');
+          setCursorText("VIEW SPEC");
+          playSyntheticTone(1400, 0.02, 'sine', 0.02);
+        };
+        row.onmouseleave = () => {
+          hoverPreview.classList.remove('visible');
+          setCursorText("");
+        };
+        row.onclick = () => openProductModal(p.product_id);
+
+        container.appendChild(row);
+      });
+    }
+
+    // 7. CART & FINANCIAL INVOICING ENGINE
+    function addToCart(prodId) {
+      const prod = allProducts.find(p => p.product_id === prodId);
+      if (!prod) return;
+
+      const existing = cart.find(item => item.product_id === prodId);
+      if (existing) {
+        if (existing.quantity < prod.stock) {
+          existing.quantity++;
+        }
+      } else {
+        cart.push({ ...prod, quantity: 1 });
+      }
+
+      playSyntheticTone(1760, 0.06, 'triangle', 0.05);
+      updateCartUI();
+      confetti({ particleCount: 30, spread: 60, origin: { y: 0.8 } });
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((acc, it) => acc + it.quantity, 0);
+      document.getElementById('cartCountBadge').innerText = totalCount;
+
+      const ledgerCountBadge = document.getElementById('ledgerItemsCount');
+      if (ledgerCountBadge) ledgerCountBadge.innerText = `${totalCount} ITEMS ACTIVE`;
+
+      const drawerContainer = document.getElementById('cartItemsList');
+      drawerContainer.innerHTML = '';
+
+      const terminalContainer = document.getElementById('terminalLedgerList');
+      if (terminalContainer) terminalContainer.innerHTML = '';
+
+      if (cart.length === 0) {
+        drawerContainer.innerHTML = `
+          <div class="text-center py-12 text-[#95A2B5] font-mono text-xs">
+            Cart is empty. Select products from the library.
+          </div>
+        `;
+        if (terminalContainer) {
+          terminalContainer.innerHTML = `
+            <div class="text-center py-12 text-[#59677B] font-mono text-xs border border-dashed border-white/10 rounded-2xl p-6">
+              Awaiting selection from 3D Wheel or List vault above...
+            </div>
+          `;
+        }
+      } else {
+        cart.forEach(item => {
+          // Drawer Row
+          const dRow = document.createElement('div');
+          dRow.className = 'p-3 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-between text-xs font-mono';
+          dRow.innerHTML = `
+            <div>
+              <div class="font-bold text-white">${item.name}</div>
+              <div class="text-gray-400">₹${item.price.toFixed(2)} × ${item.quantity}</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="decrementCart(${item.product_id})" class="w-6 h-6 rounded bg-white/5 hover:bg-white/10 flex items-center justify-center text-white">-</button>
+              <span class="font-bold text-[#00F0FF]">${item.quantity}</span>
+              <button onclick="incrementCart(${item.product_id})" class="w-6 h-6 rounded bg-white/5 hover:bg-white/10 flex items-center justify-center text-white">+</button>
+            </div>
+          `;
+          drawerContainer.appendChild(dRow);
+
+          // Terminal Row
+          if (terminalContainer) {
+            const tRow = document.createElement('div');
+            tRow.className = 'p-3.5 rounded-xl bg-[#06080F] border border-white/[0.06] flex items-center justify-between text-xs font-mono';
+            tRow.innerHTML = `
+              <div class="flex items-center gap-3">
+                <span class="px-2 py-0.5 rounded text-[10px] bg-[#00F0FF]/10 text-[#00F0FF] font-bold">SKU-${item.product_id}</span>
+                <div>
+                  <div class="font-bold text-white text-xs">${item.name}</div>
+                  <div class="text-[10px] text-[#95A2B5]">₹${item.price.toFixed(2)} each · ${item.category}</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-white/[0.03] px-2 py-1 rounded-lg border border-white/5">
+                  <button onclick="decrementCart(${item.product_id})" class="w-5 h-5 rounded hover:bg-white/10 text-gray-300">-</button>
+                  <span class="font-bold text-[#00F0FF]">${item.quantity}</span>
+                  <button onclick="incrementCart(${item.product_id})" class="w-5 h-5 rounded hover:bg-white/10 text-gray-300">+</button>
+                </div>
+                <div class="font-bold text-white min-w-[70px] text-right font-mono">
+                  ₹${(item.price * item.quantity).toFixed(2)}
+                </div>
+              </div>
+            `;
+            terminalContainer.appendChild(tRow);
+          }
+        });
+      }
+
+      // Banker's Rounding: IEEE 754 half-to-even
+      const subtotal = cart.reduce((acc, it) => acc + (it.price * it.quantity), 0);
+      const discountRate = isPremiumMember ? 0.10 : 0.02;
+      const discount = subtotal * discountRate;
+      const taxable = Math.max(0, subtotal - discount);
+      const tax = Math.round(taxable * 0.05 * 100) / 100;
+      const total = taxable + tax;
+
+      document.getElementById('billSubtotal').innerText = `₹${subtotal.toFixed(2)}`;
+      document.getElementById('billDiscount').innerText = `-₹${discount.toFixed(2)}`;
+      document.getElementById('billTax').innerText = `+₹${tax.toFixed(2)}`;
+      document.getElementById('billTotal').innerText = `₹${total.toFixed(2)}`;
+
+      if (document.getElementById('termSubtotal')) {
+        document.getElementById('termSubtotal').innerText = `₹${subtotal.toFixed(2)}`;
+        document.getElementById('termDiscount').innerText = `-₹${discount.toFixed(2)}`;
+        document.getElementById('termTaxable').innerText = `₹${taxable.toFixed(2)}`;
+        document.getElementById('termTax').innerText = `+₹${tax.toFixed(2)}`;
+        document.getElementById('termTotal').innerText = `₹${total.toFixed(2)}`;
+      }
+    }
+
+    function incrementCart(id) {
+      const item = cart.find(i => i.product_id === id);
+      const prod = allProducts.find(p => p.product_id === id);
+      if (item && item.quantity < prod.stock) {
+        item.quantity++;
+        playSyntheticTone(1400, 0.02, 'sine', 0.02);
+        updateCartUI();
+      }
+    }
+
+    function decrementCart(id) {
+      const idx = cart.findIndex(i => i.product_id === id);
+      if (idx !== -1) {
+        cart[idx].quantity--;
+        if (cart[idx].quantity <= 0) {
+          cart.splice(idx, 1);
+        }
+        playSyntheticTone(700, 0.02, 'sine', 0.02);
+        updateCartUI();
+      }
+    }
+
+    function toggleTierSwitch() {
+      isPremiumMember = !isPremiumMember;
+      const termBtn = document.getElementById('termTierButton');
+      const drawerBtn = document.getElementById('drawerTierButton');
+      const badge = document.getElementById('termDiscountRateBadge');
+
+      if (isPremiumMember) {
+        termBtn.innerText = 'Premium Member (10% Off)';
+        drawerBtn.innerText = 'Premium (10% Off)';
+        badge.innerText = '(Premium 10%)';
+        playSyntheticTone(1600, 0.05, 'triangle', 0.04);
+      } else {
+        termBtn.innerText = 'Standard Member (2% Off)';
+        drawerBtn.innerText = 'Standard (2% Off)';
+        badge.innerText = '(Standard 2%)';
+        playSyntheticTone(800, 0.05, 'sine', 0.04);
+      }
+      updateCartUI();
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const panel = document.getElementById('cartDrawerPanel');
+      if (drawer.classList.contains('opacity-0')) {
+        drawer.classList.remove('opacity-0', 'invisible');
+        panel.classList.remove('translate-x-full');
+        playSyntheticTone(1100, 0.04, 'sine', 0.03);
+      } else {
+        drawer.classList.add('opacity-0', 'invisible');
+        panel.classList.add('translate-x-full');
+      }
+    }
+
+    let latestInvoiceTxt = '';
+    let latestInvoiceCsv = '';
+    let latestOrderId = 0;
+
+    // 8. ATOMIC CHECKOUT BACKEND INTEGRATION
+    async function executeCheckout() {
+      if (cart.length === 0) {
+        alert('Please add items to your cart first.');
+        return;
+      }
+
+      const custName = document.getElementById('custNameInput').value || 'Valued Customer';
+      const city = document.getElementById('routeCitySelect').value || 'Chennai';
+
+      const payload = {
+        customer_name: custName,
+        city: city,
+        is_premium: isPremiumMember,
+        items: cart.map(it => ({
+          product_id: it.product_id,
+          name: it.name,
+          price: it.price,
+          quantity: it.quantity,
+          category: it.category
+        }))
+      };
+
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        
+        if (!data.success) {
+          throw new Error(data.message || 'Server rejected checkout transaction');
+        }
+
+        const orderTotal = (typeof data.total === 'number') ? data.total : (data.totals ? data.totals.total : 0);
+        latestOrderId = data.order_id;
+        latestInvoiceTxt = data.receipt_text || '';
+
+        // Generate CSV content for latest order
+        latestInvoiceCsv = 'Product ID,Name,Category,Quantity,Price (INR),Total (INR)\n';
+        cart.forEach(it => {
+          latestInvoiceCsv += `${it.product_id},"${it.name.replace(/"/g, '""')}",${it.category},${it.quantity},${it.price.toFixed(2)},${(it.price * it.quantity).toFixed(2)}\n`;
+        });
+
+        // Trigger celebratory sound and confetti
+        confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
+        playSyntheticTone(2000, 0.15, 'triangle', 0.08);
+
+        // Open High-End Tax Invoice Modal instead of alert
+        showInvoiceModal(data.order_id, custName, city, orderTotal, latestInvoiceTxt, data.order_date || new Date().toLocaleString());
+
+        cart = [];
+        updateCartUI();
+        if (!document.getElementById('cartDrawer').classList.contains('opacity-0')) {
+          toggleCartDrawer();
+        }
+        loadProducts();
+      } catch (err) {
+        alert('Checkout error: ' + err.message);
+      }
+    }
+
+    function showInvoiceModal(orderId, custName, city, total, receiptText, orderDate) {
+      document.getElementById('invoiceModalOrderId').innerText = `ORDER #${orderId} VERIFIED`;
+      document.getElementById('invoiceModalCustName').innerText = custName;
+      document.getElementById('invoiceModalCity').innerText = `${city} Hub`;
+      document.getElementById('invoiceModalTotal').innerText = `₹${total.toFixed(2)}`;
+      document.getElementById('invoiceAsciiContent').innerText = receiptText;
+
+      const modal = document.getElementById('orderInvoiceModal');
+      const content = document.getElementById('orderInvoiceModalContent');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      content.classList.remove('scale-95');
+      lucide.createIcons();
+    }
+
+    function closeInvoiceModal() {
+      const modal = document.getElementById('orderInvoiceModal');
+      const content = document.getElementById('orderInvoiceModalContent');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      content.classList.add('scale-95');
+    }
+
+    function downloadLatestInvoiceTxt() {
+      if (!latestInvoiceTxt) return;
+      const blob = new Blob([latestInvoiceTxt], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SmartCart_Invoice_${latestOrderId || Date.now()}.txt`;
+      a.click();
+    }
+
+    function downloadLatestInvoiceCsv() {
+      if (!latestInvoiceCsv) return;
+      const blob = new Blob([latestInvoiceCsv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SmartCart_Invoice_${latestOrderId || Date.now()}.csv`;
+      a.click();
+    }
+
+    // 9. ASCII & CSV EXPORTERS
+    function downloadAsciiInvoice() {
+      if (cart.length === 0) {
+        alert('Add products to the cart before exporting.');
+        return;
+      }
+      const custName = document.getElementById('custNameInput').value || 'Customer';
+      const city = document.getElementById('routeCitySelect').value || 'Chennai';
+      const subtotal = cart.reduce((acc, it) => acc + (it.price * it.quantity), 0);
+      const discountRate = isPremiumMember ? 0.10 : 0.02;
+      const discount = subtotal * discountRate;
+      const taxable = Math.max(0, subtotal - discount);
+      const tax = Math.round(taxable * 0.05 * 100) / 100;
+      const total = taxable + tax;
+
+      let ascii = `======================================================================\n`;
+      ascii += `                    SMARTCART PRO · STATUTORY INVOICE                 \n`;
+      ascii += `                ARCHITECTURAL COMMERCE & STATUTORY LEDGER             \n`;
+      ascii += `======================================================================\n`;
+      ascii += `Customer : ${custName}\n`;
+      ascii += `City     : ${city} (Bengaluru Base Hub Corridor)\n`;
+      ascii += `Tier     : ${isPremiumMember ? 'Premium Member (10% Discount)' : 'Standard (2% Discount)'}\n`;
+      ascii += `Date     : ${new Date().toISOString()}\n`;
+      ascii += `----------------------------------------------------------------------\n`;
+      ascii += `SKU   NAME                                    QTY    PRICE      TOTAL\n`;
+      ascii += `----------------------------------------------------------------------\n`;
+      cart.forEach(item => {
+        const namePad = item.name.padEnd(38, ' ').slice(0, 38);
+        const qtyPad = String(item.quantity).padStart(4, ' ');
+        const pricePad = ('₹' + item.price.toFixed(2)).padStart(9, ' ');
+        const totalPad = ('₹' + (item.price * item.quantity).toFixed(2)).padStart(10, ' ');
+        ascii += `${String(item.product_id).padEnd(5, ' ')} ${namePad} ${qtyPad} ${pricePad} ${totalPad}\n`;
+      });
+      ascii += `----------------------------------------------------------------------\n`;
+      ascii += `Gross Subtotal                                             : ₹${subtotal.toFixed(2)}\n`;
+      ascii += `Customer Tier Discount                                     : -₹${discount.toFixed(2)}\n`;
+      ascii += `Taxable Base Value                                         : ₹${taxable.toFixed(2)}\n`;
+      ascii += `Statutory GST (5% Banker's Rounding IEEE 754)               : +₹${tax.toFixed(2)}\n`;
+      ascii += `======================================================================\n`;
+      ascii += `TOTAL PAYABLE                                              : ₹${total.toFixed(2)}\n`;
+      ascii += `======================================================================\n`;
+
+      const blob = new Blob([ascii], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SmartCart_Receipt_${Date.now()}.txt`;
+      a.click();
+    }
+
+    function downloadCsvInvoice() {
+      if (cart.length === 0) {
+        alert('Add products to the cart before exporting.');
+        return;
+      }
+      let csv = 'Product ID,Name,Category,Quantity,Price (INR),Total (INR)\n';
+      cart.forEach(it => {
+        csv += `${it.product_id},"${it.name.replace(/"/g, '""')}",${it.category},${it.quantity},${it.price.toFixed(2)},${(it.price * it.quantity).toFixed(2)}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SmartCart_Ledger_${Date.now()}.csv`;
+      a.click();
+    }
+
+    // 10. QUICK VIEW MODAL
+    function openProductModal(id) {
+      const p = allProducts.find(item => item.product_id === id);
+      if (!p) return;
+
+      document.getElementById('modalCatTag').innerText = p.category;
+      document.getElementById('modalName').innerText = p.name;
+      document.getElementById('modalImg').src = `/images/prod_${p.product_id}.jpg`;
+      document.getElementById('modalDesc').innerText = p.description || 'Hardware architectural specification.';
+      document.getElementById('modalPrice').innerText = `₹${p.price.toFixed(2)}`;
+      document.getElementById('modalStock').innerText = `● ${p.stock} In Stock (Atomic Lock Active)`;
+      document.getElementById('modalRating').innerText = `★ ${p.rating || 4.5}`;
+      document.getElementById('modalReviews').innerText = `(${p.review_count || 120} verified reviews)`;
+
+      const addBtn = document.getElementById('modalAddToCartBtn');
+      addBtn.onclick = () => {
+        addToCart(p.product_id);
+        closeProductModal();
+      };
+
+      const modal = document.getElementById('productModal');
+      const content = document.getElementById('productModalContent');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      content.classList.remove('scale-95');
+      playSyntheticTone(1200, 0.05, 'sine', 0.03);
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('productModal');
+      const content = document.getElementById('productModalContent');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      content.classList.add('scale-95');
+    }
+
+    // 11. DIJKSTRA LOGISTICS RADAR CANVAS VISUALIZER
+    const CITY_RADAR_COORDS = {
+      "Bengaluru (Hub)": [400, 300],
+      "Chennai": [530, 290],
+      "Hyderabad": [410, 200],
+      "Mumbai": [240, 180],
+      "Nagpur": [420, 140],
+      "Bhopal": [360, 110],
+      "Delhi": [340, 50],
+      "Kolkata": [630, 160],
+      "Kochi": [360, 350],
+      "Ahmedabad": [230, 120],
+      "Jaipur": [310, 90],
+      "Chandigarh": [330, 30],
+      "Lucknow": [460, 90]
+    };
+
+    let activePathNodes = ["Bengaluru (Hub)", "Chennai"];
+    let radarAngle = 0;
+
+    function drawRadarMap() {
+      const canvas = document.getElementById('routeCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Radar Concentric rings
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.08)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(400, 190, 160, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(400, 190, 90, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Radar sweep line
+      radarAngle += 0.015;
+      const sweepX = 400 + Math.cos(radarAngle) * 160;
+      const sweepY = 190 + Math.sin(radarAngle) * 160;
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.15)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(400, 190);
+      ctx.lineTo(sweepX, sweepY);
+      ctx.stroke();
+
+      // Highway Edges
+      const staticEdges = [
+        ["Bengaluru (Hub)", "Chennai"],
+        ["Bengaluru (Hub)", "Hyderabad"],
+        ["Bengaluru (Hub)", "Kochi"],
+        ["Hyderabad", "Nagpur"],
+        ["Hyderabad", "Mumbai"],
+        ["Mumbai", "Ahmedabad"],
+        ["Ahmedabad", "Jaipur"],
+        ["Jaipur", "Delhi"],
+        ["Nagpur", "Bhopal"],
+        ["Bhopal", "Delhi"],
+        ["Bhopal", "Lucknow"],
+        ["Nagpur", "Kolkata"],
+        ["Delhi", "Chandigarh"],
+        ["Delhi", "Lucknow"]
+      ];
+
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.06)";
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 4]);
+      staticEdges.forEach(([c1, c2]) => {
+        if (CITY_RADAR_COORDS[c1] && CITY_RADAR_COORDS[c2]) {
+          const [x1, y1] = CITY_RADAR_COORDS[c1];
+          const [x2, y2] = CITY_RADAR_COORDS[c2];
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+        }
+      });
+      ctx.setLineDash([]);
+
+      // Active Dijkstra Laser Path
+      if (activePathNodes && activePathNodes.length > 1) {
+        ctx.strokeStyle = "#00F0FF";
+        ctx.lineWidth = 3.5;
+        ctx.shadowColor = "#00F0FF";
+        ctx.shadowBlur = 14;
+
+        ctx.beginPath();
+        for (let i = 0; i < activePathNodes.length; i++) {
+          const nodeName = activePathNodes[i];
+          const coords = CITY_RADAR_COORDS[nodeName] || [400, 190];
+          if (i === 0) ctx.moveTo(coords[0], coords[1]);
+          else ctx.lineTo(coords[0], coords[1]);
+        }
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      }
+
+      // Nodes
+      Object.keys(CITY_RADAR_COORDS).forEach(name => {
+        const [x, y] = CITY_RADAR_COORDS[name];
+        const isActive = activePathNodes.includes(name);
+        const isBase = (name === "Bengaluru (Hub)");
+
+        ctx.beginPath();
+        ctx.arc(x, y, isBase ? 8 : (isActive ? 6 : 4), 0, Math.PI * 2);
+        ctx.fillStyle = isBase ? "#00F0FF" : (isActive ? "#10B981" : "#475569");
+        ctx.fill();
+
+        ctx.font = isBase ? "bold 11px 'JetBrains Mono'" : "9px 'Plus Jakarta Sans'";
+        ctx.fillStyle = isBase ? "#00F0FF" : (isActive ? "#FFFFFF" : "#64748B");
+        ctx.fillText(name, x + 9, y + 3);
+      });
+    }
+
+    async function calculateRoute() {
+      const city = document.getElementById('routeCitySelect').value;
+      const navText = document.getElementById('navCityText');
+      if (navText) navText.innerText = `${city} Route`;
+
+      try {
+        const res = await fetch(`/api/route?city=${encodeURIComponent(city)}`);
+        const data = await res.json();
+        
+        activePathNodes = data.path || ["Bengaluru (Hub)", city];
+        document.getElementById('routeDistanceDisplay').innerText = `${data.distance_km.toFixed(1)} km`;
+        document.getElementById('routeEtaDisplay').innerText = data.eta;
+        document.getElementById('routePathDisplay').innerText = activePathNodes.join(' → ');
+
+        playSyntheticTone(1300, 0.04, 'sine', 0.03);
+        drawRadarMap();
+      } catch (err) {
+        console.error('Route calculation error:', err);
+      }
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+
+
+    // 13. LIVE SQLITE DATABASE RECEIPTS LEDGER
+    async function openDatabaseReceiptsModal() {
+      const modal = document.getElementById('databaseReceiptsModal');
+      const content = document.getElementById('databaseReceiptsModalContent');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      content.classList.remove('scale-95');
+      playSyntheticTone(1400, 0.05, 'sine', 0.03);
+      lucide.createIcons();
+      await loadDatabaseReceipts();
+    }
+
+    function closeDatabaseReceiptsModal() {
+      const modal = document.getElementById('databaseReceiptsModal');
+      const content = document.getElementById('databaseReceiptsModalContent');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      content.classList.add('scale-95');
+    }
+
+    async function loadDatabaseReceipts() {
+      const list = document.getElementById('dbReceiptsList');
+      const badge = document.getElementById('dbReceiptsCountBadge');
+      list.innerHTML = `<div class="p-8 text-center text-xs font-mono text-gray-400"><i data-lucide="loader" class="w-5 h-5 mx-auto mb-2 animate-spin text-[#C5A059]"></i>Querying SQLite store.db...</div>`;
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('/api/orders');
+        const orders = await res.json();
+        badge.innerText = `${orders.length} ORDERS COMMITTED`;
+
+        if (orders.length === 0) {
+          list.innerHTML = `<div class="p-8 text-center text-xs font-mono text-[#95A2B5] border border-dashed border-white/10 rounded-2xl">No orders recorded in store.db yet.</div>`;
+          return;
+        }
+
+        list.innerHTML = '';
+        orders.forEach(ord => {
+          const card = document.createElement('div');
+          card.className = 'p-4 rounded-2xl bg-[#060810] border border-white/10 space-y-3 font-mono text-xs hover:border-[#C5A059]/40 transition-all';
+          
+          let itemsHtml = '';
+          if (ord.items && ord.items.length > 0) {
+            itemsHtml = `
+              <div class="mt-2 pt-2 border-t border-white/5 space-y-1">
+                <div class="text-[10px] text-[#95A2B5] uppercase">Relational Line Items (order_items table):</div>
+                ${ord.items.map(it => `
+                  <div class="flex items-center justify-between text-[11px] text-gray-300 bg-black/40 px-3 py-1.5 rounded-lg border border-white/5">
+                    <span class="truncate max-w-[280px]">● SKU-${it.product_id}: ${it.name} × ${it.quantity}</span>
+                    <span class="text-[#00F0FF] font-bold">₹${it.total_price.toFixed(2)}</span>
+                  </div>
+                `).join('')}
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-white/5">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full bg-[#C5A059]/20 text-[#C5A059] font-bold text-[11px]">ORDER #${ord.order_id}</span>
+                <span class="text-white font-bold">${ord.username} (${ord.email || 'customer'})</span>
+              </div>
+              <div class="flex items-center gap-3 text-[11px] text-gray-400">
+                <span>📅 ${ord.order_date}</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${ord.status}</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-[#95A2B5]">
+              <div>Subtotal: <b class="text-white">₹${ord.subtotal.toFixed(2)}</b></div>
+              <div>Discount: <b class="text-emerald-400">-₹${ord.discount.toFixed(2)}</b></div>
+              <div>5% GST: <b class="text-amber-400">+₹${ord.tax.toFixed(2)}</b></div>
+              <div>Hub: <b class="text-[#00F0FF]">${ord.delivery_city}</b></div>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-gray-400">Banker's Rounded Total:</span>
+              <span class="text-lg font-black text-[#C5A059]">₹${ord.total.toFixed(2)}</span>
+            </div>
+
+            ${itemsHtml}
+          `;
+          list.appendChild(card);
+        });
+
+        lucide.createIcons();
+      } catch (err) {
+        list.innerHTML = `<div class="p-6 text-center text-xs text-rose-400 font-mono">Failed to load receipts: ${err.message}</div>`;
+      }
+    }
+
+    // =========================================================================
+    // AAROH IIIT KOTTAYAM DYNAMIC SCRAMBLE SHUFFLE CONTROLLER (SMOOTH WAVE)
+    // =========================================================================
+    const AAROH_GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    function initAarohScramble() {
+      const container = document.getElementById('heroScrambleTitle');
+      const line1 = document.getElementById('scrambleLine1');
+      const line2 = document.getElementById('scrambleLine2');
+      if (!container || !line1 || !line2) return;
+
+      function buildLetterSpans(element, rawText, isGradient = false) {
+        element.innerHTML = '';
+        const letters = [];
+        Array.from(rawText).forEach(char => {
+          const span = document.createElement('span');
+          span.className = 'shuffle-letter' + (char === ' ' ? ' is-space' : '') + (isGradient ? ' is-gradient' : '');
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          span.dataset.final = char;
+          span.dataset.isGradient = isGradient ? '1' : '0';
+          element.appendChild(span);
+          letters.push(span);
+        });
+        return letters;
+      }
+
+      const letters1 = buildLetterSpans(line1, "ARCHITECTURAL COMMERCE &", false);
+      const letters2 = buildLetterSpans(line2, "ALGORITHMIC LEDGER.", true);
+      const allLetters = [...letters1, ...letters2];
+
+      let isShuffling = false;
+
+      function triggerScramble() {
+        if (isShuffling) return;
+        isShuffling = true;
+        playSyntheticTone(1400, 0.03, 'sine', 0.03);
+
+        const startTime = performance.now();
+        // Left to right wave delay: 18ms per character
+        // Active spin time: 380ms per character
+        const charDuration = 380;
+        const stagger = 18;
+        const totalDuration = (allLetters.length * stagger) + charDuration;
+
+        function tick(currentTime) {
+          const elapsed = currentTime - startTime;
+          let stillActive = false;
+
+          allLetters.forEach((span, idx) => {
+            const finalChar = span.dataset.final;
+            if (finalChar === ' ') return;
+
+            const charStart = idx * stagger;
+            const charElapsed = elapsed - charStart;
+
+            if (charElapsed < 0) {
+              // Not started yet
+              stillActive = true;
+            } else if (charElapsed < charDuration) {
+              // Active spinning phase
+              stillActive = true;
+              span.classList.add('is-shuffling');
+
+              // Decelerating frame rate: fast at first, slows down before locking
+              const charProgress = charElapsed / charDuration;
+              if (charProgress > 0.82) {
+                span.textContent = finalChar;
+              } else {
+                // Change letter every ~45ms for a smooth, readable cinematic roll
+                const step = Math.floor(charElapsed / 48);
+                const randomGlyph = AAROH_GLYPHS[(idx * 7 + step) % AAROH_GLYPHS.length];
+                span.textContent = randomGlyph;
+              }
+            } else {
+              // Completed: ensure exact final letter and restore gradient
+              if (span.textContent !== finalChar) {
+                span.textContent = finalChar;
+              }
+              if (span.classList.contains('is-shuffling')) {
+                span.classList.remove('is-shuffling');
+              }
+            }
+          });
+
+          if (stillActive) {
+            requestAnimationFrame(tick);
+          } else {
+            // Guarantee all letters are cleanly restored
+            allLetters.forEach(span => {
+              span.textContent = span.dataset.final === ' ' ? '\u00A0' : span.dataset.final;
+              span.classList.remove('is-shuffling');
+            });
+            setTimeout(() => {
+              isShuffling = false;
+            }, 150);
+          }
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      // Direct activation: triggers strictly when cursor hovers directly over the words
+      container.addEventListener('mouseenter', triggerScramble);
+      line1.addEventListener('mouseenter', triggerScramble);
+      line2.addEventListener('mouseenter', triggerScramble);
+
+      // Tight proximity detector: triggers ONLY within immediate ~20px contour of the actual text
+      let lastProximityCheck = 0;
+      window.addEventListener('mousemove', (e) => {
+        const now = performance.now();
+        if (now - lastProximityCheck < 50) return;
+        lastProximityCheck = now;
+
+        if (isShuffling) return;
+
+        const r1 = line1.getBoundingClientRect();
+        const r2 = line2.getBoundingClientRect();
+        const tightPad = 20; // Tight 20px padding around the actual words only
+
+        const nearLine1 = (
+          e.clientX >= r1.left - tightPad &&
+          e.clientX <= r1.right + tightPad &&
+          e.clientY >= r1.top - tightPad &&
+          e.clientY <= r1.bottom + tightPad
+        );
+
+        const nearLine2 = (
+          e.clientX >= r2.left - tightPad &&
+          e.clientX <= r2.right + tightPad &&
+          e.clientY >= r2.top - tightPad &&
+          e.clientY <= r2.bottom + tightPad
+        );
+
+        if (nearLine1 || nearLine2) {
+          triggerScramble();
+        }
+      });
+    }
+
+    // =========================================================================
+    // FIGMA LANDING GATEWAY & AUTHENTICATION CONTROLLER
+    // =========================================================================
+    let currentUser = null;
+    let authMode = 'login'; // 'login' or 'register'
+
+    function openLandingGate(focusLogin = false) {
+      const gate = document.getElementById('figmaLandingPage');
+      if (!gate) return;
+      gate.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+      gate.classList.add('opacity-100');
+      window.location.hash = '#login';
+      if (focusLogin) {
+        setTimeout(() => {
+          document.getElementById('loginStation')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('authUsernameInput')?.focus();
+        }, 150);
+      }
+      playSyntheticTone(900, 0.05, 'sine', 0.02);
+      lucide.createIcons();
+    }
+
+    function closeLandingGate() {
+      const gate = document.getElementById('figmaLandingPage');
+      if (!gate) return;
+      gate.classList.remove('opacity-100');
+      gate.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+      window.location.hash = '#store';
+      sessionStorage.setItem('enteredStore', 'true');
+      playSyntheticTone(1400, 0.06, 'sine', 0.03);
+    }
+
+    function enterStorefront() {
+      closeLandingGate();
+    }
+
+    function switchAuthMode(mode) {
+      authMode = mode;
+      const tabLogin = document.getElementById('authTabLogin');
+      const tabRegister = document.getElementById('authTabRegister');
+      const emailRow = document.getElementById('authEmailRow');
+      const cityRow = document.getElementById('authCityRow');
+      const premiumRow = document.getElementById('authPremiumRow');
+      const submitText = document.getElementById('authSubmitText');
+      const feedback = document.getElementById('authFeedback');
+      if (feedback) feedback.classList.add('hidden');
+
+      if (mode === 'register') {
+        tabRegister.className = 'px-3 py-1 rounded-lg bg-[#00F0FF] text-[#07090E] font-bold transition-all';
+        tabLogin.className = 'px-3 py-1 rounded-lg text-[#94A3B8] hover:text-white transition-all';
+        emailRow.classList.remove('hidden');
+        cityRow.classList.remove('hidden');
+        premiumRow.classList.remove('hidden');
+        submitText.innerText = 'CREATE ACCOUNT & ENTER';
+      } else {
+        tabLogin.className = 'px-3 py-1 rounded-lg bg-[#00F0FF] text-[#07090E] font-bold transition-all';
+        tabRegister.className = 'px-3 py-1 rounded-lg text-[#94A3B8] hover:text-white transition-all';
+        emailRow.classList.add('hidden');
+        cityRow.classList.add('hidden');
+        premiumRow.classList.add('hidden');
+        submitText.innerText = 'LOG IN & ENTER TERMINAL';
+      }
+      lucide.createIcons();
+    }
+
+    function quickFillDemo(username, password) {
+      if (authMode !== 'login') switchAuthMode('login');
+      document.getElementById('authUsernameInput').value = username;
+      document.getElementById('authPasswordInput').value = password;
+      playSyntheticTone(1200, 0.03, 'triangle', 0.02);
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('authFeedback');
+      const username = document.getElementById('authUsernameInput').value.trim();
+      const password = document.getElementById('authPasswordInput').value;
+
+      if (!username || !password) return;
+
+      if (authMode === 'login') {
+        try {
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+          const data = await res.json();
+          if (data.success && data.user) {
+            currentUser = data.user;
+            applyUserSession(data.user);
+            feedback.className = 'text-xs p-3 rounded-xl font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400';
+            feedback.innerText = `✓ Authenticated as ${currentUser.username} (${currentUser.role}). Entering store...`;
+            feedback.classList.remove('hidden');
+            confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
+            playSyntheticTone(1800, 0.12, 'sine', 0.05);
+            setTimeout(() => {
+              closeLandingGate();
+            }, 700);
+          } else {
+            feedback.className = 'text-xs p-3 rounded-xl font-mono bg-red-500/10 border border-red-500/30 text-red-400';
+            feedback.innerText = `✗ ${data.message || 'Login failed.'}`;
+            feedback.classList.remove('hidden');
+            playSyntheticTone(300, 0.1, 'sawtooth', 0.04);
+          }
+        } catch (err) {
+          feedback.className = 'text-xs p-3 rounded-xl font-mono bg-red-500/10 border border-red-500/30 text-red-400';
+          feedback.innerText = `✗ Connection error: ${err.message}`;
+          feedback.classList.remove('hidden');
+        }
+      } else {
+        // Register mode
+        const email = document.getElementById('authEmailInput').value.trim();
+        const city = document.getElementById('authCityInput').value;
+        const isPremium = document.getElementById('authPremiumInput').checked;
+
+        try {
+          const res = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, email, city, is_premium: isPremium })
+          });
+          const data = await res.json();
+          if (data.success) {
+            feedback.className = 'text-xs p-3 rounded-xl font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400';
+            feedback.innerText = `✓ ${data.message} Logging you in...`;
+            feedback.classList.remove('hidden');
+            quickFillDemo(username, password);
+            setTimeout(() => {
+              handleAuthSubmit(new Event('submit'));
+            }, 600);
+          } else {
+            feedback.className = 'text-xs p-3 rounded-xl font-mono bg-red-500/10 border border-red-500/30 text-red-400';
+            feedback.innerText = `✗ ${data.message || 'Registration failed.'}`;
+            feedback.classList.remove('hidden');
+          }
+        } catch (err) {
+          feedback.className = 'text-xs p-3 rounded-xl font-mono bg-red-500/10 border border-red-500/30 text-red-400';
+          feedback.innerText = `✗ Connection error: ${err.message}`;
+          feedback.classList.remove('hidden');
+        }
+      }
+    }
+
+    function applyUserSession(user) {
+      if (!user) return;
+      document.getElementById('navAuthText').innerText = user.username.toUpperCase();
+      const tierBadge = document.getElementById('navTierBadge');
+      if (user.is_premium) {
+        tierBadge.classList.remove('hidden');
+        isPremiumMember = true;
+      } else {
+        tierBadge.classList.add('hidden');
+        isPremiumMember = false;
+      }
+      
+      const custNameInput = document.getElementById('custNameInput');
+      if (custNameInput) custNameInput.value = user.username;
+
+      const custTierSelect = document.getElementById('custTierSelect');
+      if (custTierSelect) {
+        custTierSelect.value = user.is_premium ? 'premium' : 'standard';
+      }
+
+      if (user.city && document.getElementById('routeCitySelect')) {
+        document.getElementById('routeCitySelect').value = user.city;
+        calculateRoute();
+      }
+
+      updateCartUI();
+    }
+
+    // Hash and URL Routing initialization
+    function initRouteGate() {
+      const hash = window.location.hash;
+      const search = window.location.search;
+      if (hash === '#login' || search.includes('preview-route=%2F%23login') || (!hash && !sessionStorage.getItem('enteredStore'))) {
+        openLandingGate(hash === '#login' || search.includes('preview-route=%2F%23login'));
+      } else {
+        closeLandingGate();
+      }
+
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#login') {
+          openLandingGate(true);
+        } else if (window.location.hash === '#store') {
+          closeLandingGate();
+        }
+      });
+    }
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeProductModal();
+        closeInvoiceModal();
+        closeDatabaseReceiptsModal();
+        if (!document.getElementById('cartDrawer').classList.contains('opacity-0')) {
+          toggleCartDrawer();
+        }
+      }
+    });
+
+    function animateRadar() {
+      drawRadarMap();
+      requestAnimationFrame(animateRadar);
+    }
+
+    // Master Startup
+    window.addEventListener('DOMContentLoaded', () => {
+      loadProducts();
+      calculateRoute();
+      animateRadar();
+      initAarohScramble();
+      initRouteGate();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

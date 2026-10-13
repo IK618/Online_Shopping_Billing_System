@@ -99,219 +99,326 @@ if "utm_params" not in st.session_state:
 is_dark = (st.session_state.theme == "dark")
 
 if is_dark:
-    bg_app = "#0B0F19"
-    bg_sidebar = "#0E131F"
-    bg_card = "#131C2E"
-    border_card = "#222F43"
+    # Ethereal Glass (Obsidian / Cyber-Tech OLED)
+    bg_app = "#06080F"
+    bg_sidebar = "#0A0D17"
+    bg_shell = "rgba(255, 255, 255, 0.025)"
+    bg_card = "rgba(13, 19, 33, 0.75)"
+    border_shell = "rgba(255, 255, 255, 0.08)"
+    border_card = "rgba(255, 255, 255, 0.06)"
     text_primary = "#F8FAFC"
     text_secondary = "#94A3B8"
     accent_blue = "#38BDF8"
-    accent_glow = "rgba(56, 189, 248, 0.22)"
-    hero_gradient = "linear-gradient(135deg, #0F172A 0%, #131C2E 60%, #1E293B 100%)"
-    feed_bg = "#0E1422"
-    nav_glass = "rgba(11, 15, 25, 0.85)"
-    cookie_bg = "#131C2E"
+    accent_indigo = "#6366F1"
+    accent_emerald = "#10B981"
+    accent_glow = "rgba(56, 189, 248, 0.18)"
+    hero_gradient = "linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(13, 19, 33, 0.95) 50%, rgba(20, 29, 47, 0.8) 100%)"
+    feed_bg = "rgba(10, 15, 26, 0.65)"
+    nav_glass = "rgba(8, 12, 22, 0.78)"
+    cookie_bg = "rgba(13, 19, 33, 0.9)"
+    ambient_glow = "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.08), transparent 70%), radial-gradient(ellipse 60% 40% at 100% 50%, rgba(99, 102, 241, 0.05), transparent 70%)"
 else:
-    # Apple-Inspired Clean Light Mode
+    # Editorial Clean / Apple Ceramic Light
     bg_app = "#F8FAFC"
     bg_sidebar = "#FFFFFF"
+    bg_shell = "rgba(0, 0, 0, 0.02)"
     bg_card = "#FFFFFF"
+    border_shell = "rgba(0, 0, 0, 0.06)"
     border_card = "#E2E8F0"
     text_primary = "#0F172A"
     text_secondary = "#64748B"
-    accent_blue = "#2563EB"
-    accent_glow = "rgba(37, 99, 235, 0.15)"
-    hero_gradient = "linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 60%, #E2E8F0 100%)"
-    feed_bg = "#F1F5F9"
-    nav_glass = "rgba(255, 255, 255, 0.88)"
+    accent_blue = "#0284C7"
+    accent_indigo = "#4F46E5"
+    accent_emerald = "#059669"
+    accent_glow = "rgba(2, 132, 199, 0.12)"
+    hero_gradient = "linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 60%, #F1F5F9 100%)"
+    feed_bg = "#F8FAFC"
+    nav_glass = "rgba(255, 255, 255, 0.85)"
     cookie_bg = "#FFFFFF"
+    ambient_glow = "radial-gradient(ellipse 70% 40% at 50% -10%, rgba(2, 132, 199, 0.05), transparent 60%)"
 
 st.markdown(f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     
     html, body, [class*="css"] {{
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         scroll-behavior: smooth;
     }}
-    
-    /* Accessibility: Skip to main content link */
-    .skip-to-content {{
-        position: absolute;
-        top: -60px;
-        left: 15px;
-        background: {accent_blue};
-        color: #FFFFFF !important;
-        padding: 10px 18px;
-        border-radius: 8px;
-        font-weight: 700;
-        z-index: 1000000;
-        transition: top 0.2s ease;
-        text-decoration: none;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    }}
-    .skip-to-content:focus {{
-        top: 15px;
-    }}
 
-    /* Top Scroll Progress Line */
-    #scroll-progress-line {{
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3.5px;
-        width: 0%;
-        background: linear-gradient(90deg, #38BDF8, #6366F1, #10B981);
-        z-index: 999999;
-        transition: width 0.1s ease-out;
-    }}
-
-    /* Global App Canvas */
+    /* Global App Canvas & Atmospheric Ambient Glow */
     .stApp {{
         background-color: {bg_app} !important;
+        background-image: {ambient_glow} !important;
+        background-attachment: fixed !important;
         color: {text_primary} !important;
     }}
 
     [data-testid="stSidebar"] {{
         background-color: {bg_sidebar} !important;
         border-right: 1px solid {border_card} !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }}
 
-    /* Sticky Frosted Header Navbar */
+    /* Accessibility: Floating Skip Link */
+    .skip-to-content {{
+        position: absolute;
+        top: -60px;
+        left: 20px;
+        background: {accent_blue};
+        color: #FFFFFF !important;
+        padding: 10px 20px;
+        border-radius: 9999px;
+        font-weight: 700;
+        z-index: 1000000;
+        transition: top 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none;
+        box-shadow: 0 10px 25px {accent_glow};
+    }}
+    .skip-to-content:focus {{
+        top: 15px;
+    }}
+
+    /* Slim Neon Progress Bar */
+    #scroll-progress-line {{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, #38BDF8, #818CF8, #34D399);
+        z-index: 999999;
+        transition: width 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+
+    /* Detached Floating Island Navbar */
     .sticky-navbar {{
         position: sticky;
-        top: 0;
+        top: 12px;
         z-index: 999;
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
         background: {nav_glass};
-        border-bottom: 1px solid {border_card};
-        padding: 0.75rem 1.25rem;
-        margin: -1.5rem -1rem 1.5rem -1rem;
+        border: 1px solid {border_shell};
+        padding: 0.85rem 1.6rem;
+        margin: -1rem 0 1.8rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 0 0 14px 14px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+
+    /* Machined Double-Bezel Architecture (Doppelrand) */
+    .doppel-shell {{
+        background: {bg_shell};
+        border: 1px solid {border_shell};
+        border-radius: 20px;
+        padding: 5px;
+        margin-bottom: 1.1rem;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }}
+    .doppel-shell:hover {{
+        border-color: rgba(56, 189, 248, 0.35);
+        transform: translateY(-3px);
+        box-shadow: 0 18px 36px -10px {accent_glow};
+    }}
+
+    /* Inner Core Card */
+    .sc-card, .store-card, .metric-box {{
+        background: {bg_card} !important;
+        border: 1px solid {border_card} !important;
+        border-radius: 15px;
+        padding: 1.3rem;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }}
 
     /* Mission Control Hero Banner */
     .sc-hero {{
         background: {hero_gradient};
-        border: 1px solid {border_card};
-        border-left: 4px solid {accent_blue};
-        padding: 1.5rem 2rem;
-        border-radius: 14px;
-        margin-bottom: 1.6rem;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        transition: transform 0.3s ease;
+        border: 1px solid {border_shell};
+        position: relative;
+        overflow: hidden;
+        padding: 1.8rem 2.2rem;
+        border-radius: 22px;
+        margin-bottom: 1.8rem;
+        box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    }}
+    .sc-hero::after {{
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.12), transparent 50%);
+        pointer-events: none;
     }}
     .sc-tag {{
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.75rem;
-        letter-spacing: 0.15em;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
         color: {accent_blue};
         font-weight: 700;
-        margin-bottom: 0.3rem;
+        background: rgba(56, 189, 248, 0.08);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        padding: 3px 10px;
+        border-radius: 9999px;
+        margin-bottom: 0.6rem;
     }}
     .sc-title {{
-        font-size: 1.85rem;
+        font-size: 2.1rem;
         font-weight: 800;
         color: {text_primary};
         margin: 0;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
     }}
     .sc-subtitle {{
-        font-size: 0.92rem;
+        font-size: 0.96rem;
         color: {text_secondary};
-        margin-top: 0.35rem;
-    }}
-
-    /* 3D Perspective Cards & Micro-Interactions */
-    .sc-card, .store-card, .metric-box {{
-        background-color: {bg_card} !important;
-        border: 1px solid {border_card} !important;
-        border-radius: 12px;
-        padding: 1.2rem;
-        margin-bottom: 1rem;
-        transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
-        transform-style: preserve-3d;
-        perspective: 1000px;
-    }}
-    .sc-card:hover, .store-card:hover, .metric-box:hover {{
-        border-color: {accent_blue} !important;
-        transform: translateY(-5px) scale(1.012) !important;
-        box-shadow: 0 14px 30px {accent_glow} !important;
+        margin-top: 0.45rem;
+        line-height: 1.5;
+        max-width: 680px;
     }}
 
     /* Metric Counters */
     .metric-label {{
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         color: {text_secondary};
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.14em;
+        font-weight: 600;
     }}
     .metric-val {{
-        font-size: 1.65rem;
+        font-size: 1.85rem;
         font-weight: 800;
         color: {text_primary};
-        margin-top: 0.2rem;
+        margin-top: 0.25rem;
+        letter-spacing: -0.02em;
+        font-variant-numeric: tabular-nums;
     }}
     .metric-delta {{
-        font-size: 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.76rem;
         font-weight: 700;
-        margin-top: 0.2rem;
+        margin-top: 0.35rem;
+        font-family: 'JetBrains Mono', monospace;
     }}
     .delta-green {{ color: #10B981; }}
     .delta-blue {{ color: {accent_blue}; }}
 
-    /* Status Pills */
+    /* Refined Status Pill Badges */
     .pill {{
-        display: inline-block;
-        padding: 3px 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 11px;
         border-radius: 9999px;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
         font-family: 'JetBrains Mono', monospace;
     }}
-    .pill-green {{ background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.35); }}
-    .pill-blue {{ background: rgba(56, 189, 248, 0.15); color: {accent_blue}; border: 1px solid rgba(56, 189, 248, 0.35); }}
-    .pill-amber {{ background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.35); }}
-    .pill-red {{ background: rgba(244, 63, 94, 0.15); color: #F43F5E; border: 1px solid rgba(244, 63, 94, 0.35); }}
+    .pill-green {{ background: rgba(16, 185, 129, 0.12); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }}
+    .pill-blue {{ background: rgba(56, 189, 248, 0.12); color: {accent_blue}; border: 1px solid rgba(56, 189, 248, 0.3); }}
+    .pill-amber {{ background: rgba(245, 158, 11, 0.12); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }}
+    .pill-red {{ background: rgba(244, 63, 94, 0.12); color: #FB7185; border: 1px solid rgba(244, 63, 94, 0.3); }}
 
     /* Pricing Display */
     .price-display {{
-        font-size: 1.35rem;
+        font-size: 1.45rem;
         font-weight: 800;
         color: {accent_blue};
         font-family: 'JetBrains Mono', monospace;
+        letter-spacing: -0.02em;
+        font-variant-numeric: tabular-nums;
+    }}
+    .price-unit {{
+        font-size: 0.75rem;
+        color: {text_secondary};
+        font-weight: 500;
+        margin-left: 3px;
+    }}
+
+    /* Native Streamlit UI Component Upgrades (Buttons, Inputs, Tabs) */
+    .stButton > button {{
+        border-radius: 12px !important;
+        font-weight: 600 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        padding: 0.55rem 1.25rem !important;
+        letter-spacing: -0.01em !important;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        border: 1px solid {border_card} !important;
+    }}
+    .stButton > button:hover {{
+        transform: translateY(-2px) !important;
+        box-shadow: 0 10px 20px -8px {accent_glow} !important;
+    }}
+    .stButton > button:active {{
+        transform: scale(0.98) !important;
+    }}
+    .stButton > button[kind="primary"] {{
+        background: linear-gradient(135deg, {accent_blue} 0%, {accent_indigo} 100%) !important;
+        color: #FFFFFF !important;
+        border: none !important;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 8px 20px {accent_glow} !important;
+    }}
+
+    /* Precision Input Controls */
+    [data-baseweb="input"], [data-baseweb="select"] {{
+        border-radius: 12px !important;
+        border: 1px solid {border_card} !important;
+        background-color: rgba(255, 255, 255, 0.02) !important;
+        transition: all 0.2s ease !important;
+    }}
+    [data-baseweb="input"]:focus-within, [data-baseweb="select"]:focus-within {{
+        border-color: {accent_blue} !important;
+        box-shadow: 0 0 0 3px {accent_glow} !important;
+    }}
+
+    /* Dataframe Styling */
+    [data-testid="stDataFrame"] {{
+        border-radius: 14px !important;
+        border: 1px solid {border_card} !important;
+        overflow: hidden !important;
     }}
 
     /* Live Fleet Feed Item */
     .feed-item {{
         background: {feed_bg};
         border: 1px solid {border_card};
-        border-radius: 8px;
-        padding: 0.85rem 1rem;
-        margin-bottom: 0.7rem;
-        transition: border-color 0.2s;
+        border-radius: 12px;
+        padding: 0.95rem 1.15rem;
+        margin-bottom: 0.75rem;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }}
     .feed-item:hover {{
         border-color: {accent_blue};
+        transform: translateX(4px);
     }}
     .feed-title {{
-        font-size: 0.9rem;
+        font-size: 0.92rem;
         font-weight: 700;
         color: {text_primary};
     }}
     .feed-desc {{
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         color: {text_secondary};
-        margin-top: 0.2rem;
+        margin-top: 0.25rem;
     }}
 
     /* Form Feedback States & Micro-Animations */
@@ -325,69 +432,93 @@ st.markdown(f"""
     }}
     .form-success-card {{
         background: rgba(16, 185, 129, 0.1);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        border-radius: 10px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        border-radius: 14px;
+        padding: 1.1rem 1.4rem;
+        margin-bottom: 1.1rem;
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.1);
     }}
     .form-error-card {{
         background: rgba(244, 63, 94, 0.1);
-        border: 1px solid rgba(244, 63, 94, 0.4);
-        border-radius: 10px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
+        border: 1px solid rgba(244, 63, 94, 0.35);
+        border-radius: 14px;
+        padding: 1.1rem 1.4rem;
+        margin-bottom: 1.1rem;
+        box-shadow: 0 10px 25px rgba(244, 63, 94, 0.1);
     }}
 
-    /* Status Pulse Animation */
+    /* Status Pulse Indicator */
     @keyframes pulse-dot {{
         0%, 100% {{ opacity: 1; transform: scale(1); }}
-        50% {{ opacity: 0.4; transform: scale(0.9); }}
+        50% {{ opacity: 0.35; transform: scale(0.85); }}
     }}
     .status-pulse {{
-        color: #10B981;
+        color: #34D399;
         display: inline-block;
-        animation: pulse-dot 2s infinite ease-in-out;
+        animation: pulse-dot 2.2s infinite cubic-bezier(0.16, 1, 0.3, 1);
     }}
 
     /* Cookie Banner Container */
     .cookie-banner-box {{
         background-color: {cookie_bg};
-        border: 1px solid {border_card};
-        border-radius: 12px;
-        padding: 1rem 1.4rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border: 1px solid {border_shell};
+        border-radius: 16px;
+        padding: 1.15rem 1.6rem;
+        margin-top: 1.8rem;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.25);
     }}
 
     /* Site Footer */
     .site-footer {{
         border-top: 1px solid {border_card};
-        padding: 1.5rem 0.5rem;
-        margin-top: 3rem;
-        font-size: 0.85rem;
+        padding: 2rem 0.5rem;
+        margin-top: 3.5rem;
+        font-size: 0.88rem;
         color: {text_secondary};
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }}
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {{
+        width: 7px;
+        height: 7px;
+    }}
+    ::-webkit-scrollbar-track {{
+        background: transparent;
+    }}
+    ::-webkit-scrollbar-thumb {{
+        background: rgba(148, 163, 184, 0.25);
+        border-radius: 9999px;
+    }}
+    ::-webkit-scrollbar-thumb:hover {{
+        background: rgba(148, 163, 184, 0.45);
     }}
 
     /* Responsive Mobile Layout Adjustments */
     @media (max-width: 768px) {{
         .sc-hero {{
-            padding: 1.1rem 1.2rem !important;
+            padding: 1.2rem 1.4rem !important;
         }}
         .sc-title {{
-            font-size: 1.45rem !important;
+            font-size: 1.55rem !important;
         }}
         .metric-val {{
-            font-size: 1.3rem !important;
+            font-size: 1.4rem !important;
         }}
         .sticky-navbar {{
             flex-direction: column !important;
-            gap: 10px !important;
+            gap: 12px !important;
             align-items: flex-start !important;
+            padding: 1rem !important;
         }}
     }}
 
-    /* Print Stylesheet for Invoices & Manifests */
+    /* Dedicated Print Stylesheet */
     @media print {{
         header, [data-testid="stSidebar"], [data-testid="stToolbar"], .stButton, .no-print, .cookie-banner-box, .sticky-navbar, .site-footer {{
             display: none !important;
@@ -706,34 +837,42 @@ if menu == "🚚 Delivery Route & Fleet Telemetry":
     t_col1, t_col2, t_col3, t_col4 = st.columns(4)
     with t_col1:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">🛣️ Highway Distance</div>
-                <div class="metric-val">{distance:,.0f} <span style="font-size:1rem;color:{text_secondary};">km</span></div>
-                <div class="metric-delta delta-green">Dijkstra Solved</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">🛣️ Highway Distance</div>
+                    <div class="metric-val">{distance:,.0f} <span style="font-size:1rem;color:{text_secondary};font-weight:500;">km</span></div>
+                    <div class="metric-delta delta-green">● Dijkstra Solved</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
     with t_col2:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">⏱️ Estimated Transit</div>
-                <div class="metric-val">{est_days} <span style="font-size:1rem;color:{text_secondary};">days</span></div>
-                <div class="metric-delta delta-blue">Highway Speed 65 km/h</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">⏱️ Estimated Transit</div>
+                    <div class="metric-val">{est_days} <span style="font-size:1rem;color:{text_secondary};font-weight:500;">days</span></div>
+                    <div class="metric-delta delta-blue">● Highway Speed 65 km/h</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
     with t_col3:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">⛽ Diesel Consumption</div>
-                <div class="metric-val">{fuel_burn:,.0f} <span style="font-size:1rem;color:{text_secondary};">L</span></div>
-                <div class="metric-delta delta-green">Heavy Freight Average</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">⛽ Diesel Consumption</div>
+                    <div class="metric-val">{fuel_burn:,.0f} <span style="font-size:1rem;color:{text_secondary};font-weight:500;">L</span></div>
+                    <div class="metric-delta delta-green">● Heavy Freight Avg</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
     with t_col4:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">🌱 Carbon Footprint</div>
-                <div class="metric-val">{co2_footprint:,.0f} <span style="font-size:1rem;color:{text_secondary};">kg</span></div>
-                <div class="metric-delta delta-blue">BS-VI Standard Fleet</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">🌱 Carbon Footprint</div>
+                    <div class="metric-val">{co2_footprint:,.0f} <span style="font-size:1rem;color:{text_secondary};font-weight:500;">kg</span></div>
+                    <div class="metric-delta delta-blue">● BS-VI Fleet Standard</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
 
@@ -859,16 +998,21 @@ elif menu == "🛍️ Catalog & Cart Checkout":
             st.info("No products match your search query. Try clearing the search bar.")
 
         for p in products_list:
-            stock_pill = f'<span class="pill pill-green">✓ IN STOCK ({p["stock"]})</span>' if p['stock'] > 5 else (f'<span class="pill pill-amber">⚠️ LOW STOCK ({p["stock"]})</span>' if p['stock'] > 0 else '<span class="pill pill-red">✕ OUT OF STOCK</span>')
+            stock_pill = f'<span class="pill pill-green">● IN STOCK ({p["stock"]})</span>' if p['stock'] > 5 else (f'<span class="pill pill-amber">▲ LOW STOCK ({p["stock"]})</span>' if p['stock'] > 0 else '<span class="pill pill-red">✕ OUT OF STOCK</span>')
 
             st.markdown(f"""
-                <div class="store-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="pill pill-blue">{p['category']}</span>
-                        {stock_pill}
+                <div class="doppel-shell">
+                    <div class="store-card">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem;">
+                            <span class="pill pill-blue">{p['category']}</span>
+                            {stock_pill}
+                        </div>
+                        <div style="font-size:1.18rem; font-weight:700; color:{text_primary}; margin:0.35rem 0 0.25rem 0; letter-spacing:-0.015em;">{p['name']}</div>
+                        <div style="display:flex; align-items:baseline; gap:5px; margin-top:0.4rem;">
+                            <span class="price-display">₹{p['price']:,.2f}</span>
+                            <span class="price-unit">/ unit</span>
+                        </div>
                     </div>
-                    <div style="font-size:1.15rem; font-weight:700; color:{text_primary}; margin:0.4rem 0 0.2rem 0;">{p['name']}</div>
-                    <div class="price-display">₹{p['price']:,.2f}</div>
                 </div>
             """, unsafe_allow_html=True)
 
@@ -1043,34 +1187,42 @@ elif menu == "📊 Business Intelligence & KPIs":
     k1, k2, k3, k4 = st.columns(4)
     with k1:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">Total Store Revenue</div>
-                <div class="metric-val">₹{metrics['total_revenue']:,.2f}</div>
-                <div class="metric-delta delta-green">↑ 14.2% MoM Velocity</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">Total Store Revenue</div>
+                    <div class="metric-val">₹{metrics['total_revenue']:,.2f}</div>
+                    <div class="metric-delta delta-green">↑ 14.2% MoM Velocity</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
     with k2:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">Average Order Value</div>
-                <div class="metric-val">₹{metrics['average_order_value']:,.2f}</div>
-                <div class="metric-delta delta-blue">↑ 5.8% Quality Index</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">Average Order Value</div>
+                    <div class="metric-val">₹{metrics['average_order_value']:,.2f}</div>
+                    <div class="metric-delta delta-blue">↑ 5.8% Quality Index</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
     with k3:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">Peak Transaction Ticket</div>
-                <div class="metric-val">₹{metrics['max_order_value']:,.2f}</div>
-                <div class="metric-delta delta-green">Highest Cart Recorded</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">Peak Transaction Ticket</div>
+                    <div class="metric-val">₹{metrics['max_order_value']:,.2f}</div>
+                    <div class="metric-delta delta-green">Highest Cart Recorded</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
     with k4:
         st.markdown(f"""
-            <div class="metric-box">
-                <div class="metric-label">Completed Transactions</div>
-                <div class="metric-val">{metrics['order_count']} <span style="font-size:0.9rem;color:{text_secondary};">orders</span></div>
-                <div class="metric-delta delta-blue">ACID Logged in SQLite</div>
+            <div class="doppel-shell">
+                <div class="metric-box">
+                    <div class="metric-label">Completed Transactions</div>
+                    <div class="metric-val">{metrics['order_count']} <span style="font-size:0.9rem;color:{text_secondary};font-weight:500;">orders</span></div>
+                    <div class="metric-delta delta-blue">ACID Logged in SQLite</div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
 
@@ -1138,23 +1290,29 @@ elif menu == "🛠️ Warehouse Inventory Hub":
         c1, c2, c3 = st.columns(3)
         with c1:
             st.markdown(f"""
-                <div class="metric-box">
-                    <div class="metric-label">Active SKUs</div>
-                    <div class="metric-val">{total_skus}</div>
+                <div class="doppel-shell">
+                    <div class="metric-box">
+                        <div class="metric-label">Active SKUs</div>
+                        <div class="metric-val">{total_skus}</div>
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
         with c2:
             st.markdown(f"""
-                <div class="metric-box">
-                    <div class="metric-label">Units in Warehouse</div>
-                    <div class="metric-val">{total_units:,}</div>
+                <div class="doppel-shell">
+                    <div class="metric-box">
+                        <div class="metric-label">Units in Warehouse</div>
+                        <div class="metric-val">{total_units:,}</div>
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
         with c3:
             st.markdown(f"""
-                <div class="metric-box">
-                    <div class="metric-label">Total Inventory Valuation</div>
-                    <div class="metric-val">₹{inventory_val:,.2f}</div>
+                <div class="doppel-shell">
+                    <div class="metric-box">
+                        <div class="metric-label">Total Inventory Valuation</div>
+                        <div class="metric-val">₹{inventory_val:,.2f}</div>
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
 

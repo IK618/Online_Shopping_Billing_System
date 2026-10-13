@@ -328,6 +328,34 @@ def get_order_history(limit: int = 50) -> List[sqlite3.Row]:
     return rows
 
 
+def get_detailed_orders(limit: int = 50) -> List[Dict[str, Any]]:
+    """Retrieves full orders including line items from order_items table using relational joins."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT o.order_id, o.order_date, u.username, u.email, o.subtotal, o.discount, o.tax, o.total, o.delivery_city, o.status
+        FROM orders o
+        JOIN users u ON o.user_id = u.user_id
+        ORDER BY o.order_id DESC
+        LIMIT ?
+    """, (limit,))
+    orders_rows = cursor.fetchall()
+    
+    detailed = []
+    for o in orders_rows:
+        order_dict = dict(o)
+        cursor.execute("""
+            SELECT oi.item_id, oi.product_id, p.name, oi.quantity, oi.unit_price, oi.total_price
+            FROM order_items oi
+            JOIN products p ON oi.product_id = p.product_id
+            WHERE oi.order_id = ?
+        """, (order_dict["order_id"],))
+        order_dict["items"] = [dict(it) for it in cursor.fetchall()]
+        detailed.append(order_dict)
+    conn.close()
+    return detailed
+
+
 # Initialize database automatically on module import
 init_database()
 seed_sample_data()

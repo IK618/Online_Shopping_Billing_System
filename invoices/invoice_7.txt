@@ -1,0 +1,22 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #7          Date: 2026-10-09 17:13:38
+Customer   : Student Examiner     City: Chennai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Stainless Steel Thermal Bo  2     ₹599.00   ₹1198.00  
+Electric Gooseneck Drip Ke  1     ₹2499.00  ₹2499.00  
+-------------------------------------------------------
+Subtotal:                               ₹   3697.00
+Discount (2%):                          -₹    73.94
+GST / Tax (5%):                         ₹    181.15
+=======================================================
+NET PAYABLE TOTAL:                      ₹   3804.21
+Rounded Rupee Value:                    ₹      3804
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

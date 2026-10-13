@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,12,Date,2026-10-09 18:55:41
+Customer,Viva Student,Destination City,Delhi
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+1,Rolex Submariner,1,12500.00,12500.00
+
+,,,Subtotal,12500.00
+,,,Discount,-250.00
+,,,GST Tax,612.50
+,,,Grand Total,12862.50

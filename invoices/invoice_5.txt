@@ -1,0 +1,21 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #5          Date: 2026-10-09 17:08:55
+Customer   : Figma Integration Test City: Delhi
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Wireless Noise Cancelling   1     ₹4999.00  ₹4999.00  
+-------------------------------------------------------
+Subtotal:                               ₹   4999.00
+Discount (10%):                         -₹   499.90
+GST / Tax (5%):                         ₹    224.96
+=======================================================
+NET PAYABLE TOTAL:                      ₹   4724.06
+Rounded Rupee Value:                    ₹      4724
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

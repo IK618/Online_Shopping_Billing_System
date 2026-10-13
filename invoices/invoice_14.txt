@@ -1,0 +1,23 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #14         Date: 2026-10-09 18:59:51
+Customer   : Student Examiner     City: Chennai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Portable Bluetooth Waterpr  1     ₹1799.00  ₹1799.00  
+Ultra HD 4K Webcam with Du  1     ₹2899.00  ₹2899.00  
+Minimalist Solid Sheesham   1     ₹2499.00  ₹2499.00  
+-------------------------------------------------------
+Subtotal:                               ₹   7197.00
+Discount (2%):                          -₹   143.94
+GST / Tax (5%):                         ₹    352.65
+=======================================================
+NET PAYABLE TOTAL:                      ₹   7405.71
+Rounded Rupee Value:                    ₹      7405
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

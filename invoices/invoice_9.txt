@@ -1,0 +1,24 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #9          Date: 2026-10-09 18:46:52
+Customer   : Student Examiner     City: Chennai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Classic Leather Wallet & C  1     ₹499.00   ₹499.00   
+Adjustable Standing Laptop  1     ₹3299.00  ₹3299.00  
+Ergonomic Mesh Office Chai  1     ₹5499.00  ₹5499.00  
+Ceramic Non-Stick Frying P  1     ₹1149.00  ₹1149.00  
+-------------------------------------------------------
+Subtotal:                               ₹  10446.00
+Discount (2%):                          -₹   208.92
+GST / Tax (5%):                         ₹    511.85
+=======================================================
+NET PAYABLE TOTAL:                      ₹  10748.93
+Rounded Rupee Value:                    ₹     10748
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

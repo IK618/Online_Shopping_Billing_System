@@ -15,3 +15,10 @@ __pycache__/
 # OS generated
 .DS_Store
 *.log
+
+# Local AI Models & System Utilities
+Modelfile*
+hp-kbd-backlight.service
+omen_audio_visualizer.py
+.playwright-cli/
+GEMINI.md

@@ -16,6 +16,7 @@ import billing
 import routing
 import analytics
 import backup_service
+import threading
 
 
 def clear_screen():
@@ -111,7 +112,8 @@ def cli_storefront():
             print("5. View Delivery Road Network (NetworkX + SciPy Dijkstra)")
             print("6. Business Intelligence & Revenue Dashboard (NumPy + Matplotlib)")
             print("7. Run Cloud Database Backup (Threading + FTP)")
-            print("8. Log Out / Switch User")
+            print("8. 🎓 Viva Voce & Curriculum Concept Defense Guide")
+            print("9. Log Out / Switch User")
         else:
             print(f"Logged in as: {customer.username} | Status: {'★ Premium (10% Off)' if customer.is_premium else 'Regular'} | Cart Items: {len(cart)}")
             print("-" * 60)
@@ -121,7 +123,8 @@ def cli_storefront():
             print("4. Delivery Route Optimizer (NetworkX + SciPy Dijkstra)")
             print("5. View Sales Analytics & Revenue Trends (NumPy + Matplotlib)")
             print("6. Run Automated Database Cloud Backup (Threading + FTP)")
-            print("7. Log Out / Switch User")
+            print("7. 🎓 Viva Voce & Curriculum Concept Defense Guide")
+            print("8. Log Out / Switch User")
         print("-" * 60)
 
         choice = input("Enter your selection: ").strip()
@@ -263,6 +266,9 @@ def cli_storefront():
                 input("\nPress Enter to continue...")
 
             elif choice == "7":
+                show_viva_defense_cli()
+
+            elif choice == "8":
                 return cli_storefront()
 
         # ADMIN FLOW
@@ -333,7 +339,93 @@ def cli_storefront():
                 input("\nPress Enter to continue...")
 
             elif choice == "8":
+                show_viva_defense_cli()
+
+            elif choice == "9":
                 return cli_storefront()
+
+
+def show_viva_defense_cli():
+    """Interactive Viva Voce Defense Guide & Concepts Explorer in Terminal."""
+    while True:
+        print("\n" + "=" * 65)
+        print("   🎓 SMARTCART VIVA VOCE & CURRICULUM DEFENSE CONSOLE   ")
+        print("=" * 65)
+        print("1. View Complete Sessions 1–10 Curriculum-to-Code Mapping")
+        print("2. Test Banker's Rounding vs Round-Half-Up (Live Simulation)")
+        print("3. Test TCP POS Socket Communication (network_pos.py)")
+        print("4. Test Multithreaded Background FTP Archival (threading.Thread)")
+        print("5. View Top 5 High-Yield Viva Questions & Answers")
+        print("6. Return to Main Menu")
+        print("-" * 65)
+        sub = input("Enter choice (1-6): ").strip()
+
+        if sub == "1":
+            print("\n--- CURRICULUM TOPIC TO CODE MAPPING ---")
+            topics = [
+                ("Session 1", "Operators & Banker's Rounding", "models.py (calculate_totals)"),
+                ("Session 2", "Loops & Control Flow (range)", "database.py, run_cli.py"),
+                ("Session 3", "File I/O, datetime & CSV", "billing.py (export_order_to_csv)"),
+                ("Session 4", "Lists, List Comprehension & Slicing", "models.py, app.py"),
+                ("Session 5", "Sets, Dictionaries & Nested Dicts", "models.py, database.py"),
+                ("Session 6", "String Alignment (ljust, rjust, center)", "billing.py (generate_text_receipt)"),
+                ("Session 7", "Functions, lambda, map() & yield generator", "models.py (iter_items, subtotal)"),
+                ("Session 8", "OOP (Encapsulation, Inheritance, Polymorphism)", "models.py (Product, User, Customer)"),
+                ("Session 9", "SQLite3 WAL ACID & Sockets POS", "database.py, network_pos.py"),
+                ("Session 10", "Multithreading, FTP, NumPy & SciPy Dijkstra", "backup_service.py, analytics.py, routing.py")
+            ]
+            for s, t, c in topics:
+                print(f"[{s:<10}] {t:<42} -> {c}")
+            input("\nPress Enter to continue...")
+
+        elif sub == "2":
+            print("\n--- BANKER'S ROUNDING (IEEE 754) SIMULATOR ---")
+            try:
+                val = float(input("Enter a floating point number (e.g. 2.5, 3.5, 12.55): ").strip())
+                python_round = round(val)
+                math_round = int(val + 0.5) if val > 0 else int(val - 0.5)
+                print(f"\nValue Entered   : {val}")
+                print(f"Python round()  : {python_round} (Nearest Even Integer - Eliminates penny bias)")
+                print(f"Math Round-Up   : {math_round} (Always rounds away from zero - Produces drift)")
+            except ValueError:
+                print("❌ Invalid number.")
+            input("\nPress Enter to continue...")
+
+        elif sub == "3":
+            print("\n--- TESTING TCP SOCKET POS TERMINAL ---")
+            import network_pos
+            res = network_pos.send_pos_transaction({"terminal": "CLI_Examiner", "total": 9999.0, "items": 3})
+            print(f"Socket Protocol : TCP/IP (AF_INET, SOCK_STREAM, Port {network_pos.DEFAULT_PORT})")
+            print(f"Server Response : {res}")
+            input("\nPress Enter to continue...")
+
+        elif sub == "4":
+            print("\n--- DISPATCHING MULTITHREADED BACKUP ---")
+            worker = backup_service.run_async_backup()
+            print(f"✅ Dispatched Thread '{worker.name}' (daemon={worker.daemon})")
+            print(f"Active Threads Count: {threading.active_count()}")
+            input("\nPress Enter to continue...")
+
+        elif sub == "5":
+            print("\n--- TOP HIGH-YIELD VIVA QUESTIONS & DEFENSE ---")
+            qa = [
+                ("Q: What is Banker's Rounding and why use it?",
+                 "A: Python's round() implements IEEE 754 round-half-to-even. It rounds .5 to the nearest even number (2.5 -> 2, 3.5 -> 4), eliminating cumulative penny drift in high-volume transactions."),
+                ("Q: How does Dijkstra work in routing.py?",
+                 "A: We construct an undirected weighted graph of Indian corridors in NetworkX, export it to a SciPy Compressed Sparse Row (CSR) matrix, and execute scipy.sparse.csgraph.dijkstra in O(E + V log V)."),
+                ("Q: How is Encapsulation enforced in models.py?",
+                 "A: Product prices and stocks use double leading underscores (__price, __stock). Name-mangling protects them, while @property and @price.setter ensure validation (rejecting negative prices)."),
+                ("Q: Why use Python generators (yield)?",
+                 "A: ShoppingCart.iter_items() uses 'yield' to lazily stream items on-demand with O(1) extra memory instead of returning full list duplicates."),
+                ("Q: Why configure SQLite with PRAGMA journal_mode=WAL?",
+                 "A: Write-Ahead Logging allows readers not to block writers and writers not to block readers, enabling concurrency between the web GUI and CLI run_cli.py.")
+            ]
+            for q, a in qa:
+                print(f"\n{q}\n{a}")
+            input("\nPress Enter to continue...")
+
+        elif sub == "6":
+            break
 
 
 if __name__ == "__main__":

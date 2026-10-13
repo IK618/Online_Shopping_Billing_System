@@ -1,0 +1,14 @@
+SmartCart Retail Invoicing System
+Order ID,8,Date,2026-10-09 18:46:49
+Customer,Student Examiner,Destination City,Chennai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+7,Classic Leather Wallet & Card Holder,1,499.00,499.00
+13,Adjustable Standing Laptop Desk Riser,1,3299.00,3299.00
+4,Ergonomic Mesh Office Chair,1,5499.00,5499.00
+10,Ceramic Non-Stick Frying Pan (28cm),1,1149.00,1149.00
+
+,,,Subtotal,10446.00
+,,,Discount,-208.92
+,,,GST Tax,511.85
+,,,Grand Total,10748.93

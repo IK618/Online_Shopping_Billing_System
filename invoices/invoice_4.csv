@@ -1,0 +1,12 @@
+SmartCart Retail Invoicing System
+Order ID,4,Date,2026-10-07 01:10:21
+Customer,Gindira Kumar,Destination City,Bengaluru
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+3,Smart Fitness Band & Tracker,1,1899.00,1899.00
+10,Ceramic Non-Stick Frying Pan,1,1149.00,1149.00
+
+,,,Subtotal,3048.00
+,,,Discount,-60.96
+,,,GST Tax,149.35
+,,,Grand Total,3136.39

@@ -1,0 +1,22 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #1          Date: 2026-10-01 18:51:00
+Customer   : rahul_sharma         City: Mumbai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Organic Green Tea (Pack of  6     ₹349.00   ₹2094.00  
+Stainless Steel Thermal Bo  1     ₹599.00   ₹599.00   
+-------------------------------------------------------
+Subtotal:                               ₹   2693.00
+Discount (10%):                         -₹   269.30
+GST / Tax (5%):                         ₹    121.19
+=======================================================
+NET PAYABLE TOTAL:                      ₹   2544.88
+Rounded Rupee Value:                    ₹      2544
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

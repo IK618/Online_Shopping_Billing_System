@@ -1,0 +1,22 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #4          Date: 2026-10-07 01:10:21
+Customer   : Gindira Kumar        City: Bengaluru
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Smart Fitness Band & Track  1     ₹1899.00  ₹1899.00  
+Ceramic Non-Stick Frying P  1     ₹1149.00  ₹1149.00  
+-------------------------------------------------------
+Subtotal:                               ₹   3048.00
+Discount (2%):                          -₹    60.96
+GST / Tax (5%):                         ₹    149.35
+=======================================================
+NET PAYABLE TOTAL:                      ₹   3136.39
+Rounded Rupee Value:                    ₹      3136
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

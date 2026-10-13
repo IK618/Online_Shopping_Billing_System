@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,6,Date,2026-10-09 17:13:17
+Customer,Student Examiner,Destination City,Chennai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+10,Ceramic Non-Stick Frying Pan (28cm),1,1149.00,1149.00
+
+,,,Subtotal,1149.00
+,,,Discount,-22.98
+,,,GST Tax,56.30
+,,,Grand Total,1182.32

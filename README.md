@@ -58,18 +58,19 @@ Built as a comprehensive 2nd-Year Python Project synthesizing **Core Python, OOP
 
 ## 🚀 How to Run the Project
 
-### 1. Run the Modern Web UI (Streamlit)
+### 1. Run the Interactive Web Platform (Port 3000)
 ```bash
 source .venv/bin/activate
-streamlit run app.py
+python server.py
 ```
-*The app will automatically open in your web browser at `http://localhost:8501`.*
+*The high-performance 3D web platform will be accessible at `http://localhost:3000`.*
 
 ### 2. Run the Interactive Terminal CLI (Console Mode)
 ```bash
 source .venv/bin/activate
 python run_cli.py
 ```
+*Allows the examiner to test the full shopping, billing, and routing workflow directly in the terminal without opening a browser.*
 
 ### 3. Test the Network POS Socket Client-Server
 ```bash
@@ -83,7 +84,7 @@ python network_pos.py
 
 ```text
 Online_Shopping_Billing_System/
-├── .venv/                   # Python virtual environment (ignored in git/zip)
+├── .venv/                   # Python virtual environment
 ├── invoices/                # Generated text and CSV invoices
 ├── models.py                # OOP data models, inheritance, generator & math rules
 ├── database.py              # SQLite connection, schema, queries, and seeding
@@ -93,7 +94,10 @@ Online_Shopping_Billing_System/
 ├── network_pos.py           # Socket client-server POS communication
 ├── backup_service.py        # Background threading worker & FTP cloud archival
 ├── run_cli.py               # Complete interactive Terminal CLI menu
-├── app.py                   # Full Streamlit Web UI application
+├── server.py                # Lightweight Python API & Web Server (Port 3000)
+├── web/                     # Web dashboard frontend assets
+│   ├── index.html           # Full WebGL 3D interface, cart & Dijkstra inspector
+│   └── images/              # Product photography catalogue
 ├── requirements.txt         # Pinned Python package dependencies
 ├── .gitignore               # Excludes caches, venv, and temporary databases
 └── README.md                # Project documentation and evaluation guide

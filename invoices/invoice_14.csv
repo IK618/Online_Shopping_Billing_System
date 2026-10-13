@@ -1,0 +1,13 @@
+SmartCart Retail Invoicing System
+Order ID,14,Date,2026-10-09 18:59:51
+Customer,Student Examiner,Destination City,Chennai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+12,Portable Bluetooth Waterproof Speaker,1,1799.00,1799.00
+11,Ultra HD 4K Webcam with Dual Microphones,1,2899.00,2899.00
+14,Minimalist Solid Sheesham Bedside Table,1,2499.00,2499.00
+
+,,,Subtotal,7197.00
+,,,Discount,-143.94
+,,,GST Tax,352.65
+,,,Grand Total,7405.71
