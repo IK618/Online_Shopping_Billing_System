@@ -25,3 +25,24 @@ Details:
   * Vector CSS Status Dots: Converted stock indicators to high-contrast emerald and ruby pulse dots.
 - Executed full unicode regex scanner confirming 0 emojis remain in `fastspring_ui.html` and `fastspring_server.py`.
 - Verified headless Chrome DOM dump and captured screenshot at `fastspring_svg_icons_verified.png`.
+
+Task Cycle 6: Real-Time Inventory Stock Reduction & Manual Quote Quantity Controls
+Status: Completed & Verified
+Details:
+- Resolved stock reduction bug:
+  * Catalog SKU cards now compute dynamic `remainingStock = p.stock - (cart[pid] || 0)` in real time.
+  * When an item is added to the quote, the visible count immediately counts down (e.g., from 1 -> 0 or 20 -> 19) and shows `(X in quote)`.
+  * If available stock reaches 0, the button automatically disables with `Max Stock Reached` (or `Out of Stock`), preventing over-adding.
+- Added interactive Quantity Controls to the Digital Quote / Billing Drawer:
+  * Stepper `[-]` button: Decrements quote quantity by 1 (removes item cleanly if decremented from 1).
+  * Manual Numeric `<input>`: Allows the user to type any desired quantity directly. Automatically clamps to available database stock with an informative alert if exceeded.
+  * Stepper `[+]` button: Increments quote quantity by 1 up to maximum database stock. Automatically disables when maximum inventory limit is reached.
+- Hardened Backend `/api/checkout`:
+  * Enforces strict pre-flight stock validation against SQLite `products.stock`.
+  * Rejects overstock requests with HTTP 400 and descriptive error message.
+  * Executes relational transaction `UPDATE products SET stock = stock - ? WHERE product_id = ?` on successful order.
+  * Refreshes frontend product catalog post-checkout.
+- Automated CDP Verification:
+  * Confirmed that adding a 1-stock item disables further addition and sets remaining stock to 0.
+  * Confirmed stepper `[+]`, `[-]`, and manual input adjust cart quantities and catalog stock in lockstep.
+  * Saved visual verification screenshot to `fastspring_stepper_interaction_verified.png`.

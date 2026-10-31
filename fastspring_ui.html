@@ -440,6 +440,14 @@
       border-bottom: 1px solid #f1f5f9;
       color: var(--main-heading-color);
     }
+    .cart-table input[type=number]::-webkit-inner-spin-button,
+    .cart-table input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .cart-table input[type=number] {
+      -moz-appearance: textfield;
+    }
     .summary-row {
       display: flex;
       justify-content: space-between;
@@ -914,7 +922,57 @@
       };
 
       const addToCart = (pid) => {
-        setCart(prev => ({ ...prev, [pid]: (prev[pid] || 0) + 1 }));
+        const p = products.find(x => x.product_id == pid);
+        if (!p) return;
+        const currentQty = cart[pid] || 0;
+        if (currentQty >= p.stock) {
+          alert(`Insufficient stock. Only ${p.stock} units available for ${p.name}.`);
+          return;
+        }
+        setCart(prev => ({ ...prev, [pid]: currentQty + 1 }));
+      };
+
+      const incrementCart = (pid) => {
+        const p = products.find(x => x.product_id == pid);
+        if (!p) return;
+        const currentQty = cart[pid] || 0;
+        if (currentQty >= p.stock) {
+          alert(`Maximum available stock (${p.stock}) reached for ${p.name}.`);
+          return;
+        }
+        setCart(prev => ({ ...prev, [pid]: currentQty + 1 }));
+      };
+
+      const decrementCart = (pid) => {
+        setCart(prev => {
+          const currentQty = prev[pid] || 0;
+          if (currentQty <= 1) {
+            const next = { ...prev };
+            delete next[pid];
+            return next;
+          }
+          return { ...prev, [pid]: currentQty - 1 };
+        });
+      };
+
+      const updateCartQuantity = (pid, valStr) => {
+        const p = products.find(x => x.product_id == pid);
+        if (!p) return;
+        const parsed = parseInt(valStr, 10);
+        if (isNaN(parsed) || parsed <= 0) {
+          setCart(prev => {
+            const next = { ...prev };
+            delete next[pid];
+            return next;
+          });
+          return;
+        }
+        if (parsed > p.stock) {
+          alert(`Only ${p.stock} units in stock for ${p.name}. Quantity adjusted to available limit.`);
+          setCart(prev => ({ ...prev, [pid]: p.stock }));
+          return;
+        }
+        setCart(prev => ({ ...prev, [pid]: parsed }));
       };
 
       const removeFromCart = (pid) => {
@@ -969,6 +1027,7 @@
           setInvoiceResult(data);
           setShowInvoiceModal(true);
           clearCart();
+          fetch('/api/products').then(r => r.json()).then(setProducts);
           fetchMetrics();
         } else {
           alert('Error: ' + data.error);
@@ -1191,38 +1250,49 @@
                         />
                       </div>
                       <div className="catalog-grid">
-                        {filteredProducts.map(p => (
-                          <div className="sku-item" key={p.product_id}>
-                            <div>
-                              <div className="sku-cat">{p.category}</div>
-                              <div className="sku-name">{p.name}</div>
-                            </div>
-                            <div>
-                              <div className="sku-price">₹{Number(p.price).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
-                              <div className="sku-stock" style={{ display: 'flex', alignItems: 'center' }}>
-                                {p.stock > 0 ? (
-                                  <>
-                                    <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', marginRight: '6px' }}></span>
-                                    {p.stock} units available
-                                  </>
-                                ) : (
-                                  <>
-                                    <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ef4444', marginRight: '6px' }}></span>
-                                    Out of stock
-                                  </>
-                                )}
+                        {filteredProducts.map(p => {
+                          const inCart = cart[p.product_id] || 0;
+                          const remainingStock = Math.max(0, p.stock - inCart);
+                          const isMaxReached = remainingStock <= 0;
+                          return (
+                            <div className="sku-item" key={p.product_id}>
+                              <div>
+                                <div className="sku-cat">{p.category}</div>
+                                <div className="sku-name">{p.name}</div>
                               </div>
-                              <button 
-                                className="fs-btn-orange" 
-                                style={{ width: '100%', marginTop: '12px', padding: '8px' }}
-                                onClick={() => addToCart(p.product_id)}
-                                disabled={p.stock <= 0}
-                              >
-                                + Add to Quote
-                              </button>
+                              <div>
+                                <div className="sku-price">₹{Number(p.price).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+                                <div className="sku-stock" style={{ display: 'flex', alignItems: 'center' }}>
+                                  {remainingStock > 0 ? (
+                                    <>
+                                      <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981', marginRight: '6px' }}></span>
+                                      <span>{remainingStock} units available {inCart > 0 && <span style={{ color: '#1479ce', fontWeight: 600 }}>({inCart} in quote)</span>}</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#ef4444', marginRight: '6px' }}></span>
+                                      <span style={{ color: '#ef4444', fontWeight: 600 }}>{p.stock === 0 ? 'Out of stock' : `Max in quote (${inCart}/${p.stock})`}</span>
+                                    </>
+                                  )}
+                                </div>
+                                <button 
+                                  className="fs-btn-orange" 
+                                  style={{ 
+                                    width: '100%', 
+                                    marginTop: '12px', 
+                                    padding: '8px',
+                                    backgroundColor: isMaxReached ? '#94a3b8' : undefined,
+                                    cursor: isMaxReached ? 'not-allowed' : 'pointer'
+                                  }}
+                                  onClick={() => addToCart(p.product_id)}
+                                  disabled={isMaxReached}
+                                >
+                                  {isMaxReached ? (p.stock === 0 ? 'Out of Stock' : 'Max Stock Reached') : '+ Add to Quote'}
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
 
@@ -1241,7 +1311,7 @@
                           ) : (
                             <table className="cart-table">
                               <thead>
-                                <tr><th>Product</th><th>Qty</th><th>Price</th><th></th></tr>
+                                <tr><th>Product</th><th style={{ width: '115px' }}>Quantity</th><th>Price</th><th></th></tr>
                               </thead>
                               <tbody>
                                 {cartKeys.map(pid => {
@@ -1250,8 +1320,77 @@
                                   const lineTotal = p.price * cart[pid];
                                   return (
                                     <tr key={pid}>
-                                      <td><strong>{p.name}</strong></td>
-                                      <td>{cart[pid]}</td>
+                                      <td>
+                                        <strong>{p.name}</strong>
+                                        <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>Stock: {p.stock} units</div>
+                                      </td>
+                                      <td>
+                                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                                          <button 
+                                            type="button" 
+                                            onClick={() => decrementCart(pid)}
+                                            title="Decrease quantity"
+                                            style={{
+                                              width: '24px',
+                                              height: '24px',
+                                              display: 'inline-flex',
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              background: '#f1f5f9',
+                                              border: '1px solid #cbd5e1',
+                                              borderRadius: '4px',
+                                              cursor: 'pointer',
+                                              fontWeight: 700,
+                                              fontSize: '13px',
+                                              color: '#334155'
+                                            }}
+                                          >
+                                            -
+                                          </button>
+                                          <input 
+                                            type="number"
+                                            min="1"
+                                            max={p.stock}
+                                            value={cart[pid]}
+                                            onChange={(e) => updateCartQuantity(pid, e.target.value)}
+                                            title={`Enter manual quantity (1 - ${p.stock})`}
+                                            style={{
+                                              width: '42px',
+                                              height: '24px',
+                                              textAlign: 'center',
+                                              border: '1px solid #cbd5e1',
+                                              borderRadius: '4px',
+                                              fontSize: '0.85rem',
+                                              fontWeight: 700,
+                                              color: '#0f172a',
+                                              padding: '0 2px'
+                                            }}
+                                          />
+                                          <button 
+                                            type="button" 
+                                            onClick={() => incrementCart(pid)}
+                                            disabled={cart[pid] >= p.stock}
+                                            title={cart[pid] >= p.stock ? `Max stock reached (${p.stock})` : 'Increase quantity'}
+                                            style={{
+                                              width: '24px',
+                                              height: '24px',
+                                              display: 'inline-flex',
+                                              alignItems: 'center',
+                                              justifyContent: 'center',
+                                              background: cart[pid] >= p.stock ? '#f8fafc' : '#f1f5f9',
+                                              border: '1px solid #cbd5e1',
+                                              borderRadius: '4px',
+                                              cursor: cart[pid] >= p.stock ? 'not-allowed' : 'pointer',
+                                              opacity: cart[pid] >= p.stock ? 0.35 : 1,
+                                              fontWeight: 700,
+                                              fontSize: '13px',
+                                              color: '#334155'
+                                            }}
+                                          >
+                                            +
+                                          </button>
+                                        </div>
+                                      </td>
                                       <td>₹{lineTotal.toFixed(2)}</td>
                                       <td>
                                         <a href="javascript:void(0)" style={{ color: '#ef4444', textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }} onClick={() => removeFromCart(pid)} title="Remove item">

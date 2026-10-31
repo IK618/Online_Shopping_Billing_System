@@ -133,11 +133,23 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
             cust = models.Customer(user_row["user_id"], user_row["username"], user_row["email"], user_row["city"], bool(user_row["is_premium"]))
             cart = models.ShoppingCart(cust)
 
+            import datetime
+
             for it in items:
-                p_row = database.get_product(it["product_id"])
-                if p_row and p_row["stock"] >= it["quantity"]:
-                    p_obj = models.Product(p_row["product_id"], p_row["name"], p_row["category"], p_row["price"], p_row["stock"])
-                    cart.add_item(p_obj, it["quantity"])
+                pid = it.get("product_id")
+                qty = it.get("quantity", 0)
+                p_row = database.get_product(pid)
+                if not p_row:
+                    self.send_json({"success": False, "error": f"Product #{pid} not found in catalog."}, status=400)
+                    return
+                if qty <= 0:
+                    self.send_json({"success": False, "error": f"Invalid quantity ({qty}) for {p_row['name']}."}, status=400)
+                    return
+                if qty > p_row["stock"]:
+                    self.send_json({"success": False, "error": f"Insufficient stock for '{p_row['name']}'. Only {p_row['stock']} available (requested {qty})."}, status=400)
+                    return
+                p_obj = models.Product(p_row["product_id"], p_row["name"], p_row["category"], p_row["price"], p_row["stock"])
+                cart.add_item(p_obj, qty)
 
             totals = cart.calculate_totals()
             
@@ -154,16 +166,26 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
             totals["delivery_fee"] = delivery_fee
             totals["final_order_total"] = round(totals["total"] + delivery_fee, 2)
 
-            # Persist order in SQLite
+            # Persist order in SQLite with relational transaction integrity & stock decrement
             order_items_payload = [
-                {"product_id": it.product.product_id, "quantity": it.quantity, "unit_price": it.product.price}
+                {
+                    "product_id": it.product.product_id,
+                    "name": it.product.name,
+                    "quantity": it.quantity,
+                    "unit_price": it.product.price,
+                    "total_price": it.total_price
+                }
                 for it in cart.iter_items()
             ]
+            now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             order_id = database.save_order(
                 user_id=cust.user_id,
-                total_amount=totals["final_order_total"],
-                tax_amount=totals["tax"],
-                discount_amount=totals["discount_amount"],
+                order_date=now_str,
+                subtotal=totals["subtotal"],
+                discount=totals["discount_amount"],
+                tax=totals["tax"],
+                total=totals["final_order_total"],
+                delivery_city=dest_city,
                 items=order_items_payload
             )
 
@@ -179,7 +201,13 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
                 cart_items=receipt_items,
                 totals=totals
             )
-            csv_path = billing.export_order_to_csv(order_id, cust.username, receipt_items, totals)
+            csv_path = billing.export_order_to_csv(
+                order_id=order_id,
+                customer_name=cust.username,
+                delivery_city=dest_city,
+                cart_items=receipt_items,
+                totals=totals
+            )
 
             self.send_json({
                 "success": True,
