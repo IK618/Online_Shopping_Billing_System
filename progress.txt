@@ -46,3 +46,13 @@ Details:
   * Confirmed that adding a 1-stock item disables further addition and sets remaining stock to 0.
   * Confirmed stepper `[+]`, `[-]`, and manual input adjust cart quantities and catalog stock in lockstep.
   * Saved visual verification screenshot to `fastspring_stepper_interaction_verified.png`.
+
+Upcoming Task Cycle 7: billEX Rebrand & Multi-Tenant Merchant Architecture
+Status: Planned & Detailed in PROJECT_MEMORY.md
+Details:
+- Rebrand UI and backend identity to billEX.
+- Add Shop Registration & Store Identity (Shop Name, Address, GSTIN, Phone).
+- Implement Role-Based Access Control:
+  * Store Owner (Admin): Inventory, Pricing, Staff Management, Revenue BI, Database Backups.
+  * Store Employee (Cashier): POS billing counter, stock inquiry, discount toggles, and printing bills with cashier attribution.
+- Update generated invoice receipts with official shop header and cashier tag.
