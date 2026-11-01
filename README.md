@@ -1,38 +1,45 @@
-# SmartCart: Online Shopping & Billing System
-> **An Integrated Retail Invoicing, Graph-Optimized Logistics & Sales Analytics Platform**
+# billEX & SmartCart: Online Shopping, Invoicing & Multi-Tenant Retail POS System
+> **An Integrated Retail Invoicing, Graph-Optimized Logistics & Multi-Tenant POS Platform**
 
-Built as a comprehensive 2nd-Year Python Project synthesizing **Core Python, OOP, Relational Databases, Scientific Computing, Graph Algorithms, and Concurrency**.
+Synthesizes **Core Python, OOP, Relational Databases, Scientific Computing, Graph Algorithms, and Concurrency**.
 
 ---
 
-## 🌟 Key Highlights & Features
+## Key Highlights & Features
 
-1. **🛍️ Interactive Storefront & Dynamic Cart**
-   * Real-time stock decrement and inventory control.
-   * Customer discount tiering (Regular vs. Premium Customer).
+1. **Multi-Tenant POS & Store Identity Architecture**
+   * Multi-store registration with unique store profiles (Shop Name, Physical Address, GSTIN, Phone, City).
+   * Role-Based Access Control (RBAC): Store Owner (Admin) vs. Cashier Staff (Employee).
+   * Admin security gates protecting master inventory pricing, staff management, and telemetry.
+
+2. **Interactive Storefront & Dynamic Cart**
+   * Real-time stock decrement and reactive inventory countdown.
+   * Quantity stepper controls with overstock limits.
+   * Customer discount tiering and promo code engine.
    * Banker's rounding and tax calculation (`math.trunc`, `round()`).
 
-2. **🧾 Automated Multi-Format Invoicing**
-   * ASCII-formatted tax receipts formatted with string alignment methods (`ljust`, `rjust`, `center`).
+3. **Automated Multi-Format Invoicing & Cashier Attribution**
+   * ASCII-formatted and printable tax receipts dynamically stamped with store address and GSTIN.
+   * Cashier accountability tracking (`Billed By: [Cashier Name]`).
    * Export to `.csv` spreadsheet files with timestamps.
    * Automated email dispatch using Python's `smtplib` (`EmailMessage` over TLS port 587).
 
-3. **🚚 Graph-Optimized Logistics & Delivery Routing**
+4. **Graph-Optimized Logistics & Delivery Routing**
    * Modeled with `networkx.Graph` representing major distribution hubs and highway distance weights.
-   * Shortest delivery path computation using **`scipy.sparse.csgraph.dijkstra`** on sparse adjacency matrices.
-   * Visual map rendering with **`matplotlib.pyplot`** highlighting the chosen transit corridor.
+   * Shortest delivery path computation using `scipy.sparse.csgraph.dijkstra` on sparse adjacency matrices.
+   * Inter-city delivery freight calculation (free counter pickup in store home city).
 
-4. **📊 Business Intelligence & Sales Analytics**
+5. **Business Intelligence & Sales Analytics**
    * Real-time transaction metrics computed with **NumPy** arrays (sum, mean, standard deviation, max/min).
    * 2-panel visual analytics dashboard with **Matplotlib** (Category sales bar chart + Weekly revenue line plot).
 
-5. **⚙️ Concurrency, Sockets & Cloud Archival**
-   * Asynchronous database backups using **`threading.Thread`** and **`ftplib`** to prevent UI freezing.
-   * Client-Server Point-of-Sale (POS) cashier terminal communication using **`socket`** (`AF_INET`, `SOCK_STREAM`).
+6. **Concurrency, Sockets & Cloud Archival**
+   * Asynchronous database backups using `threading.Thread` and `ftplib` to prevent UI freezing.
+   * Client-Server Point-of-Sale (POS) cashier terminal communication using `socket` (`AF_INET`, `SOCK_STREAM`).
 
 ---
 
-## 🎓 Syllabus Topic-to-Code Mapping
+## Syllabus Topic-to-Code Mapping
 
 | Session | Curriculum Topic | Where It Is Implemented in the Code |
 | :--- | :--- | :--- |
@@ -56,65 +63,48 @@ Built as a comprehensive 2nd-Year Python Project synthesizing **Core Python, OOP
 
 ---
 
-## 🚀 How to Run the Project
+## How to Run the Project
 
-### 1. Run the Interactive Web Platform (Port 3000)
+### 1. Run the billEX Multi-Tenant Web POS Server (Port 8080)
 ```bash
-source .venv/bin/activate
-python server.py
+python fastspring_server.py
 ```
-*The high-performance 3D web platform will be accessible at `http://localhost:3000`.*
+*Access the billEX web POS application at `http://localhost:8080`.*
 
 ### 2. Run the Interactive Terminal CLI (Console Mode)
 ```bash
-source .venv/bin/activate
 python run_cli.py
 ```
-*Allows the examiner to test the full shopping, billing, and routing workflow directly in the terminal without opening a browser.*
+*Or run the isolated standalone version in `SmartCart_Terminal_Project/`:*
+```bash
+cd SmartCart_Terminal_Project
+python run_cli.py
+```
 
 ### 3. Test the Network POS Socket Client-Server
 ```bash
-source .venv/bin/activate
 python network_pos.py
 ```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 Online_Shopping_Billing_System/
-├── .venv/                   # Python virtual environment
-├── invoices/                # Generated text and CSV invoices
-├── models.py                # OOP data models, inheritance, generator & math rules
-├── database.py              # SQLite connection, schema, queries, and seeding
-├── billing.py               # Formatted ASCII receipts, CSV export, and SMTP sender
-├── routing.py               # NetworkX & SciPy Dijkstra road route optimization
-├── analytics.py             # NumPy business metrics & Matplotlib chart generator
-├── network_pos.py           # Socket client-server POS communication
-├── backup_service.py        # Background threading worker & FTP cloud archival
-├── run_cli.py               # Complete interactive Terminal CLI menu
-├── server.py                # Lightweight Python API & Web Server (Port 3000)
-├── web/                     # Web dashboard frontend assets
-│   ├── index.html           # Full WebGL 3D interface, cart & Dijkstra inspector
-│   └── images/              # Product photography catalogue
-├── requirements.txt         # Pinned Python package dependencies
-├── .gitignore               # Excludes caches, venv, and temporary databases
-└── README.md                # Project documentation and evaluation guide
+├── invoices/                    # Generated text and CSV invoices
+├── models.py                    # OOP data models, inheritance, generator & math rules
+├── database.py                  # Multi-tenant SQLite schema, shops, staff, queries
+├── billing.py                   # Formatted ASCII receipts, CSV export, and SMTP sender
+├── fastspring_server.py         # Multi-threaded billEX HTTP server & REST API (Port 8080)
+├── fastspring_ui.html           # billEX React 18 frontend with SVG icons & non-blocking toasts
+├── routing.py                   # NetworkX & SciPy Dijkstra road route optimization
+├── analytics.py                 # NumPy business metrics & Matplotlib chart generator
+├── network_pos.py               # Socket client-server POS communication
+├── backup_service.py            # Background threading worker & FTP cloud archival
+├── run_cli.py                   # Complete interactive Terminal CLI menu
+├── SmartCart_Terminal_Project/  # Isolated, preserved original terminal CLI project
+├── requirements.txt             # Pinned Python package dependencies
+├── .gitignore                   # Excludes caches, venv, and temporary databases
+└── README.md                    # Project documentation and evaluation guide
 ```
-
----
-
-## 🎯 Viva / Exam Defense Cheatsheet
-
-1. **Q: How does the delivery routing work?**
-   * *A:* We model India's major shipping corridors as a weighted graph in `NetworkX`. To find the optimal route, we convert the graph into a SciPy Compressed Sparse Row (CSR) adjacency matrix and execute Dijkstra's algorithm via `scipy.sparse.csgraph.dijkstra` in $O(E + V \log V)$ time.
-
-2. **Q: Where is Multithreading used?**
-   * *A:* In `backup_service.py`, database uploads to the FTP server run on a detached daemon thread (`threading.Thread`). This prevents the application interface (UI or CLI) from blocking or freezing during heavy network transfers.
-
-3. **Q: How is Encapsulation demonstrated in OOP?**
-   * *A:* In `Product`, the attributes `__price` and `__stock` are private. Access and modification are mediated through getters and setter methods with input validation.
-
-4. **Q: Where are Python Generators used?**
-   * *A:* In `ShoppingCart.iter_items()`, we use the `yield` statement to stream cart items lazily without duplicating array memory.
