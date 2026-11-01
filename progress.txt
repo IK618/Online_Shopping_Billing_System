@@ -47,12 +47,38 @@ Details:
   * Confirmed stepper `[+]`, `[-]`, and manual input adjust cart quantities and catalog stock in lockstep.
   * Saved visual verification screenshot to `fastspring_stepper_interaction_verified.png`.
 
-Upcoming Task Cycle 7: billEX Rebrand & Multi-Tenant Merchant Architecture
-Status: Planned & Detailed in PROJECT_MEMORY.md
+Task Cycle 7: billEX Rebrand, Multi-Tenant Merchant Architecture & RBAC POS Suite
+Status: Completed & Verified
 Details:
-- Rebrand UI and backend identity to billEX.
-- Add Shop Registration & Store Identity (Shop Name, Address, GSTIN, Phone).
-- Implement Role-Based Access Control:
-  * Store Owner (Admin): Inventory, Pricing, Staff Management, Revenue BI, Database Backups.
-  * Store Employee (Cashier): POS billing counter, stock inquiry, discount toggles, and printing bills with cashier attribution.
-- Update generated invoice receipts with official shop header and cashier tag.
+- Rebranded entire application from FastSpring to billEX:
+  * Sleek vector brand logo with geometric orange/blue badges and Figtree/JetBrains typography.
+  * Active Store identity pill (`Apex Electronics & Retail • Bengaluru • GSTIN: 29ABCDE1234F1Z5`).
+  * Role indicator pills distinguishing Store Owner (Admin) vs Cashier Staff.
+- Multi-Tenant Schema & Relational Upgrades in SQLite (`store.db`):
+  * Added `shops` table with `shop_id`, `shop_name`, `owner_user_id`, `address`, `gstin`, `phone`, `city`, `created_at`.
+  * Added `shop_id` foreign key columns to `users`, `products`, and `orders`.
+  * Added `billed_by_user_id`, `customer_name`, and `customer_phone` to `orders`.
+- Role-Based Access Control (RBAC):
+  * Store Owner (Admin): Unrestricted access to Warehouse Inventory creation, Staff Management roster & employee invites, Store Identity/GST profile editing, Dijkstra Route telemetry, NumPy BI analytics, and SQLite database backup dumps.
+  * Store Cashier (Employee): Dedicated Fast POS Billing Counter, live SKU search with dynamic stock countdown, quote stepper controls, customer detail inputs, and one-click official invoice printing with cashier attribution. Admin tabs automatically locked with clear security notice and switcher.
+- Dynamic Official Tax Invoicing & CSV Export (`billing.py`):
+  * Generates ASCII & printable bills headed with the store's physical street address, GSTIN, and contact phone.
+  * Includes customer metadata (`CUSTOMER: ... | PHONE: ...`) and cashier attribution (`BILLED BY: Priya Patel (Cashier)`).
+  * Automatically zeroes delivery freight if counter sale is within the store's home city (`freight = ₹0.00`).
+- Upgraded UI Feedback Engine:
+  * Eliminated all legacy browser `window.alert()` calls in favor of accessible, non-blocking floating toast notifications (`role="status" aria-live="polite"`).
+  * Fixed string padding calculation in live receipt preview using pure JavaScript `padCenter`.
+- End-to-End Visual Chrome DevTools Protocol (CDP) Verification:
+  * Verified Owner dashboard, staff management, store profile settings, and inventory tabs.
+  * Verified user role switching between Store Owner (`admin_user`) and Cashier (`cashier_priya`).
+  * Verified cashier access restriction on Admin tabs.
+  * Verified complete checkout flow producing official billEX invoices with cashier attribution.
+  * Captured and saved full suite of 8 high-resolution visual proof screenshots in artifact directory.
+
+Upcoming Task Cycle 8: Retail POS Enhancements & Multi-Channel Billing Features
+Status: Planned / Suggested Next Steps
+Details:
+- Cashier Quick Barcode / SKU Scan & Fast Search (auto-focus SKU input with Enter-to-add).
+- Payment Split Calculator (Cash tendered + change calculation, dynamic UPI QR code generator `upi://pay`).
+- End-of-Day Shift Z-Report / Cashier Register Settlement.
+- WhatsApp / SMS Instant Digital Invoice Link Sharing.

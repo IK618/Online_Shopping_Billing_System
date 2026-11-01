@@ -21,46 +21,65 @@ os.makedirs(INVOICE_DIR, exist_ok=True)
 
 
 def generate_text_receipt(order_id: int, customer_name: str, delivery_city: str,
-                          cart_items: List[Dict[str, Any]], totals: Dict[str, Any]) -> str:
+                          cart_items: List[Dict[str, Any]], totals: Dict[str, Any],
+                          shop_info: Optional[Dict[str, Any]] = None,
+                          cashier_name: Optional[str] = None,
+                          customer_phone: Optional[str] = None) -> str:
     """
     Creates a neatly formatted ASCII invoice using String alignment methods.
-    Demonstrates: ljust, rjust, center, format codes.
+    Features billEX multi-tenant store branding and cashier attribution.
     """
     now = datetime.now()
     date_str = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    line = "=" * 55
-    subline = "-" * 55
+    w = 62
+    line = "=" * w
+    subline = "-" * w
+
+    shop_name = (shop_info.get("shop_name") if shop_info else "Apex Electronics & Retail").upper()
+    shop_addr = shop_info.get("address") if shop_info else "Shop #14, Brigade Road, Bengaluru - 560001"
+    gstin = shop_info.get("gstin") if shop_info else "29ABCDE1234F1Z5"
+    phone = shop_info.get("phone") if shop_info else "+91 9876543210"
 
     receipt = []
     receipt.append(line)
-    receipt.append("SMARTCART ONLINE RETAIL STORE".center(55))
-    receipt.append("TAX INVOICE & CASH RECEIPT".center(55))
+    receipt.append("billEX POINT OF SALE & DIGITAL INVOICE".center(w))
+    receipt.append(shop_name.center(w))
+    if shop_addr:
+        receipt.append(shop_addr[:w].center(w))
+    receipt.append(f"GSTIN: {gstin} | Phone: {phone}".center(w))
     receipt.append(line)
-    receipt.append(f"Invoice ID : #{order_id:<10} Date: {date_str}")
-    receipt.append(f"Customer   : {customer_name:<20} City: {delivery_city}")
+    receipt.append(f"INVOICE #: SALES-{order_id:<12} DATE: {date_str}")
+    receipt.append(f"CUSTOMER : {customer_name:<20} CITY: {delivery_city}")
+    if cashier_name or customer_phone:
+        cashier_disp = f"BILLED BY: {cashier_name or 'Store POS'}"
+        phone_disp = f"PHONE: {customer_phone}" if customer_phone else ""
+        receipt.append(f"{cashier_disp:<36} {phone_disp}")
     receipt.append(subline)
-    receipt.append(f"{'Item Name':<28}{'Qty':<6}{'Rate':<10}{'Total':<10}")
+    receipt.append(f"{'Item Name':<32}{'Qty':<6}{'Unit Price':<12}{'Total':<12}")
     receipt.append(subline)
 
     for item in cart_items:
-        name = item["name"][:26]  # Truncate if too long
+        name = item["name"][:30]  # Truncate if too long
         qty = str(item["quantity"])
-        rate = f"₹{item['unit_price']:.2f}"
-        tot = f"₹{item['total_price']:.2f}"
-        receipt.append(f"{name:<28}{qty:<6}{rate:<10}{tot:<10}")
+        rate = f"INR {item['unit_price']:.2f}"
+        tot = f"INR {item['total_price']:.2f}"
+        receipt.append(f"{name:<32}{qty:<6}{rate:<12}{tot:<12}")
 
     receipt.append(subline)
-    receipt.append(f"{'Subtotal:':<40}₹{totals['subtotal']:>10.2f}")
-    discount_pct = int(totals['discount_rate'] * 100)
-    receipt.append(f"{f'Discount ({discount_pct}%):':<40}-₹{totals['discount_amount']:>9.2f}")
-    receipt.append(f"{'GST / Tax (5%):':<40}₹{totals['tax']:>10.2f}")
+    receipt.append(f"{'Subtotal:':<42}INR {totals['subtotal']:>12.2f}")
+    discount_pct = int(totals.get('discount_rate', 0.10) * 100)
+    receipt.append(f"{f'Discount ({discount_pct}%):':<42}-INR {totals['discount_amount']:>11.2f}")
+    receipt.append(f"{'GST / Tax (5%):':<42}INR {totals['tax']:>12.2f}")
+    if totals.get('delivery_fee', 0) > 0:
+        receipt.append(f"{'Delivery / Freight:':<42}INR {totals['delivery_fee']:>12.2f}")
     receipt.append(line)
-    receipt.append(f"{'NET PAYABLE TOTAL:':<40}₹{totals['total']:>10.2f}")
-    receipt.append(f"{'Rounded Rupee Value:':<40}₹{totals['integer_rupees']:>10d}")
+    receipt.append(f"{'NET PAYABLE TOTAL:':<42}INR {totals.get('final_order_total', totals['total']):>12.2f}")
+    receipt.append(f"{'Rounded Rupee Value:':<42}INR {totals['integer_rupees']:>12d}")
     receipt.append(line)
-    receipt.append("Thank you for shopping with SmartCart!".center(55))
-    receipt.append("For queries contact: support@smartcart.com".center(55))
+    store_signoff = f"Thank you for shopping at {shop_info.get('shop_name', 'Apex Electronics')}!" if shop_info else "Thank you for your business!"
+    receipt.append(store_signoff.center(w))
+    receipt.append("Powered by billEX POS Cloud Engine".center(w))
     receipt.append(line)
 
     content = "\n".join(receipt)
@@ -74,21 +93,31 @@ def generate_text_receipt(order_id: int, customer_name: str, delivery_city: str,
 
 
 def export_order_to_csv(order_id: int, customer_name: str, delivery_city: str,
-                        cart_items: List[Dict[str, Any]], totals: Dict[str, Any]) -> str:
+                        cart_items: List[Dict[str, Any]], totals: Dict[str, Any],
+                        shop_info: Optional[Dict[str, Any]] = None,
+                        cashier_name: Optional[str] = None) -> str:
     """
-    Exports the invoice breakdown into a CSV file.
+    Exports the invoice breakdown into a CSV file with billEX store headers.
     Demonstrates Session 3: csv module (csv.writer, with open).
     """
     csv_file_path = os.path.join(INVOICE_DIR, f"invoice_{order_id}.csv")
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    shop_title = shop_info.get("shop_name", "Apex Electronics & Retail") if shop_info else "Apex Electronics & Retail"
+    shop_addr = shop_info.get("address", "") if shop_info else ""
+    gstin = shop_info.get("gstin", "") if shop_info else ""
+
     with open(csv_file_path, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
 
         # Header section
-        writer.writerow(["SmartCart Retail Invoicing System"])
-        writer.writerow(["Order ID", order_id, "Date", timestamp])
+        writer.writerow(["billEX Point of Sale System - Tax Invoice"])
+        writer.writerow(["Store Name", shop_title, "GSTIN", gstin])
+        writer.writerow(["Store Address", shop_addr])
+        writer.writerow(["Order ID", f"SALES-{order_id}", "Date", timestamp])
         writer.writerow(["Customer", customer_name, "Destination City", delivery_city])
+        if cashier_name:
+            writer.writerow(["Billed By", cashier_name])
         writer.writerow([])  # Blank row
 
         # Table header
@@ -104,12 +133,13 @@ def export_order_to_csv(order_id: int, customer_name: str, delivery_city: str,
                 f"{item['total_price']:.2f}"
             ])
 
-        # Summary rows
         writer.writerow([])
-        writer.writerow(["", "", "", "Subtotal", f"{totals['subtotal']:.2f}"])
-        writer.writerow(["", "", "", "Discount", f"-{totals['discount_amount']:.2f}"])
-        writer.writerow(["", "", "", "GST Tax", f"{totals['tax']:.2f}"])
-        writer.writerow(["", "", "", "Grand Total", f"{totals['total']:.2f}"])
+        writer.writerow(["Subtotal", f"{totals['subtotal']:.2f}"])
+        writer.writerow(["Discount", f"-{totals['discount_amount']:.2f}"])
+        writer.writerow(["GST Tax (5%)", f"{totals['tax']:.2f}"])
+        if totals.get('delivery_fee', 0) > 0:
+            writer.writerow(["Delivery Freight", f"{totals['delivery_fee']:.2f}"])
+        writer.writerow(["Total Amount", f"{totals.get('final_order_total', totals['total']):.2f}"])
 
     return csv_file_path
 

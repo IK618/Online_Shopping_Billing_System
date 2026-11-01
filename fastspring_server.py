@@ -49,6 +49,23 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json(prod_list)
             return
 
+        if path == "/api/shop":
+            query = urllib.parse.parse_qs(parsed.query)
+            shop_id = int(query.get("shop_id", [1])[0])
+            s = database.get_shop(shop_id)
+            if s:
+                self.send_json(dict(s))
+            else:
+                self.send_json({"error": "Shop not found"}, status=404)
+            return
+
+        if path == "/api/staff":
+            query = urllib.parse.parse_qs(parsed.query)
+            shop_id = int(query.get("shop_id", [1])[0])
+            staff = database.get_shop_employees(shop_id)
+            self.send_json([dict(e) for e in staff])
+            return
+
         if path == "/api/categories":
             cats = database.get_product_categories()
             self.send_json(cats)
@@ -118,11 +135,61 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json({"success": False, "error": "Username already exists."}, status=400)
             return
 
+        if path == "/api/shop/update":
+            shop_id = int(data.get("shop_id", 1))
+            shop_name = data.get("shop_name", "").strip()
+            address = data.get("address", "").strip()
+            gstin = data.get("gstin", "").strip()
+            phone = data.get("phone", "").strip()
+            city = data.get("city", "Bengaluru").strip()
+            ok = database.update_shop(shop_id, shop_name, address, gstin, phone, city)
+            if ok:
+                self.send_json({"success": True, "shop": dict(database.get_shop(shop_id))})
+            else:
+                self.send_json({"success": False, "error": "Failed to update shop details"}, status=400)
+            return
+
+        if path == "/api/shop/register":
+            shop_name = data.get("shop_name", "").strip()
+            address = data.get("address", "").strip()
+            gstin = data.get("gstin", "").strip()
+            phone = data.get("phone", "").strip()
+            city = data.get("city", "Bengaluru").strip()
+            username = data.get("username", "").strip()
+            email = data.get("email", "").strip()
+            password = data.get("password", "").strip()
+            full_name = data.get("full_name", "").strip() or username
+            ok, msg, shop_id = database.register_shop_and_owner(shop_name, address, gstin, phone, city, username, email, password, full_name)
+            if ok:
+                user = database.authenticate_user(username, password)
+                self.send_json({"success": True, "message": msg, "user": dict(user)})
+            else:
+                self.send_json({"success": False, "error": msg}, status=400)
+            return
+
+        if path == "/api/staff/create":
+            shop_id = int(data.get("shop_id", 1))
+            full_name = data.get("full_name", "").strip()
+            username = data.get("username", "").strip()
+            password = data.get("password", "").strip()
+            email = data.get("email", "").strip()
+            ok, msg, emp_id = database.add_shop_employee(shop_id, full_name, username, password, email)
+            if ok:
+                staff = database.get_shop_employees(shop_id)
+                self.send_json({"success": True, "message": msg, "staff": [dict(e) for e in staff]})
+            else:
+                self.send_json({"success": False, "error": msg}, status=400)
+            return
+
         if path == "/api/checkout":
             user_id = data.get("user_id")
             items = data.get("items", [])  # list of {product_id, quantity}
             dest_city = data.get("dest_city", "Bengaluru")
             promo_code = data.get("promo_code", "").strip().upper()
+            customer_name = (data.get("customer_name") or "").strip()
+            customer_phone = data.get("customer_phone", "").strip()
+            billed_by_user_id = data.get("billed_by_user_id") or user_id
+            shop_id = int(data.get("shop_id") or 1)
 
             # Retrieve user
             user_row = database.get_connection().execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
@@ -132,6 +199,15 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
 
             cust = models.Customer(user_row["user_id"], user_row["username"], user_row["email"], user_row["city"], bool(user_row["is_premium"]))
             cart = models.ShoppingCart(cust)
+
+            if not customer_name:
+                customer_name = cust.username
+
+            shop_row = database.get_shop(shop_id)
+            shop_dict = dict(shop_row) if shop_row else None
+
+            cashier_row = database.get_connection().execute("SELECT * FROM users WHERE user_id = ?", (billed_by_user_id,)).fetchone()
+            cashier_name = (cashier_row["full_name"] or cashier_row["username"]) if cashier_row else "Store POS"
 
             import datetime
 
@@ -162,7 +238,7 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
 
             # Compute route distance for delivery fee
             route_path, distance = optimizer.find_shortest_route(dest_city)
-            delivery_fee = round(distance * 0.45, 2)
+            delivery_fee = round(distance * 0.45, 2) if dest_city != (shop_dict["city"] if shop_dict else "Bengaluru") else 0.0
             totals["delivery_fee"] = delivery_fee
             totals["final_order_total"] = round(totals["total"] + delivery_fee, 2)
 
@@ -186,7 +262,11 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
                 tax=totals["tax"],
                 total=totals["final_order_total"],
                 delivery_city=dest_city,
-                items=order_items_payload
+                items=order_items_payload,
+                shop_id=shop_id,
+                billed_by_user_id=billed_by_user_id,
+                customer_name=customer_name,
+                customer_phone=customer_phone
             )
 
             # Generate formatted receipt & CSV
@@ -196,17 +276,22 @@ class FastSpringHandler(http.server.SimpleHTTPRequestHandler):
             ]
             receipt_text = billing.generate_text_receipt(
                 order_id=order_id,
-                customer_name=cust.username,
+                customer_name=customer_name,
                 delivery_city=dest_city,
                 cart_items=receipt_items,
-                totals=totals
+                totals=totals,
+                shop_info=shop_dict,
+                cashier_name=cashier_name,
+                customer_phone=customer_phone
             )
             csv_path = billing.export_order_to_csv(
                 order_id=order_id,
-                customer_name=cust.username,
+                customer_name=customer_name,
                 delivery_city=dest_city,
                 cart_items=receipt_items,
-                totals=totals
+                totals=totals,
+                shop_info=shop_dict,
+                cashier_name=cashier_name
             )
 
             self.send_json({

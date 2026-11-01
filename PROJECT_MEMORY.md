@@ -58,20 +58,33 @@
 
 ## 3. Current State & Recent Accomplishments
 - **Cycle 5 Completed**: Purged 100% of emojis and non-standard unicode characters. Replaced with pure SVG vector icons (`Icons.ChevronDown`, `Icons.User`, `Icons.Trash2`, `Icons.ArrowRight`, `Icons.Check`, CSS stock status dots).
-- **Cycle 6 Completed**:
-  - Implemented real-time dynamic remaining stock countdown on catalog cards:
-    $$\text{remainingStock} = \max(0, p.\text{stock} - (\text{cart}[p.\text{product\_id}] \parallel 0))$$
-  - Auto-locked `+ Add to Quote` button when available stock hits 0 (`Max Stock Reached`), preventing over-adding.
-  - Added interactive quantity controls to quote drawer: Stepper `[-]`, manual numeric input `<input type="number">` (with stock clamping and alerts), and stepper `[+]`.
-  - Hardened backend `/api/checkout` with strict pre-flight stock validation rejecting overstock with HTTP 400.
-  - Linked database decrement transaction `UPDATE products SET stock = stock - ?` to order completion.
-  - Verified 100% via automated Chrome DevTools Protocol (CDP) test script.
+- **Cycle 6 Completed**: Real-time remaining stock countdown on catalog cards, overstock button locking, and cart quantity stepper controls `[-]`, `<input>`, `[+]`.
+- **Cycle 7 Completed**:
+  - Rebranded to **billEX** Enterprise Retail POS & Multi-Tenant Billing Suite.
+  - Multi-tenant SQLite database architecture (`shops`, `users`, `products`, `orders`).
+  - Shop onboarding modal and editable Store Identity (Address, GSTIN, Phone, City).
+  - RBAC: Store Owner (Admin) vs Cashier Staff (Employee). Locked admin tabs with security warnings for cashiers.
+  - Official tax invoices with store address/GSTIN headers and cashier attribution (`Billed By: [Cashier Name]`).
+  - Modern non-blocking toast notifications replacing legacy `window.alert()`.
+  - Zero terminal project features lost (preserved 100% in `SmartCart_Terminal_Project/`).
+  - Verified via headless Chrome CDP with 8 high-resolution screenshots.
 
 ---
 
-## 4. Key Files
-- `fastspring_ui.html` (Frontend single-page app, React 18, clean SVG icons)
+## 4. Suggested Innovations & Ideas for billEX (Cycle 8)
+1. **Quick Barcode / SKU Scan**: Auto-focused barcode input where scanning an EAN/SKU and pressing Enter adds it immediately to the active bill.
+2. **Tendered Cash & Change Calculator**: Input customer cash payment (e.g. ₹2,000 for ₹1,450 bill) and display change to return (₹550) on receipt.
+3. **Dynamic UPI QR Code on Screen & Invoice**: Render standard NPCI QR code (`upi://pay?pa=shop@upi&pn=ApexRetail&am=1450.00`) directly on POS counter and invoice slip for instant phone payment.
+4. **End-of-Day Cashier Register Z-Report**: Aggregate shift metrics by cashier (orders processed, total cash collected, UPI volume) before closing shift.
+5. **WhatsApp / SMS Instant Digital Bill**: Provide a 1-click button to send bill summary or receipt link directly to customer's mobile number.
+
+---
+
+## 5. Key Files
+- `fastspring_ui.html` (Frontend single-page app, React 18, clean SVG icons, billEX branding)
 - `fastspring_server.py` (Multi-threaded HTTP backend with REST endpoints on port 8080)
+- `database.py` (Multi-tenant SQLite schema, shop registration, staff management)
+- `billing.py` (Dynamic billEX tax invoices and CSV export with shop branding)
 - `store.db` (SQLite relational database)
 - `progress.txt` (Iteration history)
 - `SmartCart_Terminal_Project/` (Isolated standalone CLI version)

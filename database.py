@@ -34,7 +34,22 @@ def init_database():
     conn = get_connection()
     cursor = conn.cursor()
 
-    # 1. Users Table with password_hash
+    # 1. Shops Table (billEX Multi-Tenant Store Identity)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS shops (
+            shop_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            shop_name TEXT NOT NULL,
+            owner_user_id INTEGER,
+            address TEXT NOT NULL,
+            gstin TEXT DEFAULT '',
+            phone TEXT DEFAULT '',
+            city TEXT DEFAULT 'Bengaluru',
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (owner_user_id) REFERENCES users(user_id)
+        )
+    """)
+
+    # 2. Users Table with password_hash & shop_id
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,29 +58,39 @@ def init_database():
             city TEXT NOT NULL,
             is_premium INTEGER DEFAULT 0,
             role TEXT DEFAULT 'customer',
-            password_hash TEXT DEFAULT ''
+            password_hash TEXT DEFAULT '',
+            shop_id INTEGER DEFAULT 1,
+            full_name TEXT DEFAULT ''
         )
     """)
 
-    # Migration: Ensure password_hash column exists in existing DB
+    # Migration: Ensure columns exist in users
     cursor.execute("PRAGMA table_info(users)")
     user_columns = [col["name"] for col in cursor.fetchall()]
     if "password_hash" not in user_columns:
         cursor.execute("ALTER TABLE users ADD COLUMN password_hash TEXT DEFAULT ''")
+    if "shop_id" not in user_columns:
+        cursor.execute("ALTER TABLE users ADD COLUMN shop_id INTEGER DEFAULT 1")
+    if "full_name" not in user_columns:
+        cursor.execute("ALTER TABLE users ADD COLUMN full_name TEXT DEFAULT ''")
 
-
-    # 2. Products Table
+    # 3. Products Table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS products (
             product_id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             category TEXT NOT NULL,
             price REAL NOT NULL,
-            stock INTEGER NOT NULL
+            stock INTEGER NOT NULL,
+            shop_id INTEGER DEFAULT 1
         )
     """)
+    cursor.execute("PRAGMA table_info(products)")
+    prod_columns = [col["name"] for col in cursor.fetchall()]
+    if "shop_id" not in prod_columns:
+        cursor.execute("ALTER TABLE products ADD COLUMN shop_id INTEGER DEFAULT 1")
 
-    # 3. Orders Table
+    # 4. Orders Table with shop and cashier attribution
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS orders (
             order_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -77,11 +102,26 @@ def init_database():
             total REAL NOT NULL,
             delivery_city TEXT NOT NULL,
             status TEXT DEFAULT 'Confirmed',
-            FOREIGN KEY (user_id) REFERENCES users (user_id)
+            shop_id INTEGER DEFAULT 1,
+            billed_by_user_id INTEGER,
+            customer_name TEXT DEFAULT '',
+            customer_phone TEXT DEFAULT '',
+            FOREIGN KEY (user_id) REFERENCES users (user_id),
+            FOREIGN KEY (shop_id) REFERENCES shops (shop_id)
         )
     """)
+    cursor.execute("PRAGMA table_info(orders)")
+    order_columns = [col["name"] for col in cursor.fetchall()]
+    if "shop_id" not in order_columns:
+        cursor.execute("ALTER TABLE orders ADD COLUMN shop_id INTEGER DEFAULT 1")
+    if "billed_by_user_id" not in order_columns:
+        cursor.execute("ALTER TABLE orders ADD COLUMN billed_by_user_id INTEGER")
+    if "customer_name" not in order_columns:
+        cursor.execute("ALTER TABLE orders ADD COLUMN customer_name TEXT DEFAULT ''")
+    if "customer_phone" not in order_columns:
+        cursor.execute("ALTER TABLE orders ADD COLUMN customer_phone TEXT DEFAULT ''")
 
-    # 4. Order Items Table
+    # 5. Order Items Table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS order_items (
             item_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -128,19 +168,44 @@ def seed_sample_data():
     cursor.execute("SELECT COUNT(*) AS count FROM users")
     if cursor.fetchone()["count"] == 0:
         sample_users = [
-            ("rahul_sharma", "rahul.sharma@example.com", "Mumbai", 1, "customer", hash_password("pass123")),
-            ("priya_patel", "priya.patel@example.com", "Ahmedabad", 0, "customer", hash_password("pass123")),
-            ("ananya_sen", "ananya.sen@example.com", "Kolkata", 1, "customer", hash_password("pass123")),
-            ("admin_user", "admin@smartstore.com", "Bengaluru", 0, "admin", hash_password("admin123"))
+            ("rahul_sharma", "rahul.sharma@example.com", "Mumbai", 1, "customer", hash_password("pass123"), 1, "Rahul Sharma"),
+            ("priya_patel", "priya.patel@example.com", "Ahmedabad", 0, "customer", hash_password("pass123"), 1, "Priya Patel"),
+            ("ananya_sen", "ananya.sen@example.com", "Kolkata", 1, "customer", hash_password("pass123"), 1, "Ananya Sen"),
+            ("admin_user", "admin@smartstore.com", "Bengaluru", 0, "admin", hash_password("admin123"), 1, "Store Administrator")
         ]
         cursor.executemany(
-            "INSERT INTO users (username, email, city, is_premium, role, password_hash) VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO users (username, email, city, is_premium, role, password_hash, shop_id, full_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             sample_users
         )
     else:
-        # Populate password_hash if empty for existing rows
+        # Populate password_hash & shop_id if empty for existing rows
         cursor.execute("UPDATE users SET password_hash = ? WHERE username = 'admin_user' AND (password_hash IS NULL OR password_hash = '')", (hash_password("admin123"),))
         cursor.execute("UPDATE users SET password_hash = ? WHERE role = 'customer' AND (password_hash IS NULL OR password_hash = '')", (hash_password("pass123"),))
+        cursor.execute("UPDATE users SET shop_id = 1 WHERE shop_id IS NULL OR shop_id = 0")
+        cursor.execute("UPDATE users SET full_name = 'Store Administrator' WHERE username = 'admin_user' AND (full_name IS NULL OR full_name = '')")
+
+    # Check and seed default shop (Apex Electronics & Retail)
+    cursor.execute("SELECT COUNT(*) AS count FROM shops")
+    if cursor.fetchone()["count"] == 0:
+        cursor.execute("""
+            INSERT INTO shops (shop_id, shop_name, owner_user_id, address, gstin, phone, city)
+            VALUES (1, 'Apex Electronics & Retail', 4, 'Shop #14, Brigade Road, Bengaluru - 560001', '29ABCDE1234F1Z5', '+91 9876543210', 'Bengaluru')
+        """)
+
+    # Seed sample Cashiers for Apex Electronics if they don't exist
+    cursor.execute("SELECT user_id FROM users WHERE username = 'cashier_priya'")
+    if not cursor.fetchone():
+        cursor.execute("""
+            INSERT INTO users (username, email, city, is_premium, role, password_hash, shop_id, full_name)
+            VALUES (?, ?, ?, 0, 'cashier', ?, 1, ?)
+        """, ('cashier_priya', 'priya@apexelectronics.com', 'Bengaluru', hash_password('cashier123'), 'Priya Patel (Cashier)'))
+
+    cursor.execute("SELECT user_id FROM users WHERE username = 'cashier_arun'")
+    if not cursor.fetchone():
+        cursor.execute("""
+            INSERT INTO users (username, email, city, is_premium, role, password_hash, shop_id, full_name)
+            VALUES (?, ?, ?, 0, 'cashier', ?, 1, ?)
+        """, ('cashier_arun', 'arun@apexelectronics.com', 'Bengaluru', hash_password('cashier123'), 'Arun Verma (Cashier)'))
 
     conn.commit()
     conn.close()
@@ -175,18 +240,139 @@ def register_user(username: str, email: str, password: str, city: str, is_premiu
 def authenticate_user(username: str, password: str) -> Optional[sqlite3.Row]:
     """
     Validates user credentials against stored SHA-256 hash.
-    Returns user Row if valid, None otherwise.
+    Returns user Row with joined shop identity if valid, None otherwise.
     """
     conn = get_connection()
     cursor = conn.cursor()
     pwd_hash = hash_password(password)
     cursor.execute("""
-        SELECT * FROM users
-        WHERE username = ? AND password_hash = ?
+        SELECT u.*, 
+               s.shop_name, 
+               s.address AS shop_address, 
+               s.gstin AS shop_gstin, 
+               s.phone AS shop_phone, 
+               s.city AS shop_city
+        FROM users u
+        LEFT JOIN shops s ON u.shop_id = s.shop_id
+        WHERE u.username = ? AND u.password_hash = ?
     """, (username.strip(), pwd_hash))
     user = cursor.fetchone()
     conn.close()
     return user
+
+
+def get_shop(shop_id: int = 1) -> Optional[sqlite3.Row]:
+    """Retrieves store identity details by shop_id."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM shops WHERE shop_id = ?", (shop_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return row
+
+
+def update_shop(shop_id: int, shop_name: str, address: str, gstin: str, phone: str, city: str) -> bool:
+    """Updates shop identity, physical address, GSTIN, and contact details."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE shops 
+        SET shop_name = ?, address = ?, gstin = ?, phone = ?, city = ?
+        WHERE shop_id = ?
+    """, (shop_name.strip(), address.strip(), gstin.strip().upper(), phone.strip(), city.strip(), shop_id))
+    updated = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    return updated
+
+
+def register_shop_and_owner(shop_name: str, address: str, gstin: str, phone: str, city: str,
+                            username: str, email: str, password: str, full_name: str = "") -> Tuple[bool, str, Optional[int]]:
+    """
+    Onboards a new shop owner with their physical store identity and creates an Admin user.
+    Returns (success, message, shop_id).
+    """
+    if not shop_name or not address or not username or not password:
+        return False, "Shop name, address, owner username, and password are required.", None
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username.strip(),))
+        if cursor.fetchone():
+            conn.close()
+            return False, f"Username '{username}' is already in use.", None
+
+        pwd_hash = hash_password(password)
+        cursor.execute("""
+            INSERT INTO users (username, email, city, is_premium, role, password_hash, full_name)
+            VALUES (?, ?, ?, 0, 'admin', ?, ?)
+        """, (username.strip(), email.strip(), city.strip(), pwd_hash, full_name.strip() or username.strip()))
+        owner_id = cursor.lastrowid
+
+        cursor.execute("""
+            INSERT INTO shops (shop_name, owner_user_id, address, gstin, phone, city)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (shop_name.strip(), owner_id, address.strip(), gstin.strip().upper(), phone.strip(), city.strip()))
+        shop_id = cursor.lastrowid
+
+        cursor.execute("UPDATE users SET shop_id = ? WHERE user_id = ?", (shop_id, owner_id))
+
+        conn.commit()
+        conn.close()
+        return True, "Shop and Owner account successfully registered!", shop_id
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        return False, f"Error registering shop: {e}", None
+
+
+def get_shop_employees(shop_id: int) -> List[sqlite3.Row]:
+    """Retrieves all employee cashier staff for a specific store."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT user_id, username, full_name, email, role, city, shop_id
+        FROM users
+        WHERE shop_id = ? AND role IN ('cashier', 'employee')
+        ORDER BY user_id ASC
+    """, (shop_id,))
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
+
+
+def add_shop_employee(shop_id: int, full_name: str, username: str, password: str, email: str = "") -> Tuple[bool, str, Optional[int]]:
+    """Allows a store owner to create an employee cashier account with billing access."""
+    if not username or not password or not full_name:
+        return False, "Employee full name, username, and password are required.", None
+    
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT user_id FROM users WHERE username = ?", (username.strip(),))
+        if cursor.fetchone():
+            conn.close()
+            return False, f"Username '{username}' is already in use.", None
+
+        cursor.execute("SELECT city FROM shops WHERE shop_id = ?", (shop_id,))
+        shop_row = cursor.fetchone()
+        shop_city = shop_row["city"] if shop_row else "Bengaluru"
+
+        pwd_hash = hash_password(password)
+        emp_email = email.strip() or f"{username.strip()}@store{shop_id}.local"
+        cursor.execute("""
+            INSERT INTO users (username, email, city, is_premium, role, password_hash, shop_id, full_name)
+            VALUES (?, ?, ?, 0, 'cashier', ?, ?, ?)
+        """, (username.strip(), emp_email, shop_city, pwd_hash, shop_id, full_name.strip()))
+        emp_id = cursor.lastrowid
+        conn.commit()
+        conn.close()
+        return True, f"Employee '{full_name}' created successfully with Cashier Billing access!", emp_id
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        return False, f"Error creating employee: {e}", None
 
 
 def add_product(name: str, category: str, price: float, stock: int) -> int:
@@ -280,15 +466,17 @@ def update_product_stock(product_id: int, quantity_sold: int) -> bool:
 
 
 def save_order(user_id: int, order_date: str, subtotal: float, discount: float,
-               tax: float, total: float, delivery_city: str, items: List[Dict[str, Any]]) -> int:
+               tax: float, total: float, delivery_city: str, items: List[Dict[str, Any]],
+               shop_id: int = 1, billed_by_user_id: Optional[int] = None,
+               customer_name: str = "", customer_phone: str = "") -> int:
     """Inserts a completed order and its associated line items with relational transaction integrity."""
     conn = get_connection()
     cursor = conn.cursor()
     try:
         cursor.execute("""
-            INSERT INTO orders (user_id, order_date, subtotal, discount, tax, total, delivery_city)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (user_id, order_date, subtotal, discount, tax, total, delivery_city))
+            INSERT INTO orders (user_id, order_date, subtotal, discount, tax, total, delivery_city, shop_id, billed_by_user_id, customer_name, customer_phone)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (user_id, order_date, subtotal, discount, tax, total, delivery_city, shop_id, billed_by_user_id or user_id, customer_name, customer_phone))
         order_id = cursor.lastrowid
 
         for item in items:
