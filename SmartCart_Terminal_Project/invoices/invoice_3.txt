@@ -1,0 +1,21 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #3          Date: 2026-10-07 01:08:54
+Customer   : Rahul Sharma         City: Mumbai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Mechanical RGB Gaming Keyb  1     ₹2199.00  ₹2199.00  
+-------------------------------------------------------
+Subtotal:                               ₹   2199.00
+Discount (10%):                         -₹   219.90
+GST / Tax (5%):                         ₹     98.95
+=======================================================
+NET PAYABLE TOTAL:                      ₹   2078.05
+Rounded Rupee Value:                    ₹      2078
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

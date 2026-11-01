@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,19,Date,2026-10-23 17:43:49
+Customer,rahul_sharma,Destination City,Chandigarh
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+3,Smart Fitness Band & Tracker,22,1899.00,41778.00
+
+,,,Subtotal,41778.00
+,,,Discount,-4177.80
+,,,GST Tax,1880.01
+,,,Grand Total,39480.21

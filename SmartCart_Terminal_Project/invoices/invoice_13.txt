@@ -1,0 +1,22 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #13         Date: 2026-10-09 18:59:24
+Customer   : Student Examiner     City: Chennai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Mechanical RGB Gaming Keyb  1     ₹2199.00  ₹2199.00  
+Portable Bluetooth Waterpr  1     ₹1799.00  ₹1799.00  
+-------------------------------------------------------
+Subtotal:                               ₹   3998.00
+Discount (2%):                          -₹    79.96
+GST / Tax (5%):                         ₹    195.90
+=======================================================
+NET PAYABLE TOTAL:                      ₹   4113.94
+Rounded Rupee Value:                    ₹      4113
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

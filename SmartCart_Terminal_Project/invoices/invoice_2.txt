@@ -1,0 +1,21 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #2          Date: 2026-10-07 00:56:44
+Customer   : Test Customer        City: Bengaluru
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Wireless Noise-Canceling H  1     ₹3499.00  ₹3499.00  
+-------------------------------------------------------
+Subtotal:                               ₹   3499.00
+Discount (2%):                          -₹    69.98
+GST / Tax (5%):                         ₹    171.45
+=======================================================
+NET PAYABLE TOTAL:                      ₹   3600.47
+Rounded Rupee Value:                    ₹      3600
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

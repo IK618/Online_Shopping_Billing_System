@@ -1,0 +1,12 @@
+SmartCart Retail Invoicing System
+Order ID,7,Date,2026-10-09 17:13:38
+Customer,Student Examiner,Destination City,Chennai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+5,Stainless Steel Thermal Bottle (1L),2,599.00,1198.00
+15,Electric Gooseneck Drip Kettle (1.0L),1,2499.00,2499.00
+
+,,,Subtotal,3697.00
+,,,Discount,-73.94
+,,,GST Tax,181.15
+,,,Grand Total,3804.21

@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,21,Date,2026-10-23 17:55:30
+Customer,ik,Destination City,Bhopal
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+3,Smart Fitness Band & Tracker,2,1899.00,3798.00
+
+,,,Subtotal,3798.00
+,,,Discount,-379.80
+,,,GST Tax,170.91
+,,,Grand Total,3589.11

@@ -1,0 +1,21 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #19         Date: 2026-10-23 17:43:49
+Customer   : rahul_sharma         City: Chandigarh
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Smart Fitness Band & Track  22    ₹1899.00  ₹41778.00 
+-------------------------------------------------------
+Subtotal:                               ₹  41778.00
+Discount (10%):                         -₹  4177.80
+GST / Tax (5%):                         ₹   1880.01
+=======================================================
+NET PAYABLE TOTAL:                      ₹  39480.21
+Rounded Rupee Value:                    ₹     39480
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

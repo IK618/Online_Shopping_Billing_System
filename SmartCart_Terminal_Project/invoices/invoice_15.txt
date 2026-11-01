@@ -1,0 +1,21 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #15         Date: 2026-10-09 19:00:47
+Customer   : Examiner Sharma      City: Chennai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Rolex Submariner            1     ₹12500.00 ₹12500.00 
+-------------------------------------------------------
+Subtotal:                               ₹  12500.00
+Discount (10%):                         -₹  1250.00
+GST / Tax (5%):                         ₹    562.50
+=======================================================
+NET PAYABLE TOTAL:                      ₹  11812.50
+Rounded Rupee Value:                    ₹     11812
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

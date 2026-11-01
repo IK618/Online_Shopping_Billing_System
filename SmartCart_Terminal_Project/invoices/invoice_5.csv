@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,5,Date,2026-10-09 17:08:55
+Customer,Figma Integration Test,Destination City,Delhi
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+1,Wireless Noise Cancelling Headphones,1,4999.00,4999.00
+
+,,,Subtotal,4999.00
+,,,Discount,-499.90
+,,,GST Tax,224.96
+,,,Grand Total,4724.06

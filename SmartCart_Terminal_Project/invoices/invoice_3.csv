@@ -1,0 +1,11 @@
+SmartCart Retail Invoicing System
+Order ID,3,Date,2026-10-07 01:08:54
+Customer,Rahul Sharma,Destination City,Mumbai
+
+Product ID,Product Name,Quantity,Unit Price (INR),Total Price (INR)
+2,Mechanical RGB Gaming Keyboard,1,2199.00,2199.00
+
+,,,Subtotal,2199.00
+,,,Discount,-219.90
+,,,GST Tax,98.95
+,,,Grand Total,2078.05

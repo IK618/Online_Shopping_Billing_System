@@ -1,0 +1,43 @@
+SMARTCART - ONLINE SHOPPING AND BILLING SYSTEM
+Academic Project Submission
+
+1. PROJECT OVERVIEW
+-------------------
+SmartCart is an interactive, terminal-based shopping and billing system
+developed in Python. It handles user authentication, product catalog browsing,
+stock verification, shopping cart calculations, SQLite transactional orders,
+and automated ASCII and CSV invoice generation.
+
+2. HOW TO RUN (LOCAL EVALUATION)
+--------------------------------
+Step 1: Open a terminal (macOS/Linux) or Command Prompt (Windows) inside
+        the extracted project folder.
+
+Step 2: Install dependencies:
+        pip install -r requirements.txt
+
+Step 3: Launch the application:
+        Linux / macOS:
+            python3 run_cli.py
+
+        Windows:
+            python run_cli.py
+
+3. EVALUATION CREDENTIALS
+-------------------------
+The login menu provides 1-click evaluation access:
+- Option 3: Quick Demo Login as Customer (rahul_sharma / pass123)
+- Option 4: Quick Demo Login as Admin (admin_user / admin123)
+- Option 2: Register a new account
+
+4. SOURCE CODE FILE MAP
+-----------------------
+- run_cli.py       : Main interactive console interface and menu loop
+- models.py        : Object-oriented classes (Product, User, Customer, ShoppingCart)
+- billing.py       : Receipt generation with column formatting and CSV export
+- database.py      : SQLite database schema, initialization, and queries
+- routing.py       : Logistics corridor graph and Dijkstra pathfinding
+- regex_engine.py  : Regular expression validation for email inputs
+- stack_manager.py : Stack data structure implementation
+- store.db         : Pre-seeded SQLite database
+- requirements.txt : Python package dependencies

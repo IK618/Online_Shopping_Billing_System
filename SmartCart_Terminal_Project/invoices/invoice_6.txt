@@ -1,0 +1,21 @@
+=======================================================
+             SMARTCART ONLINE RETAIL STORE             
+               TAX INVOICE & CASH RECEIPT              
+=======================================================
+Invoice ID : #6          Date: 2026-10-09 17:13:17
+Customer   : Student Examiner     City: Chennai
+-------------------------------------------------------
+Item Name                   Qty   Rate      Total     
+-------------------------------------------------------
+Ceramic Non-Stick Frying P  1     ₹1149.00  ₹1149.00  
+-------------------------------------------------------
+Subtotal:                               ₹   1149.00
+Discount (2%):                          -₹    22.98
+GST / Tax (5%):                         ₹     56.30
+=======================================================
+NET PAYABLE TOTAL:                      ₹   1182.32
+Rounded Rupee Value:                    ₹      1182
+=======================================================
+         Thank you for shopping with SmartCart!        
+       For queries contact: support@smartcart.com      
+=======================================================

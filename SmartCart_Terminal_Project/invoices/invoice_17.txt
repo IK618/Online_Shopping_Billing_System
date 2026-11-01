@@ -1,0 +1,22 @@
+============================================================
+               SMARTCART ONLINE RETAIL STORE                
+                  TAX INVOICE & CASH MEMO                   
+============================================================
+Invoice ID  : #17           Date: 2026-10-19 12:13:10
+Customer    : rahul_sharma         City: Mumbai
+Est Delivery: Thursday, 22 October 2026 (3 transit days)
+------------------------------------------------------------
+Item Name                     Qty   Rate        Total       
+------------------------------------------------------------
+Mechanical RGB Gaming Keyboa  1     ₹2199.00    ₹2199.00    
+------------------------------------------------------------
+Subtotal:                                   ₹       2199.00
+Discount Savings (10%):                     -₹       219.90
+GST / Tax (5%):                             ₹         98.95
+============================================================
+NET PAYABLE TOTAL:                          ₹       2078.05
+Rounded Integer Rupee Value:                ₹          2078
+============================================================
+           Thank you for shopping with SmartCart!           
+         For queries contact: support@smartcart.com         
+============================================================
